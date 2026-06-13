@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- v6.0.0-unified-media -->
+<!-- v5.0.1-5-public-links -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Galería de Productos Editable</title>
@@ -26,6 +26,11 @@
   .btn-danger { background: #c02639; color: white; }
   .btn-warning { background: #f59e0b; color: white; }
   .btn-link { background: transparent; color: var(--accent); text-decoration: underline; padding: 4px 8px; font-size: 0.85rem; }
+  .btn-insta { 
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; text-decoration: none;
+  }
 
   /* ESTILOS UNIFICADOS DE FORMULARIO */
   .form-input, .form-select, .form-textarea {
@@ -61,49 +66,67 @@
   .banner-admin .btn { padding: 8px 16px; font-size: 0.85rem; background: rgba(255,255,255,0.95); color: var(--ink); backdrop-filter: blur(8px); }
   .banner-admin .btn-danger { background: rgba(192, 38, 57, 0.95); color: white; }
 
-  .category-section { margin-bottom: 70px; }
-  .category-section h2 {
+  .videos-section, .category-section { margin-bottom: 70px; }
+  .videos-section h2, .category-section h2 {
     font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; text-align: center;
     margin: 50px 0 40px; padding: 0 20px; letter-spacing: 1px; line-height: 1.1; text-transform: uppercase;
     display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap;
-    color: var(--accent2);
   }
+  .videos-section h2 { color: var(--accent); }
+  .category-section h2 { color: var(--accent2); }
   
-  .category-section h2::before, .category-section h2::after {
+  .videos-section h2::before, .videos-section h2::after, .category-section h2::before, .category-section h2::after {
     content: ''; flex: 1; max-width: 120px; height: 2px; min-width: 30px;
-    background: linear-gradient(90deg, transparent, var(--accent2), transparent);
   }
+  .videos-section h2::before, .videos-section h2::after { background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .category-section h2::before, .category-section h2::after { background: linear-gradient(90deg, transparent, var(--accent2), transparent); }
   
-  .category-section h2 > .cat-ornament {
+  .videos-section h2 > .cat-ornament, .category-section h2 > .cat-ornament {
     display: block; width: 100%; text-align: center; font-size: 1.2rem; color: var(--accent); margin-top: 4px; letter-spacing: 8px; opacity: 0.8;
   }
 
+  /* GRILLAS SEPARADAS PARA EVITAR CONFLICTOS */
+  .videos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
   .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
   
-  /* TARJETA DE PRODUCTO UNIFICADA (FOTO O VIDEO) */
-  .product { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
+  /* ESTILOS ESPECÍFICOS DE TARJETA DE VIDEO */
+  .video-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
+  .video-thumbnail-container {
+    width: 100%; height: 250px; background: #f8e8ee; position: relative;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+    cursor: pointer; transition: transform 0.2s;
+  }
+  .video-thumbnail-container:hover { transform: scale(1.02); }
+  .video-thumbnail-img { width: 100%; height: 100%; object-fit: cover; }
+  .video-play-icon {
+    position: absolute; font-size: 3rem; color: white; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5); pointer-events: none;
+  }
+  .video-body { padding: 18px; text-align: center; }
+  .video-title { font-size: 1.1rem; margin-bottom: 8px; font-weight: 700; color: var(--ink); }
+  .video-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
   
+  .video-product-tag {
+    display: inline-block; background: var(--accent); color: white; padding: 4px 12px;
+    border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-top: 8px;
+    cursor: pointer; transition: background 0.2s; text-decoration: none;
+  }
+  .video-product-tag:hover { background: var(--accent2); }
+
+  .video-admin { display: none; gap: 8px; margin-top: 10px; justify-content: center; }
+  .admin-on .video-admin { display: flex; }
+  .video-admin .btn { flex: 1; font-size: 0.8rem; padding: 6px; }
+
+  /* ESTILOS ESPECÍFICOS DE TARJETA DE PRODUCTO */
+  .product { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
   .product-media {
     width: 100%; height: 300px; background: #f8e8ee; position: relative; cursor: zoom-in;
     transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   .product-media:hover { transform: scale(1.02); }
-  
-  /* Imagen normal */
-  .product-media img.product-img { width: 100%; height: 100%; object-fit: contain; }
-  
-  /* Video Thumbnail */
-  .product-media img.video-thumb { width: 100%; height: 100%; object-fit: cover; }
-  
-  /* Icono de Play sobre el video */
-  .play-icon-overlay {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-size: 3rem; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    pointer-events: none; z-index: 2;
-  }
-
+  .product-media img { width: 100%; height: 100%; object-fit: contain; }
   .product-media::after {
-    content: '🔍 Ver'; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    content: '🔍 Ver fotos'; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(159, 18, 57, 0.7); color: white; display: flex; align-items: center;
     justify-content: center; font-weight: 600; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
   }
@@ -116,8 +139,13 @@
   
   /* STOCK VISIBLE */
   .stock-info {
-    font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; font-weight: 500;
-    display: flex; align-items: center; gap: 5px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   .stock-info.low { color: #c02639; font-weight: 700; }
 
@@ -269,10 +297,10 @@
   }
   #category:focus + .category-hint, #category:not(:placeholder-shown) + .category-hint { opacity: 0; }
 
-  #adminLoginModal, #bannerDialog {
+  #adminLoginModal, #bannerDialog, #customSectionDialog {
     width: 90%; max-width: 550px; border: none; border-radius: 20px; padding: 0; background: white; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   }
-  #adminLoginModal::backdrop, #bannerDialog::backdrop { background: rgba(34, 22, 26, 0.8); backdrop-filter: blur(8px); }
+  #adminLoginModal::backdrop, #bannerDialog::backdrop, #customSectionDialog::backdrop { background: rgba(34, 22, 26, 0.8); backdrop-filter: blur(8px); }
   
   .login-container { padding: 30px; text-align: center; }
   .login-icon { font-size: 3rem; margin-bottom: 10px; }
@@ -298,36 +326,41 @@
   .scroll-top-btn:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(159, 18, 57, 0.6); }
 
   @media (max-width: 1024px) { 
+    .videos-grid { grid-template-columns: repeat(3, 1fr); } 
     .products { grid-template-columns: repeat(3, 1fr); } 
   }
   @media (max-width: 768px) {
+    .videos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .products { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .category-section h2::before, .category-section h2::after { max-width: 60px; }
+    .videos-section h2::before, .videos-section h2::after, .category-section h2::before, .category-section h2::after { max-width: 60px; }
+    .video-thumbnail-container { height: 200px; }
     .topbar { justify-content: center; }
     .brand { margin-bottom: 8px; }
     .banner-overlay { padding: 20px; }
   }
   @media (max-width: 480px) {
     .wrap { padding: 0 12px; }
+    .videos-grid { grid-template-columns: 1fr; gap: 20px; }
     .products { grid-template-columns: 1fr; gap: 20px; }
-    .category-section { margin-bottom: 50px; }
-    .category-section h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); margin: 40px 0 28px; gap: 10px; letter-spacing: 0.5px; }
-    .category-section h2::before, .category-section h2::after { max-width: 30px; }
-    .category-section h2 > .cat-ornament { font-size: 1rem; letter-spacing: 6px; }
+    .videos-section, .category-section { margin-bottom: 50px; }
+    .videos-section h2, .category-section h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); margin: 40px 0 28px; gap: 10px; letter-spacing: 0.5px; }
+    .videos-section h2::before, .videos-section h2::after, .category-section h2::before, .category-section h2::after { max-width: 30px; }
+    .videos-section h2 > .cat-ornament, .category-section h2 > .cat-ornament { font-size: 1rem; letter-spacing: 6px; }
+    .video-thumbnail-container { height: 220px; }
     .topbar { flex-direction: column; align-items: stretch; padding: 12px 0; }
     .brand { justify-content: center; font-size: 1.4rem; }
     .topbar > div:last-child { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
     .btn { padding: 10px 18px; font-size: 0.9rem; }
     dialog { width: 95% !important; margin: 10px; }
     dialog > div { padding: 15px !important; }
-    #productForm input, #productForm select, #productForm textarea, #bannerForm input, #bannerForm textarea { font-size: 16px !important; }
+    #productForm input, #productForm select, #productForm textarea, #videoForm input, #videoForm textarea, #bannerForm input, #bannerForm textarea, #customSectionForm input, #customSectionForm select, #customSectionForm textarea { font-size: 16px !important; }
     .lightbox-close { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 1.5rem; }
     .lightbox-container { min-height: 80vh; padding: 10px; }
     .lightbox-counter { font-size: 0.95rem; padding: 5px 16px; }
     .media-fallback-title { font-size: 1.1rem; }
     .media-fallback-msg { font-size: 0.85rem; }
     .media-fallback-icon { font-size: 3rem; }
-    #adminLoginModal, #bannerDialog { width: 95%; }
+    #adminLoginModal, #bannerDialog, #customSectionDialog { width: 95%; }
     .login-container { padding: 20px; }
     .login-title { font-size: 1.3rem; }
     .login-input { font-size: 16px; }
@@ -356,8 +389,10 @@
       </div>
       <div>
         <button id="adminLoginBtn" class="btn btn-secondary">🔐 Admin</button>
-        <button id="openAddBtn" class="btn btn-primary admin-only">+ Producto/Video</button>
+        <button id="openAddBtn" class="btn btn-primary admin-only">+ Producto</button>
+        <button id="addVideoBtn" class="btn btn-accent admin-only">🎬 Video</button>
         <button id="addBannerBtn" class="btn btn-secondary admin-only">🖼️ Banner</button>
+        <button id="addCustomSectionBtn" class="btn btn-secondary admin-only">🧩 Bloques</button>
         <button id="exportBackupBtn" class="btn btn-warning admin-only" title="Descargar copia de seguridad">💾 Backup</button>
         <button id="importBackupBtn" class="btn btn-secondary admin-only" title="Restaurar desde archivo">📤 Restaurar</button>
         <input type="file" id="restoreFileInput" accept=".json" style="display:none;">
@@ -370,6 +405,7 @@
 <div class="banners-container" id="bannersContainer"></div>
 
 <div class="wrap">
+  <div id="featuredVideosContainer"></div>
   <div id="productsContainer"></div>
 </div>
 
@@ -426,16 +462,6 @@
   <div style="padding:25px; max-height: 90vh; overflow-y: auto;">
     <h3 id="dialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">📦 Agregar Producto</h3>
     <form id="productForm">
-      
-      <!-- TIPO DE MEDIA -->
-      <div style="margin-bottom:12px; background:#fff0f5; padding:10px; border-radius:8px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📂 Tipo de Contenido:</label>
-        <select id="mediaType" class="form-select" onchange="toggleMediaFields()">
-          <option value="image">📸 Fotos (Imágenes/GIFs)</option>
-          <option value="video">🎬 Video (YouTube/Instagram/TikTok)</option>
-        </select>
-      </div>
-
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📝 Título del producto</label>
         <input id="title" type="text" placeholder="Ej: Gel de Construcción" class="form-input">
@@ -488,7 +514,7 @@
         </div>
       </div>
 
-      <!-- CAMPOS PRIVADOS ADMIN -->
+      <!-- CAMPOS ADMIN PRIVADOS (SOLO VISIBLES SI ESTÁS LOGUEADA) -->
       <div class="admin-only admin-fields-section" style="margin-bottom:12px; padding:15px; background:#fff0f5; border-radius:8px; border:1px dashed var(--accent);">
         <h4 style="margin-bottom:12px; color:var(--accent); font-size:0.9rem;">🔒 Campos Privados (Solo Admin)</h4>
         
@@ -530,16 +556,65 @@
         <textarea id="description" placeholder="Detalles del producto..." rows="3" class="form-textarea"></textarea>
       </div>
 
-      <!-- CAMPO DINÁMICO SEGÚN TIPO -->
+      <!-- NUEVOS 5 LINKS PUBLICOS -->
       <div style="margin-bottom:12px;">
-        <label id="mediaLabel" style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs</label>
-        <textarea id="mediaContent" placeholder="Pega los links aquí (uno por línea)" rows="4" class="form-textarea"></textarea>
-        <p id="mediaHint" style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Soporta: Google Drive, Giphy, Tenor, links directos.</p>
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Links Públicos (TikTok/Insta/Web)</label>
+        <input id="pubLink1" type="url" placeholder="Link público 1" class="form-input" style="margin-bottom:5px;">
+        <input id="pubLink2" type="url" placeholder="Link público 2" class="form-input" style="margin-bottom:5px;">
+        <input id="pubLink3" type="url" placeholder="Link público 3" class="form-input" style="margin-bottom:5px;">
+        <input id="pubLink4" type="url" placeholder="Link público 4" class="form-input" style="margin-bottom:5px;">
+        <input id="pubLink5" type="url" placeholder="Link público 5" class="form-input">
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs</label>
+        <textarea id="mediaLinks" placeholder="Pega los links aquí (uno por línea)" rows="4" class="form-textarea"></textarea>
       </div>
 
       <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
         <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
         <button type="button" class="btn btn-secondary" onclick="closeDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="videoDialog" style="width:92%; max-width:600px; border:none; border-radius:20px; padding:0;">
+  <div style="padding:25px;">
+    <h3 id="videoDialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">🎬 Agregar Video Principal</h3>
+    <form id="videoForm">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del video</label>
+        <input id="videoTitle" type="text" placeholder="Ej: Tutorial de uso" class="form-input">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Descripción (opcional)</label>
+        <textarea id="videoDesc" placeholder="Breve descripción..." rows="2" class="form-textarea"></textarea>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL del video</label>
+        <input id="videoUrl" type="url" placeholder="YouTube, TikTok, Instagram, Facebook..." class="form-input">
+        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Pega el link directo de tu publicación.</p>
+      </div>
+      
+      <!-- NUEVO CAMPO: MINIATURA DEL VIDEO -->
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ URL de la Miniatura (Opcional)</label>
+        <input id="videoThumbnail" type="url" placeholder="Link de imagen (Drive, etc.)" class="form-input">
+        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Si no pones nada, se verá un ícono por defecto.</p>
+      </div>
+
+      <!-- NUEVO CAMPO: PRODUCTO RELACIONADO -->
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Producto relacionado (opcional)</label>
+        <input id="relatedProduct" type="text" list="productList" placeholder="Escribe para buscar un producto..." class="form-input">
+        <datalist id="productList"></datalist>
+        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Si eliges uno, aparecerá un botón rojo en el video.</p>
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
+        <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
+        <button type="button" class="btn btn-secondary" onclick="closeVideoDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
       </div>
     </form>
   </div>
@@ -586,6 +661,63 @@
   </div>
 </dialog>
 
+<dialog id="customSectionDialog">
+  <div style="padding:25px;">
+    <h3 id="customSectionDialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">🧩 Agregar Bloque entre Categorías</h3>
+    <form id="customSectionForm">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Tipo de bloque</label>
+        <select id="csType" class="form-select" onchange="toggleCsFields()">
+          <option value="banner">🖼️ Banner</option>
+          <option value="video">🎬 Video</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📍 Mostrar después de la categoría:</label>
+        <select id="csAfterCategory" class="form-select">
+          <option value="">🔝 Al principio (antes de todas)</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden</label>
+        <input id="csOrder" type="number" value="1" class="form-input">
+      </div>
+      <div id="csBannerFields">
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del Banner</label>
+          <input id="csTitle" type="text" placeholder="Ej: ¡Promo!" class="form-input">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL de la Imagen</label>
+          <input id="csImageUrl" type="url" placeholder="https://..." class="form-input">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Tamaño</label>
+          <select id="csSize" class="form-select">
+            <option value="banner-compact">Compacto (500px)</option>
+            <option value="banner-standard" selected>Estándar (540px) ⭐</option>
+            <option value="banner-square-800">Cuadrado (800x800px)</option>
+          </select>
+        </div>
+      </div>
+      <div id="csVideoFields" style="display:none;">
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del Video</label>
+          <input id="csVideoTitle" type="text" placeholder="Ej: Tutorial" class="form-input">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL del Video</label>
+          <input id="csVideoUrl" type="url" placeholder="YouTube, TikTok..." class="form-input">
+        </div>
+      </div>
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
+        <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
+        <button type="button" class="btn btn-secondary" onclick="closeCustomSectionDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
 <dialog id="mediaModal">
   <div class="lightbox-container">
     <button class="lightbox-close" onclick="closeMediaModal()">&times;</button>
@@ -613,7 +745,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const productsRef = db.collection('products');
+const videosRef = db.collection('videos');
 const bannersRef = db.collection('banners');
+const customSectionsRef = db.collection('customSections');
 
 const ADMIN_PASSWORD_HASH = 2000292881;
 
@@ -625,10 +759,14 @@ function simpleHash(str) {
 
 let adminMode = sessionStorage.getItem('adminAuthenticated') === 'true';
 let products = [];
+let featuredVideos = [];
 let banners = [];
+let customSections = [];
 let cart = JSON.parse(localStorage.getItem('cart_v26')) || [];
 let editingId = null;
+let editingVideoId = null;
 let editingBannerId = null;
+let editingCsId = null;
 let currentMediaList = [];
 let currentMediaIndex = 0;
 
@@ -658,7 +796,12 @@ function saveFormMemory() {
     costUSD: document.getElementById('costUSD').value,
     costBS: document.getElementById('costBS').value,
     productLink: document.getElementById('productLink').value,
-    additionalInfo: document.getElementById('additionalInfo').value
+    additionalInfo: document.getElementById('additionalInfo').value,
+    pubLink1: document.getElementById('pubLink1').value,
+    pubLink2: document.getElementById('pubLink2').value,
+    pubLink3: document.getElementById('pubLink3').value,
+    pubLink4: document.getElementById('pubLink4').value,
+    pubLink5: document.getElementById('pubLink5').value
   };
   localStorage.setItem('formMemory_v1', JSON.stringify(memory));
 }
@@ -676,10 +819,15 @@ function loadFormMemory() {
     if (memory.costBS) document.getElementById('costBS').value = memory.costBS;
     if (memory.productLink) document.getElementById('productLink').value = memory.productLink;
     if (memory.additionalInfo) document.getElementById('additionalInfo').value = memory.additionalInfo;
+    if (memory.pubLink1) document.getElementById('pubLink1').value = memory.pubLink1;
+    if (memory.pubLink2) document.getElementById('pubLink2').value = memory.pubLink2;
+    if (memory.pubLink3) document.getElementById('pubLink3').value = memory.pubLink3;
+    if (memory.pubLink4) document.getElementById('pubLink4').value = memory.pubLink4;
+    if (memory.pubLink5) document.getElementById('pubLink5').value = memory.pubLink5;
   } catch (e) { console.error('Error al cargar memoria:', e); }
 }
 
-['category', 'fontStyle', 'productMeasure', 'productWeight', 'costUSD', 'costBS', 'productLink', 'additionalInfo'].forEach(id => {
+['category', 'fontStyle', 'productMeasure', 'productWeight', 'costUSD', 'costBS', 'productLink', 'additionalInfo', 'pubLink1', 'pubLink2', 'pubLink3', 'pubLink4', 'pubLink5'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
     el.addEventListener('input', saveFormMemory);
@@ -694,12 +842,18 @@ productsRef.onSnapshot((snapshot) => {
   products = [];
   snapshot.forEach(doc => products.push({ id: doc.id, ...doc.data() }));
   renderProducts();
-  updateCategorySuggestions();
+  updateProductDatalist();
   updateCartCount();
   showSync('Listo', 'success', 1500);
 }, (error) => { 
   console.error('Error productos:', error); 
   showSync('Error al cargar', 'error', 3000); 
+});
+
+videosRef.onSnapshot((snapshot) => {
+  featuredVideos = [];
+  snapshot.forEach(doc => featuredVideos.push({ id: doc.id, ...doc.data() }));
+  renderFeaturedVideos();
 });
 
 bannersRef.orderBy('order', 'asc').onSnapshot((snapshot) => {
@@ -708,16 +862,26 @@ bannersRef.orderBy('order', 'asc').onSnapshot((snapshot) => {
   renderBanners();
 });
 
+customSectionsRef.orderBy('order', 'asc').onSnapshot((snapshot) => {
+  customSections = [];
+  snapshot.forEach(doc => customSections.push({ id: doc.id, ...doc.data() }));
+  renderProducts();
+});
+
 // ================================================================
 // 💾 SISTEMA DE BACKUP Y RESTAURACIÓN
 // ================================================================
 async function exportBackup() {
   showSync('Generando backup...', 'loading', 0);
   try {
-    const [prodSnap, banSnap] = await Promise.all([productsRef.get(), bannersRef.get()]);
+    const [prodSnap, vidSnap, banSnap, csSnap] = await Promise.all([
+      productsRef.get(), videosRef.get(), bannersRef.get(), customSectionsRef.get()
+    ]);
     const data = {
       products: prodSnap.docs.map(d => ({ id: d.id, ...d.data() })),
+      videos: vidSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       banners: banSnap.docs.map(d => ({ id: d.id, ...d.data() })),
+      customSections: csSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       exportDate: new Date().toISOString()
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -754,7 +918,9 @@ async function importBackup(event) {
         }
       };
       if (data.products) await writeCollection(productsRef, data.products);
+      if (data.videos) await writeCollection(videosRef, data.videos);
       if (data.banners) await writeCollection(bannersRef, data.banners);
+      if (data.customSections) await writeCollection(customSectionsRef, data.customSections);
       showSync('¡Datos restaurados! ✅', 'success', 3000);
       setTimeout(() => window.location.reload(), 1500);
     } catch (err) {
@@ -837,6 +1003,7 @@ function loginAdmin(password) {
     sessionStorage.setItem('adminAuthenticated', 'true');
     updateAdminUI();
     renderProducts();
+    renderFeaturedVideos();
     renderBanners();
     setTimeout(initDragAndDrop, 100);
     closeLoginModal();
@@ -853,6 +1020,7 @@ function logoutAdmin() {
     sessionStorage.removeItem('adminAuthenticated');
     updateAdminUI();
     renderProducts();
+    renderFeaturedVideos();
     renderBanners();
   }
 }
@@ -928,29 +1096,7 @@ function renderCart() {
     total += subtotal;
     const hasOffer = item.offerPrice > 0 && item.offerPrice < (item.price || 0);
     const priceDisplay = hasOffer ? `<span style="text-decoration:line-through;color:var(--muted);font-size:0.8rem;">${item.price.toFixed(2)}</span> <strong style="color:var(--accent2);">${unitPrice.toFixed(2)}</strong> Bs c/u` : `${unitPrice.toFixed(2)} Bs c/u`;
-    
-    // Miniatura para carrito
-    let thumbSrc = '';
-    if (item.mediaType === 'video' && item.thumbnail) {
-      thumbSrc = convertMediaUrl(item.thumbnail, 400);
-    } else if (item.media && item.media[0]) {
-      thumbSrc = convertMediaUrl(item.media[0], 400);
-    }
-
-    html += `<div class="cart-item"><div class="cart-item-main">
-      ${thumbSrc ? `<img src="${thumbSrc}" class="cart-item-img">` : ''}
-      <div class="cart-item-info"><h4 style="margin:0 0 5px 0;">${item.title}</h4>
-      <p style="margin:0 0 8px 0; color: var(--muted); font-size:0.88rem;">${priceDisplay}</p>
-      <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
-        <button onclick="changeQty(${index}, -1)" style="width:30px; height:30px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer;">−</button>
-        <strong style="margin:0 6px;">${item.qty}</strong>
-        <button onclick="changeQty(${index}, 1)" style="width:30px; height:30px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer;">+</button>
-      </div></div>
-      <div class="cart-item-summary"><p style="margin:0; font-weight:700;">${subtotal.toFixed(2)} Bs</p>
-      <button onclick="removeFromCart(${index})" class="btn btn-danger" style="padding:5px 12px; font-size:0.8rem;">Quitar</button></div></div>
-      <div class="cart-item-notes"><button type="button" class="cart-notes-toggle" onclick="toggleNotes(${index})">✏️ <span id="notesLabel-${index}">${item.notes ? 'Editar detalle' : 'Agregar detalle'}</span></button>
-      <textarea id="notes-${index}" class="cart-notes-input" placeholder="Color, talla..." maxlength="200" rows="2" style="display:${item.notes ? 'block' : 'none'};" oninput="updateNotes(${index}, this.value)">${item.notes || ''}</textarea>
-      <div id="notesSaved-${index}" class="cart-notes-saved" style="display:${item.notes ? 'flex' : 'none'};">✓ Guardado</div></div></div>`;
+    html += `<div class="cart-item"><div class="cart-item-main"><img src="${item.media?.[0] ? convertMediaUrl(item.media[0], 400) : ''}" class="cart-item-img"><div class="cart-item-info"><h4 style="margin:0 0 5px 0;">${item.title}</h4><p style="margin:0 0 8px 0; color: var(--muted); font-size:0.88rem;">${priceDisplay}</p><div style="margin-top:8px; display:flex; align-items:center; gap:8px;"><button onclick="changeQty(${index}, -1)" style="width:30px; height:30px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer;">−</button><strong style="margin:0 6px;">${item.qty}</strong><button onclick="changeQty(${index}, 1)" style="width:30px; height:30px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer;">+</button></div></div><div class="cart-item-notes"><button type="button" class="cart-notes-toggle" onclick="toggleNotes(${index})">✏️ <span id="notesLabel-${index}">${item.notes ? 'Editar detalle' : 'Agregar detalle'}</span></button><textarea id="notes-${index}" class="cart-notes-input" placeholder="Color, talla..." maxlength="200" rows="2" style="display:${item.notes ? 'block' : 'none'};" oninput="updateNotes(${index}, this.value)">${item.notes || ''}</textarea><div id="notesSaved-${index}" class="cart-notes-saved" style="display:${item.notes ? 'flex' : 'none'};">✓ Guardado</div></div></div>`;
   });
   container.innerHTML = html;
   document.getElementById('cartTotal').textContent = total.toFixed(2);
@@ -1052,7 +1198,7 @@ async function sendToWhatsapp() {
     });
 
     text += `━━━━━━━━━━━━━━━━━━━━━━\n💳 *TOTAL: ${total.toFixed(2)} Bs*\n`;
-    if (totalSavings > 0) text += `🎉 *¡Ahorraste ${totalSavings.toFixed(2)} Bs!*\n`;
+    if (totalSavings > 0) text += `🎉 _¡Ahorro total: ${totalSavings.toFixed(2)} Bs!_\n`;
     text += `━━━━━━━━━━━━━━━━━━━━━━\n\n🙏 _¡Gracias por tu compra!_ ✨`;
 
     cart = [];
@@ -1078,7 +1224,7 @@ function renderProducts() {
   if (!container) return;
   container.innerHTML = '';
 
-  if (products.length === 0) {
+  if (products.length === 0 && customSections.length === 0) {
     container.innerHTML = `<div style="text-align:center; padding:60px 20px; color:var(--muted);"><div style="font-size:3rem; margin-bottom:10px;">📦</div><p style="font-size:1.2rem;">Aún no hay productos</p>${adminMode ? '<p style="margin-top:10px;">Hacé clic en "+ Producto"</p>' : ''}</div>`;
     return;
   }
@@ -1114,26 +1260,9 @@ function renderProducts() {
       <div class="products" data-category="${cat}">`;
     
     catProducts.forEach(p => {
-      const isVideo = p.mediaType === 'video';
-      let mediaHtml = '';
-      let clickAction = '';
-
-      if (isVideo) {
-        // Es un video
-        const thumb = p.thumbnail ? convertMediaUrl(p.thumbnail, 800) : '';
-        mediaHtml = `
-          <img src="${thumb}" class="video-thumb" loading="lazy">
-          <div class="play-icon-overlay">▶️</div>
-        `;
-        clickAction = `onclick="openVideoLightbox('${p.id}')"`;
-      } else {
-        // Es una foto
-        const img = p.media && p.media[0] ? convertMediaUrl(p.media[0], 800) : '';
-        mediaHtml = img ? `<img src="${img}" loading="lazy" alt="${p.title}" class="product-img">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);">📷</div>';
-        clickAction = p.media && p.media.length > 0 ? `onclick="openMediaModal('${p.id}')"` : '';
-      }
-
+      const img = p.media && p.media[0] ? convertMediaUrl(p.media[0], 800) : '';
       const inStock = p.stock > 0;
+      const clickAction = p.media && p.media.length > 0 ? `onclick="openMediaModal('${p.id}')"` : '';
       const hasOffer = p.offerPrice > 0 && p.offerPrice < (p.price || 0);
       let priceHtml = '';
       if (hasOffer) {
@@ -1143,16 +1272,23 @@ function renderProducts() {
         priceHtml = `<p class="price">${Number(p.price || 0).toFixed(2)} Bs</p>`;
       }
       
-      let linkHtml = '';
-      if (adminMode && p.productLink) {
-        linkHtml = `<div style="margin-top:8px;"><a href="${p.productLink}" target="_blank" class="btn btn-link" title="${p.productLink}">🔗 Ver referencia (Admin)</a></div>`;
+      // LINKS PUBLICOS
+      let publicLinksHtml = '';
+      if (p.pubLink1 || p.pubLink2 || p.pubLink3 || p.pubLink4 || p.pubLink5) {
+        publicLinksHtml = `<div class="public-links-container">`;
+        if (p.pubLink1) publicLinksHtml += `<a href="${p.pubLink1}" target="_blank" class="public-link-btn">🔗 Link 1</a>`;
+        if (p.pubLink2) publicLinksHtml += `<a href="${p.pubLink2}" target="_blank" class="public-link-btn">🔗 Link 2</a>`;
+        if (p.pubLink3) publicLinksHtml += `<a href="${p.pubLink3}" target="_blank" class="public-link-btn">🔗 Link 3</a>`;
+        if (p.pubLink4) publicLinksHtml += `<a href="${p.pubLink4}" target="_blank" class="public-link-btn">🔗 Link 4</a>`;
+        if (p.pubLink5) publicLinksHtml += `<a href="${p.pubLink5}" target="_blank" class="public-link-btn">🔗 Link 5</a>`;
+        publicLinksHtml += `</div>`;
       }
       
       html += `
         <div class="product" data-id="${p.id}">
           <div class="drag-handle-admin" title="Arrastrar para reordenar">⋮</div>
           <div class="product-media" ${clickAction}>
-            ${mediaHtml}
+            ${img ? `<img src="${img}" loading="lazy" alt="${p.title}" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);">📷</div>'}
             <span class="stock-badge ${inStock ? 'stock-ok' : 'stock-none'}">${inStock ? 'Disponible' : 'Sin stock'}</span>
           </div>
           <div class="product-body">
@@ -1160,12 +1296,13 @@ function renderProducts() {
             ${p.code ? `<p class="product-code">Cód: ${p.code}</p>` : ''}
             <p class="product-desc">${p.description || ''}</p>
             ${priceHtml}
+            ${publicLinksHtml}
             
+            <!-- STOCK VISIBLE PARA TODOS -->
             <div class="stock-info ${p.stock < 5 ? 'low' : ''}">
               📦 Stock: ${p.stock} unidades
             </div>
 
-            ${linkHtml}
             <button class="btn btn-primary" onclick="addToCart('${p.id}')" style="width:100%; margin-top:10px;" ${!inStock ? 'disabled' : ''}>${inStock ? 'Agregar al carrito' : 'Sin stock'}</button>
             ${adminMode ? `<div style="display:flex; gap:8px; margin-top:8px;"><button class="btn btn-secondary" onclick="editProduct('${p.id}')" style="flex:1;">✏️ Editar</button><button class="btn btn-danger" onclick="deleteProduct('${p.id}')" style="flex:1;">🗑️ Eliminar</button></div>` : ''}
           </div>
@@ -1175,15 +1312,96 @@ function renderProducts() {
     return html;
   };
 
+  const renderSection = (section) => {
+    if (section.type === 'banner') {
+      const imgUrl = convertMediaUrl(section.imageUrl, 1920);
+      const hasTitle = section.title && section.title.trim() !== '';
+      const hasSubtitle = section.subtitle && section.subtitle.trim() !== '';
+      const hasLink = section.linkUrl && section.linkUrl.trim() !== '';
+      const clickAction = hasLink ? `onclick="window.open('${section.linkUrl}', '_blank')"` : '';
+      const bannerSize = section.size || 'banner-standard';
+      return `
+        <div class="inline-banner-container ${bannerSize}">
+          <img src="${imgUrl}" alt="${section.title || 'Banner'}" loading="lazy" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">
+          ${(hasTitle || hasSubtitle) ? `<div class="banner-overlay">${hasTitle ? `<div class="banner-title">${section.title}</div>` : ''}${hasSubtitle ? `<div class="banner-subtitle">${section.subtitle}</div>` : ''}</div>` : ''}
+          ${adminMode ? `<div class="banner-admin"><button class="btn" onclick="event.stopPropagation(); editCustomSection('${section.id}')">✏️</button><button class="btn btn-danger" onclick="event.stopPropagation(); deleteCustomSection('${section.id}')">🗑️</button></div>` : ''}
+        </div>
+      `;
+    } else if (section.type === 'video') {
+      return `
+        <div style="margin: 40px 0; position:relative;">
+          <div class="video-card" style="max-width:800px; margin:0 auto;">
+            <div class="video-thumbnail-container" onclick="window.open('${section.videoUrl}', '_blank')">
+              ${section.thumbnail ? `<img src="${convertMediaUrl(section.thumbnail, 800)}" class="video-thumbnail-img">` : ''}
+              <div class="video-play-icon">▶️</div>
+            </div>
+            <div class="video-body" style="text-align:center;">
+              <h3 class="video-title">${section.title || 'Video'}</h3>
+            </div>
+          </div>
+          ${adminMode ? `<div style="position:absolute; top:10px; right:calc(50% - 380px); display:flex; gap:5px;"><button class="btn" onclick="editCustomSection('${section.id}')">✏️</button><button class="btn btn-danger" onclick="deleteCustomSection('${section.id}')">🗑️</button></div>` : ''}
+        </div>
+      `;
+    }
+    return '';
+  };
+
   let finalHtml = '';
+  const topSections = customSections.filter(s => !s.afterCategory || s.afterCategory.trim() === '');
+  topSections.forEach(s => { finalHtml += renderSection(s); });
+
   categories.forEach(cat => {
     finalHtml += renderCategory(cat);
+    const midSections = customSections.filter(s => s.afterCategory && s.afterCategory.trim() === cat);
+    midSections.forEach(s => { finalHtml += renderSection(s); });
   });
 
   container.innerHTML = finalHtml;
   updateCategorySuggestions();
   
   setTimeout(initDragAndDrop, 100);
+}
+
+// ================================================================
+// 🎬 RENDERIZADO DE VIDEOS (CON MINIATURAS)
+// ================================================================
+function renderFeaturedVideos() {
+  const container = document.getElementById('featuredVideosContainer');
+  if (!container) return;
+  if (featuredVideos.length === 0) { container.innerHTML = ''; return; }
+  
+  let html = `<div class="videos-section"><div class="category-wrapper-title"><h2>🎬 Videos Principales</h2><span class="cat-ornament">✦ ✦ ✦</span></div><div class="videos-grid">`;
+  
+  featuredVideos.forEach(video => {
+    // Botón de producto relacionado
+    let relatedProductHtml = '';
+    if (video.relatedProductId) {
+      const relatedProduct = products.find(p => p.id === video.relatedProductId);
+      if (relatedProduct) {
+        relatedProductHtml = `<a href="#" onclick="openMediaModal('${relatedProduct.id}'); return false;" class="video-product-tag">🛍️ Ver producto: ${relatedProduct.title}</a>`;
+      }
+    }
+
+    html += `<div class="video-card">
+      <div class="video-thumbnail-container" onclick="window.open('${video.url}', '_blank')">
+        ${video.thumbnail ? `<img src="${convertMediaUrl(video.thumbnail, 800)}" class="video-thumbnail-img">` : ''}
+        <div class="video-play-icon">▶️</div>
+      </div>
+      <div class="video-body">
+        <h3 class="video-title">${video.title}</h3>
+        ${video.description ? `<p class="video-desc">${video.description}</p>` : ''}
+        ${relatedProductHtml}
+        <a href="${video.url}" target="_blank" class="btn-insta">▶️ Ver Video</a>
+        <div class="video-admin">
+          <button class="btn btn-secondary" onclick="editVideo('${video.id}')">Editar</button>
+          <button class="btn btn-danger" onclick="deleteVideo('${video.id}')">Eliminar</button>
+        </div>
+      </div>
+    </div>`;
+  });
+  
+  html += `</div></div>`;
+  container.innerHTML = html;
 }
 
 function renderBanners() {
@@ -1263,22 +1481,19 @@ function updateCategorySuggestions() {
   datalist.innerHTML = uniqueCategories.map(cat => `<option value="${cat.replace(/"/g, '&quot;')}">`).join('');
 }
 
+function updateProductDatalist() {
+  const datalist = document.getElementById('productList');
+  if (!datalist) return;
+  datalist.innerHTML = products.map(p => `<option value="${p.title}" data-id="${p.id}">`).join('');
+}
+
 // ================================================================
-// LIGHTBOX
+// LIGHTBOX (SOLO PARA FOTOS DE PRODUCTOS)
 // ================================================================
 function openMediaModal(productId) {
   const product = products.find(p => p.id === productId);
   if (!product || !product.media || product.media.length === 0) return;
   currentMediaList = product.media.map(url => ({ type: 'image', url }));
-  currentMediaIndex = 0;
-  renderLightboxMedia();
-  document.getElementById('mediaModal').showModal();
-}
-
-function openVideoLightbox(productId) {
-  const product = products.find(p => p.id === productId);
-  if (!product || !product.videoUrl) return;
-  currentMediaList = [{ type: 'video', url: product.videoUrl }];
   currentMediaIndex = 0;
   renderLightboxMedia();
   document.getElementById('mediaModal').showModal();
@@ -1301,35 +1516,17 @@ function renderLightboxMedia() {
   container.innerHTML = '';
   const media = currentMediaList[currentMediaIndex];
   
-  if (media.type === 'video') {
-    const url = media.url;
-    const lower = url.toLowerCase();
-    
-    if (lower.includes('youtube.com') || lower.includes('youtu.be')) {
-       const ytId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([-\w]+)/)?.[1];
-       if (ytId) container.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>`;
-    } else if (lower.includes('instagram.com')) {
-       const igCode = url.match(/instagram\.com\/(?:p|reel|tv)\/([-\w]+)/)?.[1];
-       if (igCode) container.innerHTML = `<iframe src="https://www.instagram.com/p/${igCode}/embed" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>`;
-    } else if (lower.includes('tiktok.com')) {
-       const ttId = url.match(/tiktok\.com\/(?:@[\w.-]+\/video\/|video\/)(\d+)/)?.[1];
-       if (ttId) container.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${ttId}" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>`;
-    } else {
-       container.innerHTML = `<a href="${url}" target="_blank" class="media-fallback-btn">▶️ Abrir Video Externo</a>`;
-    }
-  } else {
-    const rawUrl = media.url.trim();
-    const finalUrl = convertMediaUrl(rawUrl, 2000);
-    const img = document.createElement('img');
-    img.src = finalUrl;
-    img.alt = 'Foto';
-    img.style.maxWidth = '100%';
-    img.style.maxHeight = '82vh';
-    img.onerror = () => { 
-      container.innerHTML = `<div class="media-fallback"><div class="media-fallback-icon">🖼️</div><div class="media-fallback-title">No se pudo cargar</div><a href="${rawUrl}" target="_blank" class="media-fallback-btn">🔗 Abrir link</a></div>`; 
-    };
-    container.appendChild(img);
-  }
+  const rawUrl = media.url.trim();
+  const finalUrl = convertMediaUrl(rawUrl, 2000);
+  const img = document.createElement('img');
+  img.src = finalUrl;
+  img.alt = 'Foto';
+  img.style.maxWidth = '100%';
+  img.style.maxHeight = '82vh';
+  img.onerror = () => { 
+    container.innerHTML = `<div class="media-fallback"><div class="media-fallback-icon">🖼️</div><div class="media-fallback-title">No se pudo cargar</div><a href="${rawUrl}" target="_blank" class="media-fallback-btn">🔗 Abrir link</a></div>`; 
+  };
+  container.appendChild(img);
 
   document.getElementById('mediaCounter').textContent = `${currentMediaIndex + 1} / ${currentMediaList.length}`;
   const display = currentMediaList.length > 1 ? 'flex' : 'none';
@@ -1358,28 +1555,6 @@ window.addEventListener('scroll', () => {
 });
 
 // ================================================================
-// LOGICA DEL FORMULARIO (FOTO VS VIDEO)
-// ================================================================
-function toggleMediaFields() {
-  const type = document.getElementById('mediaType').value;
-  const label = document.getElementById('mediaLabel');
-  const input = document.getElementById('mediaContent');
-  const hint = document.getElementById('mediaHint');
-
-  if (type === 'video') {
-    label.textContent = '🎬 Link del Video (YouTube/Instagram/TikTok)';
-    input.placeholder = 'Pega el link del video aquí...';
-    input.rows = 1;
-    hint.textContent = '💡 Solo un link de video.';
-  } else {
-    label.textContent = '🖼️ Links de imágenes/GIFs';
-    input.placeholder = 'Pega los links aquí (uno por línea)';
-    input.rows = 4;
-    hint.textContent = '💡 Soporta: Google Drive, Giphy, Tenor, links directos.';
-  }
-}
-
-// ================================================================
 // ADMIN PRODUCTOS
 // ================================================================
 document.getElementById('openAddBtn').addEventListener('click', () => {
@@ -1387,8 +1562,6 @@ document.getElementById('openAddBtn').addEventListener('click', () => {
   editingId = null;
   document.getElementById('dialogTitle').textContent = "📦 Agregar Producto";
   document.getElementById('productForm').reset();
-  document.getElementById('mediaType').value = 'image'; // Default
-  toggleMediaFields();
   loadFormMemory();
   updateCategorySuggestions();
   document.getElementById('productDialog').showModal();
@@ -1398,11 +1571,7 @@ document.getElementById('productForm').addEventListener('submit', async function
   e.preventDefault();
   if (!adminMode) return;
   showSync('Guardando...', 'loading', 0);
-  
-  const mediaType = document.getElementById('mediaType').value;
-  const content = document.getElementById('mediaContent').value.trim();
-  
-  let productData = {
+  const productData = {
     code: document.getElementById('productCode').value.trim(),
     categoryOrder: 99,
     itemOrder: 999,
@@ -1414,25 +1583,20 @@ document.getElementById('productForm').addEventListener('submit', async function
     wholesalePrice: parseFloat(document.getElementById('wholesalePrice').value) || 0,
     stock: parseInt(document.getElementById('stock').value) || 0,
     description: document.getElementById('description').value.trim(),
-    mediaType: mediaType,
+    media: document.getElementById('mediaLinks').value.split('\n').map(l => l.trim()).filter(Boolean),
     productMeasure: document.getElementById('productMeasure').value.trim(),
     productWeight: parseFloat(document.getElementById('productWeight').value) || 0,
     costUSD: parseFloat(document.getElementById('costUSD').value) || 0,
     costBS: parseFloat(document.getElementById('costBS').value) || 0,
     productLink: document.getElementById('productLink').value.trim(),
     additionalInfo: document.getElementById('additionalInfo').value.trim(),
+    pubLink1: document.getElementById('pubLink1').value.trim(),
+    pubLink2: document.getElementById('pubLink2').value.trim(),
+    pubLink3: document.getElementById('pubLink3').value.trim(),
+    pubLink4: document.getElementById('pubLink4').value.trim(),
+    pubLink5: document.getElementById('pubLink5').value.trim(),
     updatedAt: Date.now()
   };
-
-  if (mediaType === 'video') {
-    productData.videoUrl = content;
-    // Para video, usamos el título como thumbnail si no hay uno específico, o pedimos uno
-    // Pero como simplificamos, asumimos que si es video, el usuario pone el link arriba.
-    // Podríamos agregar un campo extra para thumbnail de video si quisieras, pero por ahora usaremos el default.
-  } else {
-    productData.media = content.split('\n').map(l => l.trim()).filter(Boolean);
-  }
-
   saveFormMemory();
   try {
     if (editingId) { 
@@ -1460,18 +1624,6 @@ function editProduct(id) {
   if (!product) return;
   editingId = id;
   document.getElementById('dialogTitle').textContent = "✏️ Editar Producto";
-  
-  // Configurar tipo
-  const type = product.mediaType || 'image';
-  document.getElementById('mediaType').value = type;
-  toggleMediaFields();
-  
-  if (type === 'video') {
-    document.getElementById('mediaContent').value = product.videoUrl || '';
-  } else {
-    document.getElementById('mediaContent').value = (product.media || []).join('\n');
-  }
-
   document.getElementById('productCode').value = product.code || '';
   document.getElementById('title').value = product.title || '';
   document.getElementById('fontStyle').value = product.fontStyle || 'font-style-1';
@@ -1481,13 +1633,18 @@ function editProduct(id) {
   document.getElementById('wholesalePrice').value = product.wholesalePrice || '';
   document.getElementById('stock').value = product.stock || '';
   document.getElementById('description').value = product.description || '';
+  document.getElementById('mediaLinks').value = (product.media || []).join('\n');
   document.getElementById('productMeasure').value = product.productMeasure || '';
   document.getElementById('productWeight').value = product.productWeight || '';
   document.getElementById('costUSD').value = product.costUSD || '';
   document.getElementById('costBS').value = product.costBS || '';
   document.getElementById('productLink').value = product.productLink || '';
   document.getElementById('additionalInfo').value = product.additionalInfo || '';
-  
+  document.getElementById('pubLink1').value = product.pubLink1 || '';
+  document.getElementById('pubLink2').value = product.pubLink2 || '';
+  document.getElementById('pubLink3').value = product.pubLink3 || '';
+  document.getElementById('pubLink4').value = product.pubLink4 || '';
+  document.getElementById('pubLink5').value = product.pubLink5 || '';
   updateCategorySuggestions();
   document.getElementById('productDialog').showModal();
 }
@@ -1498,6 +1655,90 @@ async function deleteProduct(id) {
     showSync('Eliminando...', 'loading', 0);
     try { 
       await productsRef.doc(id).delete(); 
+      showSync('Eliminado ✅', 'success', 2000); 
+    } catch (error) { 
+      showSync('Error', 'error', 3000); 
+    }
+  }
+}
+
+// ================================================================
+// ADMIN VIDEOS
+// ================================================================
+document.getElementById('addVideoBtn').addEventListener('click', () => {
+  if (!adminMode) { alert('⚠️ Iniciá sesión'); return; }
+  editingVideoId = null;
+  document.getElementById('videoDialogTitle').textContent = "🎬 Agregar Video";
+  document.getElementById('videoForm').reset();
+  updateProductDatalist();
+  document.getElementById('videoDialog').showModal();
+});
+
+document.getElementById('videoForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!adminMode) return;
+  showSync('Guardando...', 'loading', 0);
+  
+  const relatedProductName = document.getElementById('relatedProduct').value;
+  const relatedProduct = products.find(p => p.title === relatedProductName);
+  const relatedId = relatedProduct ? relatedProduct.id : '';
+
+  const videoData = { 
+    title: document.getElementById('videoTitle').value.trim(), 
+    description: document.getElementById('videoDesc').value.trim(), 
+    url: document.getElementById('videoUrl').value.trim(), 
+    thumbnail: document.getElementById('videoThumbnail').value.trim(), // GUARDAR MINIATURA
+    relatedProductId: relatedId,
+    updatedAt: Date.now() 
+  };
+  try {
+    if (editingVideoId) { 
+      await videosRef.doc(editingVideoId).update(videoData); 
+      showSync('Actualizado ✅', 'success', 2000); 
+    } else { 
+      videoData.createdAt = Date.now(); 
+      await videosRef.add(videoData); 
+      showSync('Agregado ✅', 'success', 2000); 
+    }
+    closeVideoDialog();
+  } catch (error) { 
+    showSync('Error', 'error', 3000); 
+  }
+});
+
+function closeVideoDialog() { 
+  document.getElementById('videoDialog').close(); 
+  editingVideoId = null; 
+}
+
+function editVideo(id) {
+  if (!adminMode) return;
+  const video = featuredVideos.find(v => v.id === id);
+  if (!video) return;
+  editingVideoId = id;
+  document.getElementById('videoDialogTitle').textContent = "✏️ Editar Video";
+  document.getElementById('videoTitle').value = video.title || '';
+  document.getElementById('videoDesc').value = video.description || '';
+  document.getElementById('videoUrl').value = video.url || '';
+  document.getElementById('videoThumbnail').value = video.thumbnail || ''; // CARGAR MINIATURA
+  
+  if (video.relatedProductId) {
+    const related = products.find(p => p.id === video.relatedProductId);
+    if (related) document.getElementById('relatedProduct').value = related.title;
+  } else {
+    document.getElementById('relatedProduct').value = '';
+  }
+  
+  updateProductDatalist();
+  document.getElementById('videoDialog').showModal();
+}
+
+async function deleteVideo(id) {
+  if (!adminMode) return;
+  if (confirm("¿Eliminar?")) {
+    showSync('Eliminando...', 'loading', 0);
+    try { 
+      await videosRef.doc(id).delete(); 
       showSync('Eliminado ✅', 'success', 2000); 
     } catch (error) { 
       showSync('Error', 'error', 3000); 
@@ -1574,6 +1815,108 @@ async function deleteBanner(id) {
   }
 }
 
+function toggleCsFields() {
+  const type = document.getElementById('csType').value;
+  document.getElementById('csBannerFields').style.display = type === 'banner' ? 'block' : 'none';
+  document.getElementById('csVideoFields').style.display = type === 'video' ? 'block' : 'none';
+}
+
+function updateCsCategoryOptions() {
+  const select = document.getElementById('csAfterCategory');
+  const categories = [...new Set(products.map(p => (p.category || "Sin categoría").trim()))].sort();
+  let html = '<option value="">🔝 Al principio (antes de todas)</option>';
+  categories.forEach(cat => { 
+    html += `<option value="${cat}">Después de: ${cat}</option>`; 
+  });
+  select.innerHTML = html;
+}
+
+document.getElementById('addCustomSectionBtn').addEventListener('click', () => {
+  if (!adminMode) { alert('⚠️ Iniciá sesión'); return; }
+  editingCsId = null;
+  document.getElementById('customSectionDialogTitle').textContent = "🧩 Agregar Bloque";
+  document.getElementById('customSectionForm').reset();
+  document.getElementById('csOrder').value = 1;
+  updateCsCategoryOptions();
+  toggleCsFields();
+  document.getElementById('customSectionDialog').showModal();
+});
+
+document.getElementById('customSectionForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!adminMode) return;
+  showSync('Guardando...', 'loading', 0);
+  const type = document.getElementById('csType').value;
+  const data = { 
+    type: type, 
+    afterCategory: document.getElementById('csAfterCategory').value, 
+    order: parseInt(document.getElementById('csOrder').value) || 1, 
+    updatedAt: Date.now() 
+  };
+  if (type === 'banner') {
+    data.title = document.getElementById('csTitle').value.trim();
+    data.imageUrl = document.getElementById('csImageUrl').value.trim();
+    data.size = document.getElementById('csSize').value;
+  } else {
+    data.title = document.getElementById('csVideoTitle').value.trim();
+    data.videoUrl = document.getElementById('csVideoUrl').value.trim();
+  }
+  try {
+    if (editingCsId) { 
+      await customSectionsRef.doc(editingCsId).update(data); 
+      showSync('Actualizado ✅', 'success', 2000); 
+    } else { 
+      data.createdAt = Date.now(); 
+      await customSectionsRef.add(data); 
+      showSync('Agregado ✅', 'success', 2000); 
+    }
+    closeCustomSectionDialog();
+  } catch (error) { 
+    console.error(error); 
+    showSync('Error', 'error', 3000); 
+  }
+});
+
+function closeCustomSectionDialog() { 
+  document.getElementById('customSectionDialog').close(); 
+  editingCsId = null; 
+}
+
+function editCustomSection(id) {
+  if (!adminMode) return;
+  const section = customSections.find(s => s.id === id);
+  if (!section) return;
+  editingCsId = id;
+  document.getElementById('customSectionDialogTitle').textContent = "✏️ Editar Bloque";
+  document.getElementById('csType').value = section.type;
+  toggleCsFields();
+  updateCsCategoryOptions();
+  document.getElementById('csAfterCategory').value = section.afterCategory || '';
+  document.getElementById('csOrder').value = section.order || 1;
+  if (section.type === 'banner') {
+    document.getElementById('csTitle').value = section.title || '';
+    document.getElementById('csImageUrl').value = section.imageUrl || '';
+    document.getElementById('csSize').value = section.size || 'banner-standard';
+  } else {
+    document.getElementById('csVideoTitle').value = section.title || '';
+    document.getElementById('csVideoUrl').value = section.videoUrl || '';
+  }
+  document.getElementById('customSectionDialog').showModal();
+}
+
+async function deleteCustomSection(id) {
+  if (!adminMode) return;
+  if (confirm("¿Eliminar este bloque?")) {
+    showSync('Eliminando...', 'loading', 0);
+    try { 
+      await customSectionsRef.doc(id).delete(); 
+      showSync('Eliminado ✅', 'success', 2000); 
+    } catch (error) { 
+      showSync('Error', 'error', 3000); 
+    }
+  }
+}
+
 // ================================================================
 // EVENTOS E INICIALIZACIÓN
 // ================================================================
@@ -1588,6 +1931,7 @@ loadCartClientInfo();
 updateCartCount();
 
 renderProducts();
+renderFeaturedVideos();
 renderBanners();
 
 // PREVENIR DESCARGA Y CLIC DERECHO EN IMÁGENES
