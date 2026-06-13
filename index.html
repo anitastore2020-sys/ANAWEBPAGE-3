@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- v5.0.1-5-public-links -->
+<!-- v5.0.4-fixed-password-scroll-arrows-autoscroll -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Galería de Productos Editable</title>
@@ -40,6 +40,33 @@
   .form-input:focus, .form-select:focus, .form-textarea:focus {
     outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(159, 18, 57, 0.1);
   }
+
+  /* NUEVO: PANEL DE SUGERENCIAS */
+  .suggestions-panel {
+    background: #fff5f8; border: 1px dashed var(--accent); border-radius: 8px;
+    padding: 12px; margin-top: 8px; display: none;
+  }
+  .suggestions-panel.show { display: block; }
+  .suggestions-title {
+    font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .suggestion-item {
+    background: white; border: 1px solid #f8d7e6; border-radius: 6px;
+    padding: 6px 10px; margin-bottom: 6px; font-size: 0.78rem; color: var(--muted);
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .suggestion-item:hover {
+    background: var(--accent); color: white; border-color: var(--accent);
+  }
+  .suggestion-item:hover .suggestion-copy-btn { color: white; }
+  .suggestion-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .suggestion-copy-btn {
+    background: none; border: none; color: var(--accent); font-size: 0.75rem;
+    cursor: pointer; padding: 2px 6px; font-weight: 600;
+  }
+  .suggestion-empty { font-size: 0.75rem; color: var(--muted); font-style: italic; text-align: center; padding: 8px; }
 
   .banners-container { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-top: 20px; margin-bottom: 20px; }
   .banner-item { width: 100%; position: relative; overflow: hidden; margin-bottom: 10px; cursor: pointer; background: #1a0a0e; }
@@ -314,16 +341,26 @@
   .login-buttons { display: flex; gap: 10px; margin-top: 10px; }
   .login-buttons .btn { flex: 1; }
 
-  /* BOTÓN VOLVER ARRIBA */
-  .scroll-top-btn {
-    position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+  /* BOTONES DE NAVEGACIÓN (SUBIR/BAJAR) */
+  .scroll-nav-btn {
+    position: fixed; right: 30px; width: 50px; height: 50px;
     background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white;
     border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer;
     opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000;
     box-shadow: 0 4px 15px rgba(159, 18, 57, 0.4); display: flex; align-items: center; justify-content: center;
   }
-  .scroll-top-btn.show { opacity: 1; visibility: visible; }
-  .scroll-top-btn:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(159, 18, 57, 0.6); }
+  .scroll-nav-btn.show { opacity: 1; visibility: visible; }
+  .scroll-nav-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(159, 18, 57, 0.6); }
+  #scrollTopBtn { bottom: 90px; }
+  #scrollDownBtn { bottom: 30px; }
+
+  /* RESALTO DE PRODUCTO NUEVO */
+  @keyframes highlightNew {
+    0% { box-shadow: 0 0 0 0 rgba(159, 18, 57, 0.7); }
+    50% { box-shadow: 0 0 30px 10px rgba(159, 18, 57, 0.4); }
+    100% { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  }
+  .product-highlight { animation: highlightNew 2s ease-out; }
 
   @media (max-width: 1024px) { 
     .videos-grid { grid-template-columns: repeat(3, 1fr); } 
@@ -374,7 +411,9 @@
     .banner-overlay { padding: 15px; }
     .banner-admin { top: 10px; right: 10px; gap: 5px; }
     .banner-admin .btn { padding: 6px 12px; font-size: 0.75rem; }
-    .scroll-top-btn { bottom: 20px; right: 20px; width: 45px; height: 45px; font-size: 1.2rem; }
+    .scroll-nav-btn { right: 20px; width: 45px; height: 45px; font-size: 1.2rem; }
+    #scrollTopBtn { bottom: 75px; }
+    #scrollDownBtn { bottom: 20px; }
   }
 </style>
 </head>
@@ -414,7 +453,8 @@
   <span id="syncText">Cargando...</span>
 </div>
 
-<button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" title="Volver arriba">↑</button>
+<button class="scroll-nav-btn" id="scrollTopBtn" onclick="scrollToTop()" title="Subir al inicio">↑</button>
+<button class="scroll-nav-btn" id="scrollDownBtn" onclick="scrollToNextSection()" title="Bajar a siguiente sección">↓</button>
 
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart" id="cartPanel">
@@ -465,12 +505,14 @@
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📝 Título del producto</label>
         <input id="title" type="text" placeholder="Ej: Gel de Construcción" class="form-input">
+        <div id="suggestions-title" class="suggestions-panel"></div>
       </div>
       
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🏷️ Código de Producto</label>
           <input id="productCode" type="text" placeholder="Ej: PROD-001" class="form-input">
+          <div id="suggestions-productCode" class="suggestions-panel"></div>
         </div>
         <div style="position:relative;">
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📂 Categoría</label>
@@ -479,6 +521,7 @@
             <span class="category-hint">💡 Sugerencias</span>
           </div>
           <datalist id="categoryList"></datalist>
+          <div id="suggestions-category" class="suggestions-panel"></div>
         </div>
       </div>
 
@@ -496,10 +539,12 @@
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">💵 Precio Normal (Bs)</label>
           <input id="price" type="number" step="0.01" placeholder="0.00" class="form-input">
+          <div id="suggestions-price" class="suggestions-panel"></div>
         </div>
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:#c02639; display:block; margin-bottom:4px;">🔥 Precio Oferta (Bs)</label>
           <input id="offerPrice" type="number" step="0.01" placeholder="0.00" class="form-input">
+          <div id="suggestions-offerPrice" class="suggestions-panel"></div>
         </div>
       </div>
 
@@ -507,10 +552,12 @@
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📦 Precio Mayorista (Bs)</label>
           <input id="wholesalePrice" type="number" step="0.01" placeholder="0.00" class="form-input">
+          <div id="suggestions-wholesalePrice" class="suggestions-panel"></div>
         </div>
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🏷️ Stock disponible</label>
           <input id="stock" type="number" placeholder="0" class="form-input">
+          <div id="suggestions-stock" class="suggestions-panel"></div>
         </div>
       </div>
 
@@ -522,10 +569,12 @@
           <div>
             <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">📏 Medida del producto</label>
             <input id="productMeasure" type="text" placeholder="Ej: 500ml, 1kg, 30cm" class="form-input">
+            <div id="suggestions-productMeasure" class="suggestions-panel"></div>
           </div>
           <div>
             <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">⚖️ Peso (gramos)</label>
             <input id="productWeight" type="number" placeholder="Ej: 500" class="form-input">
+            <div id="suggestions-productWeight" class="suggestions-panel"></div>
           </div>
         </div>
 
@@ -533,42 +582,53 @@
           <div>
             <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">💰 Costo USD</label>
             <input id="costUSD" type="number" step="0.01" placeholder="0.00" class="form-input">
+            <div id="suggestions-costUSD" class="suggestions-panel"></div>
           </div>
           <div>
             <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">💰 Costo Bs</label>
             <input id="costBS" type="number" step="0.01" placeholder="0.00" class="form-input">
+            <div id="suggestions-costBS" class="suggestions-panel"></div>
           </div>
         </div>
 
         <div style="margin-bottom:12px;">
           <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">🔗 Link de referencia (Privado)</label>
           <input id="productLink" type="url" placeholder="https://..." class="form-input">
+          <div id="suggestions-productLink" class="suggestions-panel"></div>
         </div>
 
         <div style="margin-bottom:12px;">
           <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">📝 Información adicional</label>
           <textarea id="additionalInfo" placeholder="Notas internas, proveedor, etc..." rows="2" class="form-textarea"></textarea>
+          <div id="suggestions-additionalInfo" class="suggestions-panel"></div>
         </div>
       </div>
 
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📄 Descripción Pública</label>
         <textarea id="description" placeholder="Detalles del producto..." rows="3" class="form-textarea"></textarea>
+        <div id="suggestions-description" class="suggestions-panel"></div>
       </div>
 
       <!-- NUEVOS 5 LINKS PUBLICOS -->
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Links Públicos (TikTok/Insta/Web)</label>
         <input id="pubLink1" type="url" placeholder="Link público 1" class="form-input" style="margin-bottom:5px;">
+        <div id="suggestions-pubLink1" class="suggestions-panel"></div>
         <input id="pubLink2" type="url" placeholder="Link público 2" class="form-input" style="margin-bottom:5px;">
+        <div id="suggestions-pubLink2" class="suggestions-panel"></div>
         <input id="pubLink3" type="url" placeholder="Link público 3" class="form-input" style="margin-bottom:5px;">
+        <div id="suggestions-pubLink3" class="suggestions-panel"></div>
         <input id="pubLink4" type="url" placeholder="Link público 4" class="form-input" style="margin-bottom:5px;">
+        <div id="suggestions-pubLink4" class="suggestions-panel"></div>
         <input id="pubLink5" type="url" placeholder="Link público 5" class="form-input">
+        <div id="suggestions-pubLink5" class="suggestions-panel"></div>
       </div>
 
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs</label>
         <textarea id="mediaLinks" placeholder="Pega los links aquí (uno por línea)" rows="4" class="form-textarea"></textarea>
+        <div id="suggestions-mediaLinks" class="suggestions-panel"></div>
       </div>
 
       <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
@@ -769,6 +829,7 @@ let editingBannerId = null;
 let editingCsId = null;
 let currentMediaList = [];
 let currentMediaIndex = 0;
+let pendingScrollToId = null; // ID del producto al que hacer scroll después de guardar
 
 const sortableInstances = new Map();
 
@@ -785,7 +846,7 @@ function showSync(message, type = 'loading', duration = 2000) {
 }
 
 // ================================================================
-// 🧠 SISTEMA DE MEMORIA
+// 🧠 SISTEMA DE SUGERENCIAS (GUARDAR SIN AUTOCOMPLETAR)
 // ================================================================
 function saveFormMemory() {
   const memory = {
@@ -801,37 +862,86 @@ function saveFormMemory() {
     pubLink2: document.getElementById('pubLink2').value,
     pubLink3: document.getElementById('pubLink3').value,
     pubLink4: document.getElementById('pubLink4').value,
-    pubLink5: document.getElementById('pubLink5').value
+    pubLink5: document.getElementById('pubLink5').value,
+    title: document.getElementById('title').value,
+    productCode: document.getElementById('productCode').value,
+    price: document.getElementById('price').value,
+    offerPrice: document.getElementById('offerPrice').value,
+    wholesalePrice: document.getElementById('wholesalePrice').value,
+    stock: document.getElementById('stock').value,
+    description: document.getElementById('description').value,
+    mediaLinks: document.getElementById('mediaLinks').value
   };
-  localStorage.setItem('formMemory_v1', JSON.stringify(memory));
+  
+  // Guardar historial de sugerencias (últimos 5 valores únicos por campo)
+  const history = JSON.parse(localStorage.getItem('formHistory_v2') || '{}');
+  
+  Object.keys(memory).forEach(field => {
+    const value = memory[field];
+    if (value && value.trim() !== '') {
+      if (!history[field]) history[field] = [];
+      // Remover duplicados
+      history[field] = history[field].filter(v => v !== value);
+      // Agregar al inicio
+      history[field].unshift(value);
+      // Mantener solo los últimos 5
+      if (history[field].length > 5) history[field] = history[field].slice(0, 5);
+    }
+  });
+  
+  localStorage.setItem('formHistory_v2', JSON.stringify(history));
 }
 
-function loadFormMemory() {
-  const saved = localStorage.getItem('formMemory_v1');
-  if (!saved) return;
-  try {
-    const memory = JSON.parse(saved);
-    if (memory.category) document.getElementById('category').value = memory.category;
-    if (memory.fontStyle) document.getElementById('fontStyle').value = memory.fontStyle;
-    if (memory.productMeasure) document.getElementById('productMeasure').value = memory.productMeasure;
-    if (memory.productWeight) document.getElementById('productWeight').value = memory.productWeight;
-    if (memory.costUSD) document.getElementById('costUSD').value = memory.costUSD;
-    if (memory.costBS) document.getElementById('costBS').value = memory.costBS;
-    if (memory.productLink) document.getElementById('productLink').value = memory.productLink;
-    if (memory.additionalInfo) document.getElementById('additionalInfo').value = memory.additionalInfo;
-    if (memory.pubLink1) document.getElementById('pubLink1').value = memory.pubLink1;
-    if (memory.pubLink2) document.getElementById('pubLink2').value = memory.pubLink2;
-    if (memory.pubLink3) document.getElementById('pubLink3').value = memory.pubLink3;
-    if (memory.pubLink4) document.getElementById('pubLink4').value = memory.pubLink4;
-    if (memory.pubLink5) document.getElementById('pubLink5').value = memory.pubLink5;
-  } catch (e) { console.error('Error al cargar memoria:', e); }
+function showSuggestions(fieldId) {
+  const history = JSON.parse(localStorage.getItem('formHistory_v2') || '{}');
+  const panel = document.getElementById(`suggestions-${fieldId}`);
+  if (!panel) return;
+  
+  const suggestions = history[fieldId] || [];
+  if (suggestions.length === 0) {
+    panel.classList.remove('show');
+    return;
+  }
+  
+  let html = `<div class="suggestions-title">💡 Sugerencias recientes (clic para copiar):</div>`;
+  suggestions.forEach((value, idx) => {
+    const displayValue = value.length > 50 ? value.substring(0, 50) + '...' : value;
+    html += `<div class="suggestion-item" onclick="copySuggestion('${fieldId}', ${idx})">
+      <span class="suggestion-text" title="${value.replace(/"/g, '&quot;')}">${displayValue}</span>
+      <button type="button" class="suggestion-copy-btn">📋 Copiar</button>
+    </div>`;
+  });
+  
+  panel.innerHTML = html;
+  panel.classList.add('show');
 }
 
-['category', 'fontStyle', 'productMeasure', 'productWeight', 'costUSD', 'costBS', 'productLink', 'additionalInfo', 'pubLink1', 'pubLink2', 'pubLink3', 'pubLink4', 'pubLink5'].forEach(id => {
+function copySuggestion(fieldId, index) {
+  const history = JSON.parse(localStorage.getItem('formHistory_v2') || '{}');
+  const value = history[fieldId][index];
+  const input = document.getElementById(fieldId);
+  if (input) {
+    input.value = value;
+    input.focus();
+    showSync('Sugerencia copiada ✅', 'success', 1500);
+  }
+}
+
+// Mostrar sugerencias al hacer focus en cada campo
+['title', 'productCode', 'category', 'price', 'offerPrice', 'wholesalePrice', 'stock', 
+ 'productMeasure', 'productWeight', 'costUSD', 'costBS', 'productLink', 'additionalInfo',
+ 'pubLink1', 'pubLink2', 'pubLink3', 'pubLink4', 'pubLink5', 'description', 'mediaLinks'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
     el.addEventListener('input', saveFormMemory);
     el.addEventListener('change', saveFormMemory);
+    el.addEventListener('focus', () => showSuggestions(id));
+    el.addEventListener('blur', () => {
+      setTimeout(() => {
+        const panel = document.getElementById(`suggestions-${id}`);
+        if (panel) panel.classList.remove('show');
+      }, 200);
+    });
   }
 });
 
@@ -845,6 +955,14 @@ productsRef.onSnapshot((snapshot) => {
   updateProductDatalist();
   updateCartCount();
   showSync('Listo', 'success', 1500);
+  
+  // Si hay un producto pendiente de scroll, hacerlo
+  if (pendingScrollToId) {
+    setTimeout(() => {
+      scrollToProduct(pendingScrollToId);
+      pendingScrollToId = null;
+    }, 300);
+  }
 }, (error) => { 
   console.error('Error productos:', error); 
   showSync('Error al cargar', 'error', 3000); 
@@ -997,6 +1115,8 @@ function openLoginModal() {
   setTimeout(() => document.getElementById('adminPassword').focus(), 100);
 }
 function closeLoginModal() { document.getElementById('adminLoginModal').close(); }
+
+// ✅ FIX: Se eliminó .toLowerCase() para que la contraseña funcione exactamente como la configuraste originalmente
 function loginAdmin(password) {
   if (simpleHash(password) === ADMIN_PASSWORD_HASH) {
     adminMode = true;
@@ -1014,6 +1134,7 @@ function loginAdmin(password) {
     return false;
   }
 }
+
 function logoutAdmin() {
   if (confirm('¿Cerrar sesión?')) {
     adminMode = false;
@@ -1284,8 +1405,11 @@ function renderProducts() {
         publicLinksHtml += `</div>`;
       }
       
+      // Verificar si este producto es el que se acaba de agregar
+      const highlightClass = (pendingScrollToId === p.id) ? 'product-highlight' : '';
+      
       html += `
-        <div class="product" data-id="${p.id}">
+        <div class="product ${highlightClass}" data-id="${p.id}">
           <div class="drag-handle-admin" title="Arrastrar para reordenar">⋮</div>
           <div class="product-media" ${clickAction}>
             ${img ? `<img src="${img}" loading="lazy" alt="${p.title}" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);">📷</div>'}
@@ -1436,7 +1560,7 @@ function renderBanners() {
 }
 
 // ================================================================
-// UTILIDADES DE LINKS
+// UTILIDADES DE LINKS (CORREGIDO)
 // ================================================================
 function cleanUrl(url) {
   if (!url) return '';
@@ -1446,12 +1570,22 @@ function cleanUrl(url) {
 function getDriveId(url) {
   if (!url) return null;
   const clean = url.trim();
+  
+  // Si ya es solo un ID (20+ caracteres alfanuméricos)
   if (/^[-\w]{20,}$/.test(clean)) return clean;
-  const patterns = [/\/file\/d\/([-\w]+)/, /[?&]id=([-\w]+)/, /\/d\/([-\w]+)/, /[-a-zA-Z0-9_]{25,}/];
+  
+  // Patrones específicos de Google Drive
+  const patterns = [
+    /\/file\/d\/([-\w]+)/,      // https://drive.google.com/file/d/ID/view
+    /[?&]id=([-\w]+)/,          // https://drive.google.com/open?id=ID
+    /\/d\/([-\w]+)/             // https://drive.google.com/d/ID
+  ];
+  
   for (const pattern of patterns) { 
     const m = clean.match(pattern); 
     if (m && m[1]) return m[1]; 
   }
+  
   return null;
 }
 
@@ -1459,17 +1593,31 @@ function convertMediaUrl(url, size = 1200) {
   if (!url) return '';
   const clean = url.trim();
   const lower = clean.toLowerCase();
-  if (lower.includes('drive.google.com/thumbnail') || lower.includes('lh3.googleusercontent.com') || lower.includes('/uc?')) {
-    if (lower.includes('thumbnail')) return clean.replace(/sz=\d+/, `sz=w${size}`);
+  
+  // Si ya es un link de thumbnail de Google Drive
+  if (lower.includes('drive.google.com/thumbnail')) {
+    // FIX: Maneja tanto sz=1000 como sz=w1000
+    return clean.replace(/sz=w?\d+/, `sz=w${size}`);
+  }
+  
+  // Links de Google Photos/Googleusercontent (no modificar)
+  if (lower.includes('lh3.googleusercontent.com') || lower.includes('/uc?')) {
     return clean;
   }
+  
+  // Cualquier otro link de Google Drive → convertir a thumbnail
   if (lower.includes('drive.google.com')) { 
     const id = getDriveId(clean); 
     if (id) return `https://drive.google.com/thumbnail?id=${id}&sz=w${size}`; 
   }
+  
+  // Si es imagen directa (jpg, png, etc.)
   if (/\.(jpg|jpeg|png|gif|webp|bmp|svg|heic)(\?.*)?$/i.test(clean)) return clean;
+  
+  // Intentar extraer ID de Google Drive
   const maybeId = getDriveId(clean); 
   if (maybeId) return `https://drive.google.com/thumbnail?id=${maybeId}&sz=w${size}`;
+  
   return clean;
 }
 
@@ -1539,18 +1687,78 @@ document.getElementById('mediaModal').addEventListener('close', () => {
 });
 
 // ================================================================
-// BOTÓN VOLVER ARRIBA
+// BOTONES DE NAVEGACIÓN (SUBIR / BAJAR POR SECCIONES)
 // ================================================================
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function scrollToNextSection() {
+  // Obtener todas las secciones visibles en orden
+  const sections = [];
+  
+  // Banners
+  const bannersContainer = document.getElementById('bannersContainer');
+  if (bannersContainer && bannersContainer.children.length > 0) {
+    sections.push({ el: bannersContainer, top: bannersContainer.offsetTop });
+  }
+  
+  // Videos
+  const videosSection = document.querySelector('.videos-section');
+  if (videosSection) {
+    sections.push({ el: videosSection, top: videosSection.offsetTop });
+  }
+  
+  // Cada categoría
+  document.querySelectorAll('.category-section').forEach(cat => {
+    sections.push({ el: cat, top: cat.offsetTop });
+  });
+  
+  // Ordenar por posición
+  sections.sort((a, b) => a.top - b.top);
+  
+  const currentScroll = window.pageYOffset + 100; // Margen para evitar saltos pequeños
+  
+  // Buscar la siguiente sección debajo de la posición actual
+  let nextSection = null;
+  for (const section of sections) {
+    if (section.top > currentScroll) {
+      nextSection = section;
+      break;
+    }
+  }
+  
+  if (nextSection) {
+    window.scrollTo({ top: nextSection.top - 80, behavior: 'smooth' });
+  } else {
+    // Si no hay más secciones, ir al final
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+}
+
+function scrollToProduct(productId) {
+  const productEl = document.querySelector(`.product[data-id="${productId}"]`);
+  if (productEl) {
+    const top = productEl.offsetTop - 100;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+    // Quitar la clase de highlight después de la animación
+    setTimeout(() => {
+      productEl.classList.remove('product-highlight');
+    }, 2500);
+  }
+}
+
 window.addEventListener('scroll', () => {
   const scrollTopBtn = document.getElementById('scrollTopBtn');
-  if (window.pageYOffset > 300) {
+  const scrollDownBtn = document.getElementById('scrollDownBtn');
+  const scrollY = window.pageYOffset;
+  
+  if (scrollY > 300) {
     scrollTopBtn.classList.add('show');
+    scrollDownBtn.classList.add('show');
   } else {
     scrollTopBtn.classList.remove('show');
+    scrollDownBtn.classList.remove('show');
   }
 });
 
@@ -1562,7 +1770,6 @@ document.getElementById('openAddBtn').addEventListener('click', () => {
   editingId = null;
   document.getElementById('dialogTitle').textContent = "📦 Agregar Producto";
   document.getElementById('productForm').reset();
-  loadFormMemory();
   updateCategorySuggestions();
   document.getElementById('productDialog').showModal();
 });
@@ -1602,12 +1809,15 @@ document.getElementById('productForm').addEventListener('submit', async function
     if (editingId) { 
       await productsRef.doc(editingId).update(productData); 
       showSync('Actualizado ✅', 'success', 2000); 
+      closeDialog();
     } else { 
       productData.createdAt = Date.now(); 
-      await productsRef.add(productData); 
-      showSync('Agregado ✅', 'success', 2000); 
+      const docRef = await productsRef.add(productData);
+      // ✅ FIX: Guardar el ID para hacer scroll automático
+      pendingScrollToId = docRef.id;
+      showSync('Agregado ✅ - Ir al producto...', 'success', 2000); 
+      closeDialog();
     }
-    closeDialog();
   } catch (error) { 
     showSync('Error', 'error', 3000); 
   }
@@ -1687,7 +1897,7 @@ document.getElementById('videoForm').addEventListener('submit', async function(e
     title: document.getElementById('videoTitle').value.trim(), 
     description: document.getElementById('videoDesc').value.trim(), 
     url: document.getElementById('videoUrl').value.trim(), 
-    thumbnail: document.getElementById('videoThumbnail').value.trim(), // GUARDAR MINIATURA
+    thumbnail: document.getElementById('videoThumbnail').value.trim(),
     relatedProductId: relatedId,
     updatedAt: Date.now() 
   };
@@ -1720,7 +1930,7 @@ function editVideo(id) {
   document.getElementById('videoTitle').value = video.title || '';
   document.getElementById('videoDesc').value = video.description || '';
   document.getElementById('videoUrl').value = video.url || '';
-  document.getElementById('videoThumbnail').value = video.thumbnail || ''; // CARGAR MINIATURA
+  document.getElementById('videoThumbnail').value = video.thumbnail || '';
   
   if (video.relatedProductId) {
     const related = products.find(p => p.id === video.relatedProductId);
