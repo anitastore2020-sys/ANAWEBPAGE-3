@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- v5.0.4-fixed-password-scroll-arrows-autoscroll -->
+<!-- v5.0.6-fixed-all-issues -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Galería de Productos Editable</title>
@@ -32,7 +32,6 @@
     display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; text-decoration: none;
   }
 
-  /* ESTILOS UNIFICADOS DE FORMULARIO */
   .form-input, .form-select, .form-textarea {
     width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
     font-size: 1rem; font-family: inherit; background: white; transition: border-color 0.2s;
@@ -41,7 +40,6 @@
     outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(159, 18, 57, 0.1);
   }
 
-  /* NUEVO: PANEL DE SUGERENCIAS */
   .suggestions-panel {
     background: #fff5f8; border: 1px dashed var(--accent); border-radius: 8px;
     padding: 12px; margin-top: 8px; display: none;
@@ -66,7 +64,6 @@
     background: none; border: none; color: var(--accent); font-size: 0.75rem;
     cursor: pointer; padding: 2px 6px; font-weight: 600;
   }
-  .suggestion-empty { font-size: 0.75rem; color: var(--muted); font-style: italic; text-align: center; padding: 8px; }
 
   .banners-container { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-top: 20px; margin-bottom: 20px; }
   .banner-item { width: 100%; position: relative; overflow: hidden; margin-bottom: 10px; cursor: pointer; background: #1a0a0e; }
@@ -112,11 +109,9 @@
     display: block; width: 100%; text-align: center; font-size: 1.2rem; color: var(--accent); margin-top: 4px; letter-spacing: 8px; opacity: 0.8;
   }
 
-  /* GRILLAS SEPARADAS PARA EVITAR CONFLICTOS */
   .videos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
   .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
   
-  /* ESTILOS ESPECÍFICOS DE TARJETA DE VIDEO */
   .video-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
   .video-thumbnail-container {
     width: 100%; height: 250px; background: #f8e8ee; position: relative;
@@ -144,7 +139,6 @@
   .admin-on .video-admin { display: flex; }
   .video-admin .btn { flex: 1; font-size: 0.8rem; padding: 6px; }
 
-  /* ESTILOS ESPECÍFICOS DE TARJETA DE PRODUCTO */
   .product { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
   .product-media {
     width: 100%; height: 300px; background: #f8e8ee; position: relative; cursor: zoom-in;
@@ -164,15 +158,9 @@
   .product-code { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.5px; }
   .product-desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 12px; }
   
-  /* STOCK VISIBLE */
   .stock-info {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 12px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; font-weight: 500;
+    display: flex; align-items: center; gap: 5px;
   }
   .stock-info.low { color: #c02639; font-weight: 700; }
 
@@ -254,7 +242,6 @@
   .cart-item-main { display: flex; gap: 15px; flex-wrap: wrap; }
   .cart-item-img { width: 85px; height: 85px; object-fit: cover; border-radius: 12px; flex-shrink: 0; }
   .cart-item-info { flex: 1; min-width: 150px; }
-  .cart-item-summary { text-align: right; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; min-width: 80px; }
   
   .cart-item-notes { margin-top: 10px; position: relative; }
   .cart-notes-toggle {
@@ -341,7 +328,6 @@
   .login-buttons { display: flex; gap: 10px; margin-top: 10px; }
   .login-buttons .btn { flex: 1; }
 
-  /* BOTONES DE NAVEGACIÓN (SUBIR/BAJAR) */
   .scroll-nav-btn {
     position: fixed; right: 30px; width: 50px; height: 50px;
     background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white;
@@ -354,13 +340,81 @@
   #scrollTopBtn { bottom: 90px; }
   #scrollDownBtn { bottom: 30px; }
 
-  /* RESALTO DE PRODUCTO NUEVO */
   @keyframes highlightNew {
     0% { box-shadow: 0 0 0 0 rgba(159, 18, 57, 0.7); }
     50% { box-shadow: 0 0 30px 10px rgba(159, 18, 57, 0.4); }
     100% { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
   }
   .product-highlight { animation: highlightNew 2s ease-out; }
+
+  /* NUEVOS ESTILOS AGREGADOS */
+  .public-links-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .public-link-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .public-link-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(159, 18, 57, 0.3);
+  }
+
+  .category-wrapper-title {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .wholesale-price {
+    font-size: 0.85rem;
+    color: #166534;
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: rgba(22, 101, 52, 0.1);
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  .admin-info-panel {
+    margin-top: 10px;
+    padding: 10px;
+    background: #fff0f5;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    border: 1px dashed var(--accent);
+  }
+
+  .admin-info-panel strong {
+    color: var(--accent);
+    display: inline-block;
+    min-width: 80px;
+  }
+
+  .admin-info-panel a {
+    color: var(--accent);
+    word-break: break-all;
+  }
+
+  /* ESTILOS DE FUENTE */
+  .font-style-1 .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; }
+  .font-style-2 .product-title { font-family: 'Manrope', sans-serif; font-weight: 700; }
+  .font-style-3 .product-title { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+  .font-style-4 .product-title { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
 
   @media (max-width: 1024px) { 
     .videos-grid { grid-template-columns: repeat(3, 1fr); } 
@@ -526,6 +580,12 @@
       </div>
 
       <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden de Categoría</label>
+        <input id="categoryOrder" type="number" value="99" placeholder="99" class="form-input">
+        <p style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Menor número = aparece primero</p>
+      </div>
+
+      <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🎨 Estilo de fuente</label>
         <select id="fontStyle" class="form-select">
           <option value="font-style-1">Elegante</option>
@@ -561,7 +621,6 @@
         </div>
       </div>
 
-      <!-- CAMPOS ADMIN PRIVADOS (SOLO VISIBLES SI ESTÁS LOGUEADA) -->
       <div class="admin-only admin-fields-section" style="margin-bottom:12px; padding:15px; background:#fff0f5; border-radius:8px; border:1px dashed var(--accent);">
         <h4 style="margin-bottom:12px; color:var(--accent); font-size:0.9rem;">🔒 Campos Privados (Solo Admin)</h4>
         
@@ -610,7 +669,6 @@
         <div id="suggestions-description" class="suggestions-panel"></div>
       </div>
 
-      <!-- NUEVOS 5 LINKS PUBLICOS -->
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Links Públicos (TikTok/Insta/Web)</label>
         <input id="pubLink1" type="url" placeholder="Link público 1" class="form-input" style="margin-bottom:5px;">
@@ -657,14 +715,12 @@
         <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Pega el link directo de tu publicación.</p>
       </div>
       
-      <!-- NUEVO CAMPO: MINIATURA DEL VIDEO -->
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ URL de la Miniatura (Opcional)</label>
         <input id="videoThumbnail" type="url" placeholder="Link de imagen (Drive, etc.)" class="form-input">
         <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Si no pones nada, se verá un ícono por defecto.</p>
       </div>
 
-      <!-- NUEVO CAMPO: PRODUCTO RELACIONADO -->
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Producto relacionado (opcional)</label>
         <input id="relatedProduct" type="text" list="productList" placeholder="Escribe para buscar un producto..." class="form-input">
@@ -712,6 +768,7 @@
           <option value="banner-square-1200">Cuadrado Mediano (1200 × 1200px) 1:1</option>
           <option value="banner-square-1920">Cuadrado Grande (1920 × 1920px) 1:1</option>
         </select>
+        <p id="bannerSizeStatus" style="font-size:0.75rem; color:var(--muted); margin:6px 0 0 0; min-height: 18px; font-weight: 600;"></p>
       </div>
       <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
         <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
@@ -809,7 +866,8 @@ const videosRef = db.collection('videos');
 const bannersRef = db.collection('banners');
 const customSectionsRef = db.collection('customSections');
 
-const ADMIN_PASSWORD_HASH = 2000292881;
+// CONTRASEÑA EN TEXTO PLANO (MÁS FÁCIL DE CONFIGURAR)
+const ADMIN_PASSWORD = "admin123"; // CAMBIA ESTO POR TU CONTRASEÑA
 
 function simpleHash(str) {
   let hash = 0;
@@ -829,7 +887,7 @@ let editingBannerId = null;
 let editingCsId = null;
 let currentMediaList = [];
 let currentMediaIndex = 0;
-let pendingScrollToId = null; // ID del producto al que hacer scroll después de guardar
+let pendingScrollToId = null;
 
 const sortableInstances = new Map();
 
@@ -846,7 +904,7 @@ function showSync(message, type = 'loading', duration = 2000) {
 }
 
 // ================================================================
-// 🧠 SISTEMA DE SUGERENCIAS (GUARDAR SIN AUTOCOMPLETAR)
+// 🧠 SISTEMA DE SUGERENCIAS
 // ================================================================
 function saveFormMemory() {
   const memory = {
@@ -873,22 +931,16 @@ function saveFormMemory() {
     mediaLinks: document.getElementById('mediaLinks').value
   };
   
-  // Guardar historial de sugerencias (últimos 5 valores únicos por campo)
   const history = JSON.parse(localStorage.getItem('formHistory_v2') || '{}');
-  
   Object.keys(memory).forEach(field => {
     const value = memory[field];
     if (value && value.trim() !== '') {
       if (!history[field]) history[field] = [];
-      // Remover duplicados
       history[field] = history[field].filter(v => v !== value);
-      // Agregar al inicio
       history[field].unshift(value);
-      // Mantener solo los últimos 5
       if (history[field].length > 5) history[field] = history[field].slice(0, 5);
     }
   });
-  
   localStorage.setItem('formHistory_v2', JSON.stringify(history));
 }
 
@@ -927,7 +979,6 @@ function copySuggestion(fieldId, index) {
   }
 }
 
-// Mostrar sugerencias al hacer focus en cada campo
 ['title', 'productCode', 'category', 'price', 'offerPrice', 'wholesalePrice', 'stock', 
  'productMeasure', 'productWeight', 'costUSD', 'costBS', 'productLink', 'additionalInfo',
  'pubLink1', 'pubLink2', 'pubLink3', 'pubLink4', 'pubLink5', 'description', 'mediaLinks'].forEach(id => {
@@ -956,7 +1007,6 @@ productsRef.onSnapshot((snapshot) => {
   updateCartCount();
   showSync('Listo', 'success', 1500);
   
-  // Si hay un producto pendiente de scroll, hacerlo
   if (pendingScrollToId) {
     setTimeout(() => {
       scrollToProduct(pendingScrollToId);
@@ -1115,10 +1165,9 @@ function openLoginModal() {
   setTimeout(() => document.getElementById('adminPassword').focus(), 100);
 }
 function closeLoginModal() { document.getElementById('adminLoginModal').close(); }
-
-// ✅ FIX: Se eliminó .toLowerCase() para que la contraseña funcione exactamente como la configuraste originalmente
 function loginAdmin(password) {
-  if (simpleHash(password) === ADMIN_PASSWORD_HASH) {
+  // USANDO CONTRASEÑA EN TEXTO PLANO
+  if (password === ADMIN_PASSWORD) {
     adminMode = true;
     sessionStorage.setItem('adminAuthenticated', 'true');
     updateAdminUI();
@@ -1134,7 +1183,6 @@ function loginAdmin(password) {
     return false;
   }
 }
-
 function logoutAdmin() {
   if (confirm('¿Cerrar sesión?')) {
     adminMode = false;
@@ -1188,9 +1236,18 @@ if (addressInputEl) addressInputEl.addEventListener('input', saveCartClientInfo)
 function addToCart(id) {
   const product = products.find(p => p.id === id);
   if (!product || product.stock <= 0) return alert("Sin stock disponible");
+  
+  const existing = cart.find(item => item.id === id);
+  const currentQty = existing ? existing.qty : 0;
+  
+  // VERIFICAR SI HAY SUFICIENTE STOCK
+  if (currentQty + 1 > product.stock) {
+    return alert(`Solo hay ${product.stock} unidades disponibles`);
+  }
+  
   const hasOffer = product.offerPrice > 0 && product.offerPrice < (product.price || 0);
   const unitPrice = hasOffer ? product.offerPrice : (product.price || 0);
-  const existing = cart.find(item => item.id === id);
+  
   if (existing) { existing.qty += 1; existing.unitPrice = unitPrice; }
   else { cart.push({ ...product, qty: 1, unitPrice, notes: '' }); }
   localStorage.setItem('cart_v26', JSON.stringify(cart));
@@ -1247,6 +1304,11 @@ function changeQty(index, delta) {
   const newQty = item.qty + delta;
   if (newQty <= 0) { removeFromCart(index); }
   else {
+    // VERIFICAR STOCK ANTES DE AUMENTAR
+    if (newQty > product.stock) {
+      alert(`Solo hay ${product.stock} unidades disponibles`);
+      return;
+    }
     item.qty = newQty;
     const hasOffer = product.offerPrice > 0 && product.offerPrice < (product.price || 0);
     item.unitPrice = hasOffer ? product.offerPrice : (product.price || 0);
@@ -1322,6 +1384,9 @@ async function sendToWhatsapp() {
     if (totalSavings > 0) text += `🎉 _¡Ahorro total: ${totalSavings.toFixed(2)} Bs!_\n`;
     text += `━━━━━━━━━━━━━━━━━━━━━━\n\n🙏 _¡Gracias por tu compra!_ ✨`;
 
+    // GUARDAR COPIA DEL CARRITO POR SI HAY ERROR
+    const tempCart = [...cart];
+    
     cart = [];
     localStorage.setItem('cart_v26', JSON.stringify(cart));
     updateCartCount();
@@ -1334,6 +1399,11 @@ async function sendToWhatsapp() {
   } catch (error) {
     console.error("Error:", error);
     showSync('Error al procesar', 'error', 3000);
+    // RESTAURAR CARRITO SI HAY ERROR
+    cart = tempCart;
+    localStorage.setItem('cart_v26', JSON.stringify(cart));
+    renderCart();
+    updateCartCount();
   }
 }
 
@@ -1393,7 +1463,12 @@ function renderProducts() {
         priceHtml = `<p class="price">${Number(p.price || 0).toFixed(2)} Bs</p>`;
       }
       
-      // LINKS PUBLICOS
+      // PRECIO MAYORISTA
+      let wholesaleHtml = '';
+      if (p.wholesalePrice > 0) {
+        wholesaleHtml = `<div class="wholesale-price">🏷️ Mayorista: ${Number(p.wholesalePrice).toFixed(2)} Bs</div>`;
+      }
+      
       let publicLinksHtml = '';
       if (p.pubLink1 || p.pubLink2 || p.pubLink3 || p.pubLink4 || p.pubLink5) {
         publicLinksHtml = `<div class="public-links-container">`;
@@ -1405,12 +1480,27 @@ function renderProducts() {
         publicLinksHtml += `</div>`;
       }
       
-      // Verificar si este producto es el que se acaba de agregar
       const highlightClass = (pendingScrollToId === p.id) ? 'product-highlight' : '';
+      const fontStyleClass = p.fontStyle || '';
+      
+      // PANEL DE INFORMACIÓN PRIVADA (SOLO ADMIN)
+      let adminInfoHtml = '';
+      if (adminMode) {
+        adminInfoHtml = `
+          <div class="admin-info-panel">
+            <strong>📏 Medida:</strong> ${p.productMeasure || 'N/A'}<br>
+            <strong>⚖️ Peso:</strong> ${p.productWeight || 0}g<br>
+            <strong>💰 Costo USD:</strong> $${p.costUSD || 0}<br>
+            <strong>💰 Costo Bs:</strong> ${p.costBS || 0} Bs<br>
+            <strong>🔗 Link:</strong> ${p.productLink ? `<a href="${p.productLink}" target="_blank">${p.productLink}</a>` : 'N/A'}<br>
+            <strong>📝 Info:</strong> ${p.additionalInfo || 'N/A'}
+          </div>
+        `;
+      }
       
       html += `
-        <div class="product ${highlightClass}" data-id="${p.id}">
-          <div class="drag-handle-admin" title="Arrastrar para reordenar">⋮</div>
+        <div class="product ${highlightClass} ${fontStyleClass}" data-id="${p.id}">
+          <div class="drag-handle-admin" title="Arrastrar para reordenar">⋮⋮</div>
           <div class="product-media" ${clickAction}>
             ${img ? `<img src="${img}" loading="lazy" alt="${p.title}" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);">📷</div>'}
             <span class="stock-badge ${inStock ? 'stock-ok' : 'stock-none'}">${inStock ? 'Disponible' : 'Sin stock'}</span>
@@ -1420,9 +1510,10 @@ function renderProducts() {
             ${p.code ? `<p class="product-code">Cód: ${p.code}</p>` : ''}
             <p class="product-desc">${p.description || ''}</p>
             ${priceHtml}
+            ${wholesaleHtml}
             ${publicLinksHtml}
+            ${adminInfoHtml}
             
-            <!-- STOCK VISIBLE PARA TODOS -->
             <div class="stock-info ${p.stock < 5 ? 'low' : ''}">
               📦 Stock: ${p.stock} unidades
             </div>
@@ -1487,7 +1578,7 @@ function renderProducts() {
 }
 
 // ================================================================
-// 🎬 RENDERIZADO DE VIDEOS (CON MINIATURAS)
+// 🎬 RENDERIZADO DE VIDEOS
 // ================================================================
 function renderFeaturedVideos() {
   const container = document.getElementById('featuredVideosContainer');
@@ -1497,7 +1588,6 @@ function renderFeaturedVideos() {
   let html = `<div class="videos-section"><div class="category-wrapper-title"><h2>🎬 Videos Principales</h2><span class="cat-ornament">✦ ✦ ✦</span></div><div class="videos-grid">`;
   
   featuredVideos.forEach(video => {
-    // Botón de producto relacionado
     let relatedProductHtml = '';
     if (video.relatedProductId) {
       const relatedProduct = products.find(p => p.id === video.relatedProductId);
@@ -1549,7 +1639,7 @@ function renderBanners() {
     const clickAction = hasLink ? `onclick="window.open('${banner.linkUrl}', '_blank')"` : '';
     const bannerSize = banner.size || 'banner-standard';
     html += `<div class="banner-item ${bannerSize}" data-id="${banner.id}" ${clickAction}>
-      <div class="drag-handle-admin" title="Arrastrar para reordenar">⋮</div>
+      <div class="drag-handle-admin" title="Arrastrar para reordenar">⋮⋮</div>
       <img src="${imgUrl}" alt="${banner.title || 'Banner'}" loading="lazy" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">
       ${(hasTitle || hasSubtitle) ? `<div class="banner-overlay">${hasTitle ? `<div class="banner-title">${banner.title}</div>` : ''}${hasSubtitle ? `<div class="banner-subtitle">${banner.subtitle}</div>` : ''}</div>` : ''}
       <div class="banner-admin"><button class="btn" onclick="event.stopPropagation(); editBanner('${banner.id}')">✏️ Editar</button><button class="btn btn-danger" onclick="event.stopPropagation(); deleteBanner('${banner.id}')">🗑️</button></div>
@@ -1560,7 +1650,7 @@ function renderBanners() {
 }
 
 // ================================================================
-// UTILIDADES DE LINKS (CORREGIDO)
+// UTILIDADES DE LINKS
 // ================================================================
 function cleanUrl(url) {
   if (!url) return '';
@@ -1570,22 +1660,16 @@ function cleanUrl(url) {
 function getDriveId(url) {
   if (!url) return null;
   const clean = url.trim();
-  
-  // Si ya es solo un ID (20+ caracteres alfanuméricos)
   if (/^[-\w]{20,}$/.test(clean)) return clean;
-  
-  // Patrones específicos de Google Drive
   const patterns = [
-    /\/file\/d\/([-\w]+)/,      // https://drive.google.com/file/d/ID/view
-    /[?&]id=([-\w]+)/,          // https://drive.google.com/open?id=ID
-    /\/d\/([-\w]+)/             // https://drive.google.com/d/ID
+    /\/file\/d\/([-\w]+)/,
+    /[?&]id=([-\w]+)/,
+    /\/d\/([-\w]+)/
   ];
-  
   for (const pattern of patterns) { 
     const m = clean.match(pattern); 
     if (m && m[1]) return m[1]; 
   }
-  
   return null;
 }
 
@@ -1594,30 +1678,19 @@ function convertMediaUrl(url, size = 1200) {
   const clean = url.trim();
   const lower = clean.toLowerCase();
   
-  // Si ya es un link de thumbnail de Google Drive
   if (lower.includes('drive.google.com/thumbnail')) {
-    // FIX: Maneja tanto sz=1000 como sz=w1000
     return clean.replace(/sz=w?\d+/, `sz=w${size}`);
   }
-  
-  // Links de Google Photos/Googleusercontent (no modificar)
   if (lower.includes('lh3.googleusercontent.com') || lower.includes('/uc?')) {
     return clean;
   }
-  
-  // Cualquier otro link de Google Drive → convertir a thumbnail
   if (lower.includes('drive.google.com')) { 
     const id = getDriveId(clean); 
     if (id) return `https://drive.google.com/thumbnail?id=${id}&sz=w${size}`; 
   }
-  
-  // Si es imagen directa (jpg, png, etc.)
   if (/\.(jpg|jpeg|png|gif|webp|bmp|svg|heic)(\?.*)?$/i.test(clean)) return clean;
-  
-  // Intentar extraer ID de Google Drive
   const maybeId = getDriveId(clean); 
   if (maybeId) return `https://drive.google.com/thumbnail?id=${maybeId}&sz=w${size}`;
-  
   return clean;
 }
 
@@ -1636,7 +1709,7 @@ function updateProductDatalist() {
 }
 
 // ================================================================
-// LIGHTBOX (SOLO PARA FOTOS DE PRODUCTOS)
+// LIGHTBOX
 // ================================================================
 function openMediaModal(productId) {
   const product = products.find(p => p.id === productId);
@@ -1687,39 +1760,29 @@ document.getElementById('mediaModal').addEventListener('close', () => {
 });
 
 // ================================================================
-// BOTONES DE NAVEGACIÓN (SUBIR / BAJAR POR SECCIONES)
+// BOTONES DE NAVEGACIÓN
 // ================================================================
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function scrollToNextSection() {
-  // Obtener todas las secciones visibles en orden
   const sections = [];
-  
-  // Banners
   const bannersContainer = document.getElementById('bannersContainer');
   if (bannersContainer && bannersContainer.children.length > 0) {
     sections.push({ el: bannersContainer, top: bannersContainer.offsetTop });
   }
-  
-  // Videos
   const videosSection = document.querySelector('.videos-section');
   if (videosSection) {
     sections.push({ el: videosSection, top: videosSection.offsetTop });
   }
-  
-  // Cada categoría
   document.querySelectorAll('.category-section').forEach(cat => {
     sections.push({ el: cat, top: cat.offsetTop });
   });
   
-  // Ordenar por posición
   sections.sort((a, b) => a.top - b.top);
+  const currentScroll = window.pageYOffset + 100;
   
-  const currentScroll = window.pageYOffset + 100; // Margen para evitar saltos pequeños
-  
-  // Buscar la siguiente sección debajo de la posición actual
   let nextSection = null;
   for (const section of sections) {
     if (section.top > currentScroll) {
@@ -1731,7 +1794,6 @@ function scrollToNextSection() {
   if (nextSection) {
     window.scrollTo({ top: nextSection.top - 80, behavior: 'smooth' });
   } else {
-    // Si no hay más secciones, ir al final
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 }
@@ -1741,7 +1803,6 @@ function scrollToProduct(productId) {
   if (productEl) {
     const top = productEl.offsetTop - 100;
     window.scrollTo({ top: top, behavior: 'smooth' });
-    // Quitar la clase de highlight después de la animación
     setTimeout(() => {
       productEl.classList.remove('product-highlight');
     }, 2500);
@@ -1763,6 +1824,70 @@ window.addEventListener('scroll', () => {
 });
 
 // ================================================================
+// 🖼️ DETECCIÓN AUTOMÁTICA DE TAMAÑO DE BANNER (MEJORADO)
+// ================================================================
+function detectBannerSize(imageUrl) {
+  const statusEl = document.getElementById('bannerSizeStatus');
+  const sizeSelect = document.getElementById('bannerSize');
+  
+  if (!imageUrl || !imageUrl.trim()) {
+    statusEl.textContent = '';
+    return;
+  }
+
+  statusEl.textContent = '⏳ Detectando tamaño...';
+  statusEl.style.color = 'var(--muted)';
+  
+  const img = new Image();
+  
+  // TIMEOUT después de 10 segundos
+  const timeout = setTimeout(() => {
+    statusEl.textContent = '⚠️ Tiempo de espera agotado. Elige manualmente.';
+    statusEl.style.color = '#c02639';
+  }, 10000);
+  
+  img.onload = function() {
+    clearTimeout(timeout);
+    const w = this.naturalWidth;
+    const h = this.naturalHeight;
+    
+    if (w === 0 || h === 0) {
+      statusEl.textContent = '⚠️ No se pudo detectar. Elige manualmente.';
+      statusEl.style.color = '#c02639';
+      return;
+    }
+    
+    const ratio = w / h;
+    let detectedSize = 'banner-standard';
+    let sizeName = 'Estándar';
+
+    if (ratio >= 0.9 && ratio <= 1.1) {
+      if (w >= 1920) { detectedSize = 'banner-square-1920'; sizeName = 'Cuadrado Grande (1920x1920)'; }
+      else if (w >= 1200) { detectedSize = 'banner-square-1200'; sizeName = 'Cuadrado Mediano (1200x1200)'; }
+      else { detectedSize = 'banner-square-800'; sizeName = 'Cuadrado Pequeño (800x800)'; }
+    } else {
+      if (h <= 400) { detectedSize = 'banner-small'; sizeName = 'Rectangular Pequeño'; }
+      else if (h <= 500) { detectedSize = 'banner-compact'; sizeName = 'Rectangular Compacto'; }
+      else if (h <= 540) { detectedSize = 'banner-standard'; sizeName = 'Rectangular Estándar'; }
+      else if (h <= 600) { detectedSize = 'banner-tall'; sizeName = 'Rectangular Alto'; }
+      else { detectedSize = 'banner-extra'; sizeName = 'Rectangular Extra Grande'; }
+    }
+
+    sizeSelect.value = detectedSize;
+    statusEl.textContent = `✅ Detectado: ${w}x${h}px → ${sizeName}`;
+    statusEl.style.color = '#166534';
+  };
+
+  img.onerror = function() {
+    clearTimeout(timeout);
+    statusEl.textContent = '⚠️ No se pudo detectar. Elige manualmente.';
+    statusEl.style.color = '#c02639';
+  };
+
+  img.src = convertMediaUrl(imageUrl, 1920);
+}
+
+// ================================================================
 // ADMIN PRODUCTOS
 // ================================================================
 document.getElementById('openAddBtn').addEventListener('click', () => {
@@ -1770,6 +1895,7 @@ document.getElementById('openAddBtn').addEventListener('click', () => {
   editingId = null;
   document.getElementById('dialogTitle').textContent = "📦 Agregar Producto";
   document.getElementById('productForm').reset();
+  document.getElementById('categoryOrder').value = 99;
   updateCategorySuggestions();
   document.getElementById('productDialog').showModal();
 });
@@ -1780,7 +1906,7 @@ document.getElementById('productForm').addEventListener('submit', async function
   showSync('Guardando...', 'loading', 0);
   const productData = {
     code: document.getElementById('productCode').value.trim(),
-    categoryOrder: 99,
+    categoryOrder: parseInt(document.getElementById('categoryOrder').value) || 99,
     itemOrder: 999,
     title: document.getElementById('title').value.trim(),
     fontStyle: document.getElementById('fontStyle').value,
@@ -1813,7 +1939,6 @@ document.getElementById('productForm').addEventListener('submit', async function
     } else { 
       productData.createdAt = Date.now(); 
       const docRef = await productsRef.add(productData);
-      // ✅ FIX: Guardar el ID para hacer scroll automático
       pendingScrollToId = docRef.id;
       showSync('Agregado ✅ - Ir al producto...', 'success', 2000); 
       closeDialog();
@@ -1835,6 +1960,7 @@ function editProduct(id) {
   editingId = id;
   document.getElementById('dialogTitle').textContent = "✏️ Editar Producto";
   document.getElementById('productCode').value = product.code || '';
+  document.getElementById('categoryOrder').value = product.categoryOrder || 99;
   document.getElementById('title').value = product.title || '';
   document.getElementById('fontStyle').value = product.fontStyle || 'font-style-1';
   document.getElementById('category').value = product.category || '';
@@ -1956,12 +2082,25 @@ async function deleteVideo(id) {
   }
 }
 
+// ================================================================
+// ADMIN BANNERS (CON DETECCIÓN AUTOMÁTICA)
+// ================================================================
 document.getElementById('addBannerBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Iniciá sesión'); return; }
   editingBannerId = null;
   document.getElementById('bannerDialogTitle').textContent = "🖼️ Agregar Banner";
   document.getElementById('bannerForm').reset();
+  document.getElementById('bannerSizeStatus').textContent = '';
+  document.getElementById('bannerSizeStatus').style.color = 'var(--muted)';
   document.getElementById('bannerDialog').showModal();
+});
+
+// Detectar tamaño automáticamente al pegar/escribir el link
+document.getElementById('bannerImage').addEventListener('input', function(e) {
+  clearTimeout(window.bannerSizeTimeout);
+  window.bannerSizeTimeout = setTimeout(() => {
+    detectBannerSize(e.target.value.trim());
+  }, 800);
 });
 
 document.getElementById('bannerForm').addEventListener('submit', async function(e) {
@@ -2009,6 +2148,9 @@ function editBanner(id) {
   document.getElementById('bannerImage').value = banner.imageUrl || '';
   document.getElementById('bannerLink').value = banner.linkUrl || '';
   document.getElementById('bannerSize').value = banner.size || 'banner-standard';
+  
+  setTimeout(() => detectBannerSize(banner.imageUrl), 100);
+  
   document.getElementById('bannerDialog').showModal();
 }
 
@@ -2025,6 +2167,9 @@ async function deleteBanner(id) {
   }
 }
 
+// ================================================================
+// ADMIN CUSTOM SECTIONS
+// ================================================================
 function toggleCsFields() {
   const type = document.getElementById('csType').value;
   document.getElementById('csBannerFields').style.display = type === 'banner' ? 'block' : 'none';
@@ -2144,7 +2289,6 @@ renderProducts();
 renderFeaturedVideos();
 renderBanners();
 
-// PREVENIR DESCARGA Y CLIC DERECHO EN IMÁGENES
 document.addEventListener('contextmenu', (e) => {
   if (e.target.tagName === 'IMG') {
     e.preventDefault();
