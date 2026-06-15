@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- v5.0.6-fixed-all-issues -->
+<!-- v5.0.7-autocomplete-category-edit -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Galería de Productos Editable</title>
@@ -183,6 +183,7 @@
   .admin-only { display: none !important; }
   .admin-on .admin-only { display: inline-block !important; }
   .admin-on .drag-handle-admin { display: flex !important; }
+  .admin-on .category-edit-btn { display: inline-flex !important; }
 
   .drag-handle-admin {
     position: absolute; top: 10px; left: 10px; z-index: 20;
@@ -311,19 +312,27 @@
   }
   #category:focus + .category-hint, #category:not(:placeholder-shown) + .category-hint { opacity: 0; }
 
-  #adminLoginModal, #bannerDialog, #customSectionDialog {
+  #adminLoginModal, #bannerDialog, #customSectionDialog, #categoryEditModal {
     width: 90%; max-width: 550px; border: none; border-radius: 20px; padding: 0; background: white; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   }
-  #adminLoginModal::backdrop, #bannerDialog::backdrop, #customSectionDialog::backdrop { background: rgba(34, 22, 26, 0.8); backdrop-filter: blur(8px); }
+  #adminLoginModal::backdrop, #bannerDialog::backdrop, #customSectionDialog::backdrop, #categoryEditModal::backdrop { background: rgba(34, 22, 26, 0.8); backdrop-filter: blur(8px); }
   
   .login-container { padding: 30px; text-align: center; }
   .login-icon { font-size: 3rem; margin-bottom: 10px; }
   .login-title { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
   .login-subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; }
+  .login-input-wrapper { position: relative; margin-bottom: 15px; }
   .login-input {
-    width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem; margin-bottom: 15px; transition: border-color 0.2s;
+    width: 100%; padding: 14px 45px 14px 14px; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem; transition: border-color 0.2s;
   }
   .login-input:focus { outline: none; border-color: var(--accent); }
+  .password-toggle-btn {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; padding: 6px 10px;
+    font-size: 1.2rem; color: var(--muted); transition: color 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .password-toggle-btn:hover { color: var(--accent); }
   .login-error { color: #c02639; font-size: 0.9rem; margin-bottom: 10px; min-height: 20px; font-weight: 500; }
   .login-buttons { display: flex; gap: 10px; margin-top: 10px; }
   .login-buttons .btn { flex: 1; }
@@ -347,7 +356,7 @@
   }
   .product-highlight { animation: highlightNew 2s ease-out; }
 
-  /* NUEVOS ESTILOS AGREGADOS */
+  /* NUEVOS ESTILOS */
   .public-links-container {
     display: flex;
     flex-wrap: wrap;
@@ -377,6 +386,41 @@
   .category-wrapper-title {
     text-align: center;
     margin-bottom: 10px;
+    position: relative;
+  }
+
+  .category-edit-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: white;
+    border: 1px solid var(--accent2);
+    color: var(--accent2);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.2s;
+    vertical-align: middle;
+  }
+
+  .category-edit-btn:hover {
+    background: var(--accent2);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .category-edit-btn.delete-cat {
+    border-color: #c02639;
+    color: #c02639;
+  }
+
+  .category-edit-btn.delete-cat:hover {
+    background: #c02639;
+    color: white;
   }
 
   .wholesale-price {
@@ -410,11 +454,32 @@
     word-break: break-all;
   }
 
-  /* ESTILOS DE FUENTE */
   .font-style-1 .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; }
   .font-style-2 .product-title { font-family: 'Manrope', sans-serif; font-weight: 700; }
   .font-style-3 .product-title { font-family: 'Cormorant Garamond', serif; font-style: italic; }
   .font-style-4 .product-title { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ESTILO PARA EL MODAL DE EDITAR CATEGORÍA */
+  .category-edit-container { padding: 30px; }
+  .category-edit-title {
+    font-size: 1.4rem; font-weight: 700; color: var(--accent); margin-bottom: 8px; text-align: center;
+  }
+  .category-edit-subtitle {
+    font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; text-align: center;
+  }
+  .category-edit-current {
+    background: #fff0f5; border: 1px dashed var(--accent); border-radius: 10px;
+    padding: 12px; margin-bottom: 15px; text-align: center;
+  }
+  .category-edit-current-label {
+    font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-bottom: 4px;
+  }
+  .category-edit-current-name {
+    font-size: 1.2rem; font-weight: 700; color: var(--accent2);
+  }
+  .category-edit-count {
+    font-size: 0.8rem; color: var(--muted); margin-top: 4px;
+  }
 
   @media (max-width: 1024px) { 
     .videos-grid { grid-template-columns: repeat(3, 1fr); } 
@@ -428,6 +493,7 @@
     .topbar { justify-content: center; }
     .brand { margin-bottom: 8px; }
     .banner-overlay { padding: 20px; }
+    .category-edit-btn { padding: 3px 8px; font-size: 0.7rem; }
   }
   @media (max-width: 480px) {
     .wrap { padding: 0 12px; }
@@ -451,7 +517,7 @@
     .media-fallback-title { font-size: 1.1rem; }
     .media-fallback-msg { font-size: 0.85rem; }
     .media-fallback-icon { font-size: 3rem; }
-    #adminLoginModal, #bannerDialog, #customSectionDialog { width: 95%; }
+    #adminLoginModal, #bannerDialog, #customSectionDialog, #categoryEditModal { width: 95%; }
     .login-container { padding: 20px; }
     .login-title { font-size: 1.3rem; }
     .login-input { font-size: 16px; }
@@ -468,6 +534,7 @@
     .scroll-nav-btn { right: 20px; width: 45px; height: 45px; font-size: 1.2rem; }
     #scrollTopBtn { bottom: 75px; }
     #scrollDownBtn { bottom: 20px; }
+    .category-edit-btn { font-size: 0.65rem; padding: 3px 6px; margin-left: 4px; }
   }
 </style>
 </head>
@@ -536,13 +603,31 @@
   </div>
 </div>
 
+<!-- MODAL DE LOGIN CON AUTOCOMPLETADO Y BOTÓN VER CONTRASEÑA -->
 <dialog id="adminLoginModal">
   <div class="login-container">
     <div class="login-icon">🔐</div>
     <h2 class="login-title">Acceso Admin</h2>
     <p class="login-subtitle">Ingresa tu contraseña para editar</p>
-    <form id="adminLoginForm">
-      <input id="adminPassword" type="password" class="login-input" placeholder="Contraseña" autocomplete="current-password" required>
+    <!-- FORMULARIO CON AUTOCOMPLETADO HABILITADO -->
+    <form id="adminLoginForm" method="post" action="javascript:void(0);" autocomplete="on">
+      <!-- CAMPO OCULTO DE USUARIO PARA QUE EL NAVEGADOR DETECTE CREDENCIALES -->
+      <input type="text" name="username" id="adminUsername" autocomplete="username" value="admin" style="position:absolute; left:-9999px; opacity:0; width:1px; height:1px;" tabindex="-1" aria-hidden="true">
+      
+      <div class="login-input-wrapper">
+        <input 
+          id="adminPassword" 
+          name="password"
+          type="password" 
+          class="login-input" 
+          placeholder="Contraseña" 
+          autocomplete="current-password" 
+          required>
+        <!-- BOTÓN PARA VER/OCULTAR CONTRASEÑA -->
+        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()" title="Mostrar/Ocultar contraseña" aria-label="Mostrar contraseña">
+          <span id="passwordToggleIcon">👁️</span>
+        </button>
+      </div>
       <div class="login-error" id="loginError"></div>
       <div class="login-buttons">
         <button type="submit" class="btn btn-primary">Ingresar</button>
@@ -571,7 +656,7 @@
         <div style="position:relative;">
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📂 Categoría</label>
           <div class="category-wrapper">
-            <input id="category" type="text" placeholder="Ej: Uñas, Ropa" list="categoryList" autocomplete="off" class="form-input">
+            <input id="category" type="text" placeholder="Escribe o selecciona..." list="categoryList" autocomplete="off" class="form-input">
             <span class="category-hint">💡 Sugerencias</span>
           </div>
           <datalist id="categoryList"></datalist>
@@ -835,6 +920,37 @@
   </div>
 </dialog>
 
+<!-- NUEVO MODAL PARA EDITAR CATEGORÍA -->
+<dialog id="categoryEditModal">
+  <div class="category-edit-container">
+    <h3 class="category-edit-title">✏️ Editar Categoría</h3>
+    <p class="category-edit-subtitle">Cambia el nombre de esta categoría</p>
+    
+    <div class="category-edit-current">
+      <div class="category-edit-current-label">Nombre actual:</div>
+      <div class="category-edit-current-name" id="currentCategoryName">-</div>
+      <div class="category-edit-count" id="categoryProductCount">0 productos</div>
+    </div>
+    
+    <div style="margin-bottom:15px;">
+      <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📝 Nuevo nombre:</label>
+      <input id="newCategoryName" type="text" placeholder="Nuevo nombre de categoría" class="form-input" autocomplete="off">
+    </div>
+    
+    <div style="margin-bottom:15px;">
+      <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden de la categoría:</label>
+      <input id="newCategoryOrder" type="number" value="99" class="form-input">
+      <p style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Menor número = aparece primero</p>
+    </div>
+    
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button type="button" class="btn btn-primary" onclick="saveCategoryEdit()" style="flex:1; min-width:120px;">💾 Guardar</button>
+      <button type="button" class="btn btn-danger" onclick="deleteCategory()" style="flex:1; min-width:120px;">🗑️ Eliminar</button>
+      <button type="button" class="btn btn-secondary" onclick="closeCategoryEditModal()" style="flex:1; min-width:120px;">❌ Cancelar</button>
+    </div>
+  </div>
+</dialog>
+
 <dialog id="mediaModal">
   <div class="lightbox-container">
     <button class="lightbox-close" onclick="closeMediaModal()">&times;</button>
@@ -866,14 +982,8 @@ const videosRef = db.collection('videos');
 const bannersRef = db.collection('banners');
 const customSectionsRef = db.collection('customSections');
 
-// CONTRASEÑA EN TEXTO PLANO (MÁS FÁCIL DE CONFIGURAR)
-const ADMIN_PASSWORD = "admin123"; // CAMBIA ESTO POR TU CONTRASEÑA
-
-function simpleHash(str) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) hash = (hash * 31 + str.charCodeAt(i)) % 2147483647;
-  return hash;
-}
+// CONTRASEÑA - CAMBIA ESTO POR TU CONTRASEÑA
+const ADMIN_PASSWORD = "admin123";
 
 let adminMode = sessionStorage.getItem('adminAuthenticated') === 'true';
 let products = [];
@@ -888,6 +998,7 @@ let editingCsId = null;
 let currentMediaList = [];
 let currentMediaIndex = 0;
 let pendingScrollToId = null;
+let editingCategoryName = null; // NUEVO: categoría que se está editando
 
 const sortableInstances = new Map();
 
@@ -901,6 +1012,25 @@ function showSync(message, type = 'loading', duration = 2000) {
   else if (type === 'success') icon.textContent = '✅';
   else if (type === 'error') icon.textContent = '❌';
   if (duration > 0) setTimeout(() => indicator.classList.remove('show'), duration);
+}
+
+// ================================================================
+// 👁️ MOSTRAR/OCULTAR CONTRASEÑA
+// ================================================================
+function togglePasswordVisibility() {
+  const passwordInput = document.getElementById('adminPassword');
+  const icon = document.getElementById('passwordToggleIcon');
+  const btn = icon.parentElement;
+  
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.textContent = '🙈';
+    btn.title = 'Ocultar contraseña';
+  } else {
+    passwordInput.type = 'password';
+    icon.textContent = '👁️';
+    btn.title = 'Mostrar contraseña';
+  }
 }
 
 // ================================================================
@@ -1150,7 +1280,7 @@ function initDragAndDrop() {
 }
 
 // ================================================================
-// ADMIN
+// ADMIN - LOGIN CON AUTOCOMPLETADO
 // ================================================================
 function updateAdminUI() {
   document.body.classList.toggle('admin-on', adminMode);
@@ -1158,15 +1288,25 @@ function updateAdminUI() {
   if (adminMode) { loginBtn.textContent = '🔓 Cerrar Sesión'; loginBtn.onclick = logoutAdmin; } 
   else { loginBtn.textContent = '🔐 Admin'; loginBtn.onclick = openLoginModal; }
 }
+
 function openLoginModal() {
-  document.getElementById('adminPassword').value = '';
+  const passwordInput = document.getElementById('adminPassword');
+  passwordInput.value = '';
+  passwordInput.type = 'password'; // Asegurar que empiece oculta
+  document.getElementById('passwordToggleIcon').textContent = '👁️';
   document.getElementById('loginError').textContent = '';
   document.getElementById('adminLoginModal').showModal();
-  setTimeout(() => document.getElementById('adminPassword').focus(), 100);
+  setTimeout(() => passwordInput.focus(), 100);
 }
-function closeLoginModal() { document.getElementById('adminLoginModal').close(); }
+
+function closeLoginModal() { 
+  document.getElementById('adminLoginModal').close(); 
+  // Restaurar type=password al cerrar
+  document.getElementById('adminPassword').type = 'password';
+  document.getElementById('passwordToggleIcon').textContent = '👁️';
+}
+
 function loginAdmin(password) {
-  // USANDO CONTRASEÑA EN TEXTO PLANO
   if (password === ADMIN_PASSWORD) {
     adminMode = true;
     sessionStorage.setItem('adminAuthenticated', 'true');
@@ -1179,10 +1319,18 @@ function loginAdmin(password) {
     showSync('Sesión iniciada', 'success', 1500);
     return true;
   } else {
-    document.getElementById('loginError').textContent = '❌ Contraseña incorrecta';
+    // MOSTRAR LA CONTRASEÑA INGRESADA PARA QUE EL USUARIO VEA EL ERROR
+    const errorDiv = document.getElementById('loginError');
+    errorDiv.innerHTML = `❌ Contraseña incorrecta.<br><small style="color:var(--muted);">Ingresaste: <strong style="color:#c02639;">"${password.replace(/</g, '&lt;')}"</strong></small>`;
+    
+    // Animación de shake
+    const input = document.getElementById('adminPassword');
+    input.classList.add('error');
+    setTimeout(() => input.classList.remove('error'), 500);
     return false;
   }
 }
+
 function logoutAdmin() {
   if (confirm('¿Cerrar sesión?')) {
     adminMode = false;
@@ -1193,9 +1341,127 @@ function logoutAdmin() {
     renderBanners();
   }
 }
+
 document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
   e.preventDefault();
   loginAdmin(document.getElementById('adminPassword').value);
+});
+
+// ================================================================
+// ✏️ EDITAR CATEGORÍAS (NUEVO)
+// ================================================================
+function openCategoryEditModal(catName) {
+  if (!adminMode) return;
+  
+  editingCategoryName = catName;
+  const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === catName);
+  
+  // Obtener el orden actual de la categoría
+  let currentOrder = 99;
+  if (catProducts.length > 0) {
+    currentOrder = catProducts[0].categoryOrder !== undefined ? catProducts[0].categoryOrder : 99;
+  }
+  
+  document.getElementById('currentCategoryName').textContent = catName;
+  document.getElementById('categoryProductCount').textContent = `${catProducts.length} producto${catProducts.length !== 1 ? 's' : ''} en esta categoría`;
+  document.getElementById('newCategoryName').value = catName;
+  document.getElementById('newCategoryOrder').value = currentOrder;
+  
+  document.getElementById('categoryEditModal').showModal();
+  setTimeout(() => document.getElementById('newCategoryName').focus(), 100);
+}
+
+function closeCategoryEditModal() {
+  document.getElementById('categoryEditModal').close();
+  editingCategoryName = null;
+}
+
+async function saveCategoryEdit() {
+  if (!editingCategoryName) return;
+  
+  const newName = document.getElementById('newCategoryName').value.trim();
+  const newOrder = parseInt(document.getElementById('newCategoryOrder').value) || 99;
+  
+  if (!newName) {
+    alert('⚠️ El nombre no puede estar vacío');
+    return;
+  }
+  
+  if (newName === editingCategoryName && newOrder === (products.find(p => p.category === editingCategoryName)?.categoryOrder || 99)) {
+    closeCategoryEditModal();
+    return;
+  }
+  
+  // Verificar si el nuevo nombre ya existe
+  const existingCat = products.find(p => (p.category || "").trim() === newName && (p.category || "").trim() !== editingCategoryName);
+  if (existingCat && newName !== editingCategoryName) {
+    if (!confirm(`⚠️ La categoría "${newName}" ya existe. ¿Fusionar los productos de "${editingCategoryName}" en "${newName}"?`)) {
+      return;
+    }
+  }
+  
+  showSync('Actualizando categoría...', 'loading', 0);
+  
+  try {
+    const batch = db.batch();
+    const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === editingCategoryName);
+    
+    catProducts.forEach(p => {
+      batch.update(productsRef.doc(p.id), { 
+        category: newName,
+        categoryOrder: newOrder
+      });
+    });
+    
+    await batch.commit();
+    showSync(`Categoría actualizada ✅ (${catProducts.length} productos)`, 'success', 2500);
+    closeCategoryEditModal();
+  } catch (error) {
+    console.error(error);
+    showSync('Error al actualizar', 'error', 3000);
+  }
+}
+
+async function deleteCategory() {
+  if (!editingCategoryName) return;
+  
+  const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === editingCategoryName);
+  
+  if (catProducts.length === 0) {
+    closeCategoryEditModal();
+    return;
+  }
+  
+  if (!confirm(`⚠️ ¿Eliminar la categoría "${editingCategoryName}"?\n\nLos ${catProducts.length} productos quedarán como "Sin categoría".`)) {
+    return;
+  }
+  
+  showSync('Eliminando categoría...', 'loading', 0);
+  
+  try {
+    const batch = db.batch();
+    catProducts.forEach(p => {
+      batch.update(productsRef.doc(p.id), { 
+        category: '',
+        categoryOrder: 99
+      });
+    });
+    
+    await batch.commit();
+    showSync(`Categoría eliminada ✅`, 'success', 2500);
+    closeCategoryEditModal();
+  } catch (error) {
+    console.error(error);
+    showSync('Error al eliminar', 'error', 3000);
+  }
+}
+
+// Enter en el input de nueva categoría guarda automáticamente
+document.getElementById('newCategoryName').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    saveCategoryEdit();
+  }
 });
 
 // ================================================================
@@ -1240,7 +1506,6 @@ function addToCart(id) {
   const existing = cart.find(item => item.id === id);
   const currentQty = existing ? existing.qty : 0;
   
-  // VERIFICAR SI HAY SUFICIENTE STOCK
   if (currentQty + 1 > product.stock) {
     return alert(`Solo hay ${product.stock} unidades disponibles`);
   }
@@ -1304,7 +1569,6 @@ function changeQty(index, delta) {
   const newQty = item.qty + delta;
   if (newQty <= 0) { removeFromCart(index); }
   else {
-    // VERIFICAR STOCK ANTES DE AUMENTAR
     if (newQty > product.stock) {
       alert(`Solo hay ${product.stock} unidades disponibles`);
       return;
@@ -1384,7 +1648,6 @@ async function sendToWhatsapp() {
     if (totalSavings > 0) text += `🎉 _¡Ahorro total: ${totalSavings.toFixed(2)} Bs!_\n`;
     text += `━━━━━━━━━━━━━━━━━━━━━━\n\n🙏 _¡Gracias por tu compra!_ ✨`;
 
-    // GUARDAR COPIA DEL CARRITO POR SI HAY ERROR
     const tempCart = [...cart];
     
     cart = [];
@@ -1399,16 +1662,11 @@ async function sendToWhatsapp() {
   } catch (error) {
     console.error("Error:", error);
     showSync('Error al procesar', 'error', 3000);
-    // RESTAURAR CARRITO SI HAY ERROR
-    cart = tempCart;
-    localStorage.setItem('cart_v26', JSON.stringify(cart));
-    renderCart();
-    updateCartCount();
   }
 }
 
 // ================================================================
-// RENDERIZADO DE PRODUCTOS
+// RENDERIZADO DE PRODUCTOS (CON BOTONES DE EDITAR CATEGORÍA)
 // ================================================================
 function renderProducts() {
   const container = document.getElementById('productsContainer');
@@ -1422,7 +1680,7 @@ function renderProducts() {
 
   const categoryMap = {};
   products.forEach(p => {
-    const cat = p.category || "Sin categoría";
+    const cat = (p.category || "Sin categoría").trim();
     const order = p.categoryOrder !== undefined ? p.categoryOrder : 99;
     if (!categoryMap[cat]) { categoryMap[cat] = { order: order, ids: [] }; } 
     else if (order < categoryMap[cat].order) { categoryMap[cat].order = order; }
@@ -1443,10 +1701,24 @@ function renderProducts() {
         return (a.createdAt || 0) - (b.createdAt || 0);
       });
     
+    // BOTONES DE EDITAR CATEGORÍA (SOLO EN MODO ADMIN)
+    const catCount = catProducts.length;
+    const adminButtonsHtml = adminMode ? `
+      <div style="margin-top:8px; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">
+        <button class="category-edit-btn" onclick="openCategoryEditModal('${cat.replace(/'/g, "\\'")}')" title="Editar nombre y orden">
+          ✏️ Editar Categoría
+        </button>
+        <span style="font-size:0.75rem; color:var(--muted); align-self:center; padding:0 8px;">
+          (${catCount} producto${catCount !== 1 ? 's' : ''})
+        </span>
+      </div>
+    ` : '';
+    
     let html = `<div class="category-section">
       <div class="category-wrapper-title">
         <h2>${cat}</h2>
         <span class="cat-ornament">✦ ✦ ✦</span>
+        ${adminButtonsHtml}
       </div>
       <div class="products" data-category="${cat}">`;
     
@@ -1463,7 +1735,6 @@ function renderProducts() {
         priceHtml = `<p class="price">${Number(p.price || 0).toFixed(2)} Bs</p>`;
       }
       
-      // PRECIO MAYORISTA
       let wholesaleHtml = '';
       if (p.wholesalePrice > 0) {
         wholesaleHtml = `<div class="wholesale-price">🏷️ Mayorista: ${Number(p.wholesalePrice).toFixed(2)} Bs</div>`;
@@ -1483,7 +1754,6 @@ function renderProducts() {
       const highlightClass = (pendingScrollToId === p.id) ? 'product-highlight' : '';
       const fontStyleClass = p.fontStyle || '';
       
-      // PANEL DE INFORMACIÓN PRIVADA (SOLO ADMIN)
       let adminInfoHtml = '';
       if (adminMode) {
         adminInfoHtml = `
@@ -1824,7 +2094,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ================================================================
-// 🖼️ DETECCIÓN AUTOMÁTICA DE TAMAÑO DE BANNER (MEJORADO)
+// 🖼️ DETECCIÓN AUTOMÁTICA DE TAMAÑO DE BANNER
 // ================================================================
 function detectBannerSize(imageUrl) {
   const statusEl = document.getElementById('bannerSizeStatus');
@@ -1840,7 +2110,6 @@ function detectBannerSize(imageUrl) {
   
   const img = new Image();
   
-  // TIMEOUT después de 10 segundos
   const timeout = setTimeout(() => {
     statusEl.textContent = '⚠️ Tiempo de espera agotado. Elige manualmente.';
     statusEl.style.color = '#c02639';
@@ -1904,13 +2173,28 @@ document.getElementById('productForm').addEventListener('submit', async function
   e.preventDefault();
   if (!adminMode) return;
   showSync('Guardando...', 'loading', 0);
+  
+  // NORMALIZAR EL NOMBRE DE CATEGORÍA (trim y capitalizar primera letra)
+  const rawCategory = document.getElementById('category').value.trim();
+  const normalizedCategory = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1);
+  
+  // BUSCAR SI LA CATEGORÍA YA EXISTE (case-insensitive) PARA HEREDAR SU ORDEN
+  let categoryOrderValue = parseInt(document.getElementById('categoryOrder').value) || 99;
+  if (normalizedCategory) {
+    const existingCat = products.find(p => (p.category || "").trim().toLowerCase() === normalizedCategory.toLowerCase());
+    if (existingCat && existingCat.categoryOrder !== undefined) {
+      // Heredar el orden de la categoría existente
+      categoryOrderValue = existingCat.categoryOrder;
+    }
+  }
+  
   const productData = {
     code: document.getElementById('productCode').value.trim(),
-    categoryOrder: parseInt(document.getElementById('categoryOrder').value) || 99,
+    categoryOrder: categoryOrderValue,
     itemOrder: 999,
     title: document.getElementById('title').value.trim(),
     fontStyle: document.getElementById('fontStyle').value,
-    category: document.getElementById('category').value.trim(),
+    category: normalizedCategory,
     price: parseFloat(document.getElementById('price').value) || 0,
     offerPrice: parseFloat(document.getElementById('offerPrice').value) || 0,
     wholesalePrice: parseFloat(document.getElementById('wholesalePrice').value) || 0,
@@ -1944,7 +2228,8 @@ document.getElementById('productForm').addEventListener('submit', async function
       closeDialog();
     }
   } catch (error) { 
-    showSync('Error', 'error', 3000); 
+    console.error('Error al guardar producto:', error);
+    showSync('Error: ' + error.message, 'error', 3000); 
   }
 });
 
@@ -2083,7 +2368,7 @@ async function deleteVideo(id) {
 }
 
 // ================================================================
-// ADMIN BANNERS (CON DETECCIÓN AUTOMÁTICA)
+// ADMIN BANNERS
 // ================================================================
 document.getElementById('addBannerBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Iniciá sesión'); return; }
@@ -2095,7 +2380,6 @@ document.getElementById('addBannerBtn').addEventListener('click', () => {
   document.getElementById('bannerDialog').showModal();
 });
 
-// Detectar tamaño automáticamente al pegar/escribir el link
 document.getElementById('bannerImage').addEventListener('input', function(e) {
   clearTimeout(window.bannerSizeTimeout);
   window.bannerSizeTimeout = setTimeout(() => {
