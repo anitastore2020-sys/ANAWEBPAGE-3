@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- v5.0.8-private-links-currency -->
+<!-- v5.0.10-full-fixed -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Galería de Productos Editable</title>
@@ -356,145 +356,40 @@
   }
   .product-highlight { animation: highlightNew 2s ease-out; }
 
-  /* NUEVOS ESTILOS */
   .public-links-container, .private-links-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 10px 0;
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0;
   }
-
   .public-link-btn {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px;
   }
-
-  .public-link-btn:hover, .private-link-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(159, 18, 57, 0.3);
-  }
-
+  .public-link-btn:hover, .private-link-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(159, 18, 57, 0.3); }
   .private-link-btn {
-    background: linear-gradient(135deg, #4b5563, #1f2937);
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    background: linear-gradient(135deg, #4b5563, #1f2937); color: white; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px;
   }
 
-  .category-wrapper-title {
-    text-align: center;
-    margin-bottom: 10px;
-    position: relative;
+  .category-wrapper-title { text-align: center; margin-bottom: 10px; position: relative; }
+  .category-order-badge {
+    font-size: 0.6em; background: var(--accent); color: white; padding: 3px 10px; border-radius: 12px; 
+    vertical-align: middle; margin-left: 8px; font-family: 'Manrope', sans-serif; font-weight: 600;
   }
 
   .category-edit-btn {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    background: white;
-    border: 1px solid var(--accent2);
-    color: var(--accent2);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-left: 8px;
-    transition: all 0.2s;
-    vertical-align: middle;
+    display: none; align-items: center; justify-content: center; gap: 4px; background: white; border: 1px solid var(--accent2); color: var(--accent2); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-left: 8px; transition: all 0.2s; vertical-align: middle;
   }
+  .category-edit-btn:hover { background: var(--accent2); color: white; transform: scale(1.05); }
 
-  .category-edit-btn:hover {
-    background: var(--accent2);
-    color: white;
-    transform: scale(1.05);
-  }
+  .wholesale-price { font-size: 0.85rem; color: #166534; font-weight: 600; margin-top: 4px; padding: 4px 8px; background: rgba(22, 101, 52, 0.1); border-radius: 6px; display: inline-block; }
 
-  .wholesale-price {
-    font-size: 0.85rem;
-    color: #166534;
-    font-weight: 600;
-    margin-top: 4px;
-    padding: 4px 8px;
-    background: rgba(22, 101, 52, 0.1);
-    border-radius: 6px;
-    display: inline-block;
-  }
+  .admin-info-panel { margin-top: 10px; padding: 10px; background: #fff0f5; border-radius: 6px; font-size: 0.75rem; border: 1px dashed var(--accent); }
+  .admin-info-panel strong { color: var(--accent); display: inline-block; min-width: 80px; }
+  .admin-info-panel a { color: var(--accent); word-break: break-all; }
 
-  .admin-info-panel {
-    margin-top: 10px;
-    padding: 10px;
-    background: #fff0f5;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    border: 1px dashed var(--accent);
-  }
-
-  .admin-info-panel strong {
-    color: var(--accent);
-    display: inline-block;
-    min-width: 80px;
-  }
-
-  .admin-info-panel a {
-    color: var(--accent);
-    word-break: break-all;
-  }
-
-  .currency-converter-box {
-    margin-bottom: 12px;
-    padding: 12px;
-    background: white;
-    border-radius: 8px;
-    border: 1px solid #f8d7e6;
-  }
-  .currency-converter-box h4 {
-    margin-bottom: 10px;
-    color: var(--accent);
-    font-size: 0.85rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .currency-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .currency-grid label {
-    font-size: 0.75rem;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 4px;
-  }
-  .currency-grid .form-input {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-  .currency-grid .form-input.currency-result {
-    border-color: #166534;
-    background: #f0fdf4;
-    font-weight: 600;
-    color: #166534;
-  }
+  .currency-converter-box { margin-bottom: 12px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #f8d7e6; }
+  .currency-converter-box h4 { margin-bottom: 10px; color: var(--accent); font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
+  .currency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .currency-grid label { font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 4px; }
+  .currency-grid .form-input { padding: 8px; font-size: 0.9rem; }
+  .currency-grid .form-input.currency-result { border-color: #166534; background: #f0fdf4; font-weight: 600; color: #166534; }
 
   .font-style-1 .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; }
   .font-style-2 .product-title { font-family: 'Manrope', sans-serif; font-weight: 700; }
@@ -509,10 +404,7 @@
   .category-edit-current-name { font-size: 1.2rem; font-weight: 700; color: var(--accent2); }
   .category-edit-count { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
 
-  @media (max-width: 1024px) { 
-    .videos-grid { grid-template-columns: repeat(3, 1fr); } 
-    .products { grid-template-columns: repeat(3, 1fr); } 
-  }
+  @media (max-width: 1024px) { .videos-grid { grid-template-columns: repeat(3, 1fr); } .products { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 768px) {
     .videos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .products { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -525,8 +417,7 @@
   }
   @media (max-width: 480px) {
     .wrap { padding: 0 12px; }
-    .videos-grid { grid-template-columns: 1fr; gap: 20px; }
-    .products { grid-template-columns: 1fr; gap: 20px; }
+    .videos-grid, .products { grid-template-columns: 1fr; gap: 20px; }
     .videos-section, .category-section { margin-bottom: 50px; }
     .videos-section h2, .category-section h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); margin: 40px 0 28px; gap: 10px; letter-spacing: 0.5px; }
     .videos-section h2::before, .videos-section h2::after, .category-section h2::before, .category-section h2::after { max-width: 30px; }
@@ -610,20 +501,17 @@
   <div class="cart-header">
     <button class="cart-close-btn" onclick="closeCart()" aria-label="Cerrar">×</button>
     <h2>🛍️ Tu Pedido</h2>
-    
     <div class="cart-identifier-group">
       <label class="cart-identifier-label" for="clientPhone">📱 Número de Celular *</label>
       <input type="tel" id="clientPhone" class="cart-identifier-input" placeholder="Ej: 77712345" maxlength="15" required>
       <span class="cart-identifier-warning">⚠️ Necesario para confirmar tu pedido</span>
     </div>
-    
     <div class="cart-identifier-group">
       <label class="cart-identifier-label" for="clientStoreAddress">🏪 Nombre de tu Tienda y Dirección *</label>
       <input type="text" id="clientStoreAddress" class="cart-identifier-input" placeholder="Ej: SPA Luna - Av. Principal #123" maxlength="100" required>
       <span class="cart-identifier-warning">⚠️ Necesario para el envío y registro</span>
     </div>
   </div>
-  
   <div class="cart-items-container" id="cartItems"></div>
   <div class="cart-footer">
     <h3 style="text-align:center; margin-bottom:12px;">Total: <span id="cartTotal" style="color:var(--accent);">0.00</span> Bs</h3>
@@ -662,7 +550,6 @@
         <input id="title" type="text" placeholder="Ej: Gel de Construcción" class="form-input">
         <div id="suggestions-title" class="suggestions-panel"></div>
       </div>
-      
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🏷️ Código de Producto</label>
@@ -679,13 +566,11 @@
           <div id="suggestions-category" class="suggestions-panel"></div>
         </div>
       </div>
-
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden de Categoría</label>
         <input id="categoryOrder" type="number" value="99" placeholder="99" class="form-input">
         <p style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Menor número = aparece primero</p>
       </div>
-
       <div style="margin-bottom:12px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🎨 Estilo de fuente</label>
         <select id="fontStyle" class="form-select">
@@ -695,7 +580,6 @@
           <option value="font-style-4">Fuerte</option>
         </select>
       </div>
-
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">💵 Precio Normal (Bs)</label>
@@ -708,7 +592,6 @@
           <div id="suggestions-offerPrice" class="suggestions-panel"></div>
         </div>
       </div>
-
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
         <div>
           <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📦 Precio Mayorista (Bs)</label>
@@ -725,88 +608,52 @@
       <div class="admin-only admin-fields-section" style="margin-bottom:12px; padding:15px; background:#fff0f5; border-radius:8px; border:1px dashed var(--accent);">
         <h4 style="margin-bottom:12px; color:var(--accent); font-size:0.9rem;">🔒 Campos Privados (Solo Admin)</h4>
         
-        <!-- NUEVO: CONVERSIÓN DE DIVISAS -->
         <div class="currency-converter-box">
-          <h4>
-            💱 Conversión de Divisas
-            <button type="button" class="btn btn-secondary" style="padding:4px 10px; font-size:0.75rem;" onclick="calculateCurrency()">🔄 Calcular</button>
-          </h4>
+          <h4>💱 Conversión de Divisas <button type="button" class="btn btn-secondary" style="padding:4px 10px; font-size:0.75rem;" onclick="calculateCurrency()">🔄 Calcular</button></h4>
           <div class="currency-grid">
-            <div>
-              <label>💵 Precio Base en USD</label>
-              <input id="usdPrice" type="number" step="0.01" placeholder="0.00" class="form-input">
-            </div>
-            <div>
-              <label>🇧🇴 Tasa USD a Bs</label>
-              <input id="usdToBsRate" type="number" step="0.01" placeholder="Ej: 6.96" class="form-input">
-            </div>
+            <div><label>💵 Precio Base en USD</label><input id="usdPrice" type="number" step="0.01" placeholder="0.00" class="form-input"></div>
+            <div><label>🇧🇴 Tasa USD a Bs</label><input id="usdToBsRate" type="number" step="0.01" placeholder="Ej: 6.96" class="form-input"></div>
           </div>
           <div class="currency-grid">
-            <div>
-              <label>🇦🇷 Tasa USD a ARS</label>
-              <input id="usdToArsRate" type="number" step="0.01" placeholder="Ej: 1000" class="form-input">
-            </div>
-            <div>
-              <!-- Espaciador para mantener la grilla -->
-            </div>
+            <div><label>🇦🇷 Tasa USD a ARS</label><input id="usdToArsRate" type="number" step="0.01" placeholder="Ej: 1000" class="form-input"></div>
+            <div></div>
           </div>
           <div class="currency-grid">
-            <div>
-              <label style="color:#166534; font-weight:600;">✅ Precio Convertido a Bs</label>
-              <input id="convertedPriceBs" type="number" step="0.01" placeholder="0.00" class="form-input currency-result">
-            </div>
-            <div>
-              <label style="color:#166534; font-weight:600;">✅ Precio Convertido a ARS</label>
-              <input id="convertedPriceArs" type="number" step="0.01" placeholder="0.00" class="form-input currency-result">
-            </div>
+            <div><label style="color:#166534; font-weight:600;">✅ Precio Convertido a Bs</label><input id="convertedPriceBs" type="number" step="0.01" placeholder="0.00" class="form-input currency-result"></div>
+            <div><label style="color:#166534; font-weight:600;">✅ Precio Convertido a ARS</label><input id="convertedPriceArs" type="number" step="0.01" placeholder="0.00" class="form-input currency-result"></div>
           </div>
+        </div>
+
+        <div style="margin-bottom:12px; padding:12px; background:white; border-radius:8px; border:1px solid #f8d7e6;">
+          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📸 Subir Foto Real (Firebase Storage)</label>
+          <input type="file" id="productImageFile" accept="image/*" class="form-input" style="padding:8px;">
+          <button type="button" class="btn btn-secondary" onclick="uploadProductImage()" style="margin-top:8px; width:100%;">⬆️ Subir Imagen</button>
+          <p id="uploadStatus" style="font-size:0.75rem; color:var(--muted); margin-top:6px; min-height:18px; font-weight:600;"></p>
         </div>
 
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
-          <div>
-            <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">📏 Medida del producto</label>
-            <input id="productMeasure" type="text" placeholder="Ej: 500ml, 1kg, 30cm" class="form-input">
-            <div id="suggestions-productMeasure" class="suggestions-panel"></div>
-          </div>
-          <div>
-            <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">⚖️ Peso (gramos)</label>
-            <input id="productWeight" type="number" placeholder="Ej: 500" class="form-input">
-            <div id="suggestions-productWeight" class="suggestions-panel"></div>
-          </div>
+          <div><label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">📏 Medida</label><input id="productMeasure" type="text" placeholder="Ej: 500ml" class="form-input"><div id="suggestions-productMeasure" class="suggestions-panel"></div></div>
+          <div><label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">⚖️ Peso (g)</label><input id="productWeight" type="number" placeholder="Ej: 500" class="form-input"><div id="suggestions-productWeight" class="suggestions-panel"></div></div>
         </div>
-
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
-          <div>
-            <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">💰 Costo USD</label>
-            <input id="costUSD" type="number" step="0.01" placeholder="0.00" class="form-input">
-            <div id="suggestions-costUSD" class="suggestions-panel"></div>
-          </div>
-          <div>
-            <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">💰 Costo Bs</label>
-            <input id="costBS" type="number" step="0.01" placeholder="0.00" class="form-input">
-            <div id="suggestions-costBS" class="suggestions-panel"></div>
-          </div>
+          <div><label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">💰 Costo USD</label><input id="costUSD" type="number" step="0.01" placeholder="0.00" class="form-input"><div id="suggestions-costUSD" class="suggestions-panel"></div></div>
+          <div><label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">💰 Costo Bs</label><input id="costBS" type="number" step="0.01" placeholder="0.00" class="form-input"><div id="suggestions-costBS" class="suggestions-panel"></div></div>
         </div>
-
         <div style="margin-bottom:12px;">
           <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">🔗 Link de referencia (Privado)</label>
-          <input id="productLink" type="url" placeholder="https://..." class="form-input">
-          <div id="suggestions-productLink" class="suggestions-panel"></div>
+          <input id="productLink" type="url" placeholder="https://..." class="form-input"><div id="suggestions-productLink" class="suggestions-panel"></div>
         </div>
-
-        <!-- NUEVO: 5 LINKS PRIVADOS ADICIONALES -->
         <div style="margin-bottom:12px;">
-          <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">🔗 Links Privados Adicionales (Solo Admin)</label>
-          <input id="privateLink1" type="url" placeholder="Link privado 1 (Proveedor, Alibaba, etc.)" class="form-input" style="margin-bottom:5px;">
+          <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">🔗 Links Privados Adicionales</label>
+          <input id="privateLink1" type="url" placeholder="Link privado 1" class="form-input" style="margin-bottom:5px;">
           <input id="privateLink2" type="url" placeholder="Link privado 2" class="form-input" style="margin-bottom:5px;">
           <input id="privateLink3" type="url" placeholder="Link privado 3" class="form-input" style="margin-bottom:5px;">
           <input id="privateLink4" type="url" placeholder="Link privado 4" class="form-input" style="margin-bottom:5px;">
           <input id="privateLink5" type="url" placeholder="Link privado 5" class="form-input">
         </div>
-
         <div style="margin-bottom:12px;">
           <label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">📝 Información adicional</label>
-          <textarea id="additionalInfo" placeholder="Notas internas, proveedor, etc..." rows="2" class="form-textarea"></textarea>
+          <textarea id="additionalInfo" placeholder="Notas internas..." rows="2" class="form-textarea"></textarea>
           <div id="suggestions-additionalInfo" class="suggestions-panel"></div>
         </div>
       </div>
@@ -816,24 +663,17 @@
         <textarea id="description" placeholder="Detalles del producto..." rows="3" class="form-textarea"></textarea>
         <div id="suggestions-description" class="suggestions-panel"></div>
       </div>
-
       <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Links Públicos (TikTok/Insta/Web)</label>
-        <input id="pubLink1" type="url" placeholder="Link público 1" class="form-input" style="margin-bottom:5px;">
-        <div id="suggestions-pubLink1" class="suggestions-panel"></div>
-        <input id="pubLink2" type="url" placeholder="Link público 2" class="form-input" style="margin-bottom:5px;">
-        <div id="suggestions-pubLink2" class="suggestions-panel"></div>
-        <input id="pubLink3" type="url" placeholder="Link público 3" class="form-input" style="margin-bottom:5px;">
-        <div id="suggestions-pubLink3" class="suggestions-panel"></div>
-        <input id="pubLink4" type="url" placeholder="Link público 4" class="form-input" style="margin-bottom:5px;">
-        <div id="suggestions-pubLink4" class="suggestions-panel"></div>
-        <input id="pubLink5" type="url" placeholder="Link público 5" class="form-input">
-        <div id="suggestions-pubLink5" class="suggestions-panel"></div>
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Links Públicos</label>
+        <input id="pubLink1" type="url" placeholder="Link público 1" class="form-input" style="margin-bottom:5px;"><div id="suggestions-pubLink1" class="suggestions-panel"></div>
+        <input id="pubLink2" type="url" placeholder="Link público 2" class="form-input" style="margin-bottom:5px;"><div id="suggestions-pubLink2" class="suggestions-panel"></div>
+        <input id="pubLink3" type="url" placeholder="Link público 3" class="form-input" style="margin-bottom:5px;"><div id="suggestions-pubLink3" class="suggestions-panel"></div>
+        <input id="pubLink4" type="url" placeholder="Link público 4" class="form-input" style="margin-bottom:5px;"><div id="suggestions-pubLink4" class="suggestions-panel"></div>
+        <input id="pubLink5" type="url" placeholder="Link público 5" class="form-input"><div id="suggestions-pubLink5" class="suggestions-panel"></div>
       </div>
-
       <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs</label>
-        <textarea id="mediaLinks" placeholder="Pega los links aquí (uno por línea)" rows="4" class="form-textarea"></textarea>
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs (URLs o subidas)</label>
+        <textarea id="mediaLinks" placeholder="Pega los links aquí (uno por línea). Las fotos subidas aparecerán aquí automáticamente." rows="4" class="form-textarea"></textarea>
         <div id="suggestions-mediaLinks" class="suggestions-panel"></div>
       </div>
 
@@ -849,34 +689,12 @@
   <div style="padding:25px;">
     <h3 id="videoDialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">🎬 Agregar Video Principal</h3>
     <form id="videoForm">
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del video</label>
-        <input id="videoTitle" type="text" placeholder="Ej: Tutorial de uso" class="form-input">
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Descripción (opcional)</label>
-        <textarea id="videoDesc" placeholder="Breve descripción..." rows="2" class="form-textarea"></textarea>
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL del video</label>
-        <input id="videoUrl" type="url" placeholder="YouTube, TikTok, Instagram, Facebook..." class="form-input">
-        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Pega el link directo de tu publicación.</p>
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ URL de la Miniatura (Opcional)</label>
-        <input id="videoThumbnail" type="url" placeholder="Link de imagen (Drive, etc.)" class="form-input">
-        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Si no pones nada, se verá un ícono por defecto.</p>
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Producto relacionado (opcional)</label>
-        <input id="relatedProduct" type="text" list="productList" placeholder="Escribe para buscar un producto..." class="form-input">
-        <datalist id="productList"></datalist>
-        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Si eliges uno, aparecerá un botón rojo en el video.</p>
-      </div>
-      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
-        <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
-        <button type="button" class="btn btn-secondary" onclick="closeVideoDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
-      </div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del video</label><input id="videoTitle" type="text" placeholder="Ej: Tutorial de uso" class="form-input"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Descripción (opcional)</label><textarea id="videoDesc" placeholder="Breve descripción..." rows="2" class="form-textarea"></textarea></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL del video</label><input id="videoUrl" type="url" placeholder="YouTube, TikTok..." class="form-input"><p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Pega el link directo.</p></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ URL de la Miniatura</label><input id="videoThumbnail" type="url" placeholder="Link de imagen" class="form-input"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Producto relacionado</label><input id="relatedProduct" type="text" list="productList" placeholder="Escribe para buscar..." class="form-input"><datalist id="productList"></datalist></div>
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;"><button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button><button type="button" class="btn btn-secondary" onclick="closeVideoDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button></div>
     </form>
   </div>
 </dialog>
@@ -885,24 +703,11 @@
   <div style="padding:25px;">
     <h3 id="bannerDialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">🖼️ Agregar Banner Principal</h3>
     <form id="bannerForm">
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título principal</label>
-        <input id="bannerTitle" type="text" placeholder="Ej: ¡Nueva Colección!" class="form-input">
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Subtítulo (opcional)</label>
-        <input id="bannerSubtitle" type="text" placeholder="Ej: 50% de descuento" class="form-input">
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL de la imagen</label>
-        <input id="bannerImage" type="url" placeholder="https://..." class="form-input">
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Link al hacer clic (opcional)</label>
-        <input id="bannerLink" type="url" placeholder="https://..." class="form-input">
-      </div>
-      <div style="margin:12px 0;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📏 Tamaño del banner:</label>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título principal</label><input id="bannerTitle" type="text" placeholder="Ej: ¡Nueva Colección!" class="form-input"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Subtítulo</label><input id="bannerSubtitle" type="text" placeholder="Ej: 50% descuento" class="form-input"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL de la imagen</label><input id="bannerImage" type="url" placeholder="https://..." class="form-input"></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Link al hacer clic</label><input id="bannerLink" type="url" placeholder="https://..." class="form-input"></div>
+      <div style="margin:12px 0;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📏 Tamaño del banner:</label>
         <select id="bannerSize" class="form-select">
           <option value="banner-small">Rectangular Pequeño (1920 × 400px)</option>
           <option value="banner-compact">Rectangular Compacto (1920 × 500px)</option>
@@ -915,10 +720,7 @@
         </select>
         <p id="bannerSizeStatus" style="font-size:0.75rem; color:var(--muted); margin:6px 0 0 0; min-height: 18px; font-weight: 600;"></p>
       </div>
-      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
-        <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
-        <button type="button" class="btn btn-secondary" onclick="closeBannerDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
-      </div>
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;"><button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button><button type="button" class="btn btn-secondary" onclick="closeBannerDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button></div>
     </form>
   </div>
 </dialog>
@@ -927,55 +729,19 @@
   <div style="padding:25px;">
     <h3 id="customSectionDialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">🧩 Agregar Bloque entre Categorías</h3>
     <form id="customSectionForm">
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Tipo de bloque</label>
-        <select id="csType" class="form-select" onchange="toggleCsFields()">
-          <option value="banner">🖼️ Banner</option>
-          <option value="video">🎬 Video</option>
-        </select>
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📍 Mostrar después de la categoría:</label>
-        <select id="csAfterCategory" class="form-select">
-          <option value="">🔝 Al principio (antes de todas)</option>
-        </select>
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden</label>
-        <input id="csOrder" type="number" value="1" class="form-input">
-      </div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Tipo de bloque</label><select id="csType" class="form-select" onchange="toggleCsFields()"><option value="banner">🖼️ Banner</option><option value="video">🎬 Video</option></select></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📍 Mostrar después de la categoría:</label><select id="csAfterCategory" class="form-select"><option value="">🔝 Al principio</option></select></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden</label><input id="csOrder" type="number" value="1" class="form-input"></div>
       <div id="csBannerFields">
-        <div style="margin-bottom:12px;">
-          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del Banner</label>
-          <input id="csTitle" type="text" placeholder="Ej: ¡Promo!" class="form-input">
-        </div>
-        <div style="margin-bottom:12px;">
-          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL de la Imagen</label>
-          <input id="csImageUrl" type="url" placeholder="https://..." class="form-input">
-        </div>
-        <div style="margin-bottom:12px;">
-          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Tamaño</label>
-          <select id="csSize" class="form-select">
-            <option value="banner-compact">Compacto (500px)</option>
-            <option value="banner-standard" selected>Estándar (540px) ⭐</option>
-            <option value="banner-square-800">Cuadrado (800x800px)</option>
-          </select>
-        </div>
+        <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título</label><input id="csTitle" type="text" placeholder="Ej: ¡Promo!" class="form-input"></div>
+        <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL Imagen</label><input id="csImageUrl" type="url" placeholder="https://..." class="form-input"></div>
+        <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Tamaño</label><select id="csSize" class="form-select"><option value="banner-compact">Compacto</option><option value="banner-standard" selected>Estándar ⭐</option><option value="banner-square-800">Cuadrado</option></select></div>
       </div>
       <div id="csVideoFields" style="display:none;">
-        <div style="margin-bottom:12px;">
-          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título del Video</label>
-          <input id="csVideoTitle" type="text" placeholder="Ej: Tutorial" class="form-input">
-        </div>
-        <div style="margin-bottom:12px;">
-          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL del Video</label>
-          <input id="csVideoUrl" type="url" placeholder="YouTube, TikTok..." class="form-input">
-        </div>
+        <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">Título Video</label><input id="csVideoTitle" type="text" placeholder="Ej: Tutorial" class="form-input"></div>
+        <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">URL Video</label><input id="csVideoUrl" type="url" placeholder="YouTube..." class="form-input"></div>
       </div>
-      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
-        <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
-        <button type="button" class="btn btn-secondary" onclick="closeCustomSectionDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
-      </div>
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;"><button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button><button type="button" class="btn btn-secondary" onclick="closeCustomSectionDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button></div>
     </form>
   </div>
 </dialog>
@@ -989,20 +755,9 @@
       <div class="category-edit-current-name" id="currentCategoryName">-</div>
       <div class="category-edit-count" id="categoryProductCount">0 productos</div>
     </div>
-    <div style="margin-bottom:15px;">
-      <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📝 Nuevo nombre:</label>
-      <input id="newCategoryName" type="text" placeholder="Nuevo nombre de categoría" class="form-input" autocomplete="off">
-    </div>
-    <div style="margin-bottom:15px;">
-      <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden de la categoría:</label>
-      <input id="newCategoryOrder" type="number" value="99" class="form-input">
-      <p style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Menor número = aparece primero</p>
-    </div>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <button type="button" class="btn btn-primary" onclick="saveCategoryEdit()" style="flex:1; min-width:120px;">💾 Guardar</button>
-      <button type="button" class="btn btn-danger" onclick="deleteCategory()" style="flex:1; min-width:120px;">🗑️ Eliminar</button>
-      <button type="button" class="btn btn-secondary" onclick="closeCategoryEditModal()" style="flex:1; min-width:120px;">❌ Cancelar</button>
-    </div>
+    <div style="margin-bottom:15px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📝 Nuevo nombre:</label><input id="newCategoryName" type="text" placeholder="Nuevo nombre" class="form-input" autocomplete="off"></div>
+    <div style="margin-bottom:15px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔢 Orden:</label><input id="newCategoryOrder" type="number" value="99" class="form-input"><p style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Menor número = aparece primero</p></div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;"><button type="button" class="btn btn-primary" onclick="saveCategoryEdit()" style="flex:1; min-width:120px;">💾 Guardar</button><button type="button" class="btn btn-danger" onclick="deleteCategory()" style="flex:1; min-width:120px;">🗑️ Eliminar</button><button type="button" class="btn btn-secondary" onclick="closeCategoryEditModal()" style="flex:1; min-width:120px;">❌ Cancelar</button></div>
   </div>
 </dialog>
 
@@ -1018,6 +773,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -1032,12 +788,13 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const storage = firebase.storage();
 const productsRef = db.collection('products');
 const videosRef = db.collection('videos');
 const bannersRef = db.collection('banners');
 const customSectionsRef = db.collection('customSections');
 
-const ADMIN_PASSWORD = "admin123"; // CAMBIA ESTO POR TU CONTRASEÑA
+const ADMIN_PASSWORD = "admin123";
 
 let adminMode = sessionStorage.getItem('adminAuthenticated') === 'true';
 let products = [];
@@ -1053,7 +810,6 @@ let currentMediaList = [];
 let currentMediaIndex = 0;
 let pendingScrollToId = null;
 let editingCategoryName = null;
-
 const sortableInstances = new Map();
 
 function showSync(message, type = 'loading', duration = 2000) {
@@ -1071,33 +827,54 @@ function showSync(message, type = 'loading', duration = 2000) {
 function togglePasswordVisibility() {
   const passwordInput = document.getElementById('adminPassword');
   const icon = document.getElementById('passwordToggleIcon');
-  const btn = icon.parentElement;
   if (passwordInput.type === 'password') {
     passwordInput.type = 'text';
     icon.textContent = '🙈';
-    btn.title = 'Ocultar contraseña';
   } else {
     passwordInput.type = 'password';
     icon.textContent = '👁️';
-    btn.title = 'Mostrar contraseña';
   }
 }
 
-// ================================================================
-// 💱 FUNCIÓN DE CONVERSIÓN DE DIVISAS
-// ================================================================
+async function uploadProductImage() {
+  const fileInput = document.getElementById('productImageFile');
+  const file = fileInput.files[0];
+  const statusEl = document.getElementById('uploadStatus');
+  if (!file) {
+    statusEl.textContent = "⚠️ Selecciona una imagen primero.";
+    statusEl.style.color = "#c02639";
+    return;
+  }
+  statusEl.textContent = "⏳ Subiendo imagen a Firebase...";
+  statusEl.style.color = "var(--accent)";
+  try {
+    const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
+    const storageRef = storage.ref(`product_images/${fileName}`);
+    const snapshot = await storageRef.put(file);
+    const downloadURL = await snapshot.ref.getDownloadURL();
+    const mediaArea = document.getElementById('mediaLinks');
+    if (mediaArea.value.trim() === '') {
+      mediaArea.value = downloadURL;
+    } else {
+      mediaArea.value = mediaArea.value.trim() + '\n' + downloadURL;
+    }
+    statusEl.textContent = "✅ ¡Imagen subida y agregada a la lista!";
+    statusEl.style.color = "#166534";
+    fileInput.value = "";
+  } catch (error) {
+    console.error("Error al subir:", error);
+    statusEl.textContent = "❌ Error: " + error.message;
+    statusEl.style.color = "#c02639";
+  }
+}
+
 function calculateCurrency() {
   const usd = parseFloat(document.getElementById('usdPrice').value) || 0;
   const rateBs = parseFloat(document.getElementById('usdToBsRate').value) || 0;
   const rateArs = parseFloat(document.getElementById('usdToArsRate').value) || 0;
-
   if (usd > 0) {
-    if (rateBs > 0) {
-      document.getElementById('convertedPriceBs').value = (usd * rateBs).toFixed(2);
-    }
-    if (rateArs > 0) {
-      document.getElementById('convertedPriceArs').value = (usd * rateArs).toFixed(2);
-    }
+    if (rateBs > 0) document.getElementById('convertedPriceBs').value = (usd * rateBs).toFixed(2);
+    if (rateArs > 0) document.getElementById('convertedPriceArs').value = (usd * rateArs).toFixed(2);
     showSync('Precios convertidos automáticamente ✅', 'success', 1500);
   } else {
     showSync('Ingresa un Precio Base en USD primero', 'error', 2000);
@@ -1106,26 +883,16 @@ function calculateCurrency() {
 
 function saveFormMemory() {
   const memory = {
-    category: document.getElementById('category').value,
-    fontStyle: document.getElementById('fontStyle').value,
-    productMeasure: document.getElementById('productMeasure').value,
-    productWeight: document.getElementById('productWeight').value,
-    costUSD: document.getElementById('costUSD').value,
-    costBS: document.getElementById('costBS').value,
-    productLink: document.getElementById('productLink').value,
-    additionalInfo: document.getElementById('additionalInfo').value,
-    pubLink1: document.getElementById('pubLink1').value,
-    pubLink2: document.getElementById('pubLink2').value,
-    pubLink3: document.getElementById('pubLink3').value,
-    pubLink4: document.getElementById('pubLink4').value,
-    pubLink5: document.getElementById('pubLink5').value,
-    title: document.getElementById('title').value,
-    productCode: document.getElementById('productCode').value,
-    price: document.getElementById('price').value,
-    offerPrice: document.getElementById('offerPrice').value,
-    wholesalePrice: document.getElementById('wholesalePrice').value,
-    stock: document.getElementById('stock').value,
-    description: document.getElementById('description').value,
+    category: document.getElementById('category').value, fontStyle: document.getElementById('fontStyle').value,
+    productMeasure: document.getElementById('productMeasure').value, productWeight: document.getElementById('productWeight').value,
+    costUSD: document.getElementById('costUSD').value, costBS: document.getElementById('costBS').value,
+    productLink: document.getElementById('productLink').value, additionalInfo: document.getElementById('additionalInfo').value,
+    pubLink1: document.getElementById('pubLink1').value, pubLink2: document.getElementById('pubLink2').value,
+    pubLink3: document.getElementById('pubLink3').value, pubLink4: document.getElementById('pubLink4').value,
+    pubLink5: document.getElementById('pubLink5').value, title: document.getElementById('title').value,
+    productCode: document.getElementById('productCode').value, price: document.getElementById('price').value,
+    offerPrice: document.getElementById('offerPrice').value, wholesalePrice: document.getElementById('wholesalePrice').value,
+    stock: document.getElementById('stock').value, description: document.getElementById('description').value,
     mediaLinks: document.getElementById('mediaLinks').value
   };
   const history = JSON.parse(localStorage.getItem('formHistory_v2') || '{}');
@@ -1147,7 +914,7 @@ function showSuggestions(fieldId) {
   if (!panel) return;
   const suggestions = history[fieldId] || [];
   if (suggestions.length === 0) { panel.classList.remove('show'); return; }
-  let html = `<div class="suggestions-title">💡 Sugerencias recientes (clic para copiar):</div>`;
+  let html = `<div class="suggestions-title">💡 Sugerencias recientes:</div>`;
   suggestions.forEach((value, idx) => {
     const displayValue = value.length > 50 ? value.substring(0, 50) + '...' : value;
     html += `<div class="suggestion-item" onclick="copySuggestion('${fieldId}', ${idx})">
@@ -1161,10 +928,9 @@ function showSuggestions(fieldId) {
 
 function copySuggestion(fieldId, index) {
   const history = JSON.parse(localStorage.getItem('formHistory_v2') || '{}');
-  const value = history[fieldId][index];
   const input = document.getElementById(fieldId);
   if (input) {
-    input.value = value;
+    input.value = history[fieldId][index];
     input.focus();
     showSync('Sugerencia copiada ✅', 'success', 1500);
   }
@@ -1178,12 +944,10 @@ function copySuggestion(fieldId, index) {
     el.addEventListener('input', saveFormMemory);
     el.addEventListener('change', saveFormMemory);
     el.addEventListener('focus', () => showSuggestions(id));
-    el.addEventListener('blur', () => {
-      setTimeout(() => {
-        const panel = document.getElementById(`suggestions-${id}`);
-        if (panel) panel.classList.remove('show');
-      }, 200);
-    });
+    el.addEventListener('blur', () => setTimeout(() => {
+      const panel = document.getElementById(`suggestions-${id}`);
+      if (panel) panel.classList.remove('show');
+    }, 200));
   }
 });
 
@@ -1195,7 +959,10 @@ productsRef.onSnapshot((snapshot) => {
   updateCartCount();
   showSync('Listo', 'success', 1500);
   if (pendingScrollToId) {
-    setTimeout(() => { scrollToProduct(pendingScrollToId); pendingScrollToId = null; }, 300);
+    setTimeout(() => {
+      scrollToProduct(pendingScrollToId);
+      pendingScrollToId = null;
+    }, 600);
   }
 }, (error) => { console.error('Error productos:', error); showSync('Error al cargar', 'error', 3000); });
 
@@ -1316,6 +1083,7 @@ function updateAdminUI() {
   if (adminMode) { loginBtn.textContent = '🔓 Cerrar Sesión'; loginBtn.onclick = logoutAdmin; } 
   else { loginBtn.textContent = '🔐 Admin'; loginBtn.onclick = openLoginModal; }
 }
+
 function openLoginModal() {
   const passwordInput = document.getElementById('adminPassword');
   passwordInput.value = '';
@@ -1325,11 +1093,13 @@ function openLoginModal() {
   document.getElementById('adminLoginModal').showModal();
   setTimeout(() => passwordInput.focus(), 100);
 }
+
 function closeLoginModal() { 
   document.getElementById('adminLoginModal').close(); 
   document.getElementById('adminPassword').type = 'password';
   document.getElementById('passwordToggleIcon').textContent = '👁️';
 }
+
 function loginAdmin(password) {
   if (password === ADMIN_PASSWORD) {
     adminMode = true;
@@ -1351,6 +1121,7 @@ function loginAdmin(password) {
     return false;
   }
 }
+
 function logoutAdmin() {
   if (confirm('¿Cerrar sesión?')) {
     adminMode = false;
@@ -1361,6 +1132,7 @@ function logoutAdmin() {
     renderBanners();
   }
 }
+
 document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
   e.preventDefault();
   loginAdmin(document.getElementById('adminPassword').value);
@@ -1381,10 +1153,12 @@ function openCategoryEditModal(catName) {
   document.getElementById('categoryEditModal').showModal();
   setTimeout(() => document.getElementById('newCategoryName').focus(), 100);
 }
+
 function closeCategoryEditModal() {
   document.getElementById('categoryEditModal').close();
   editingCategoryName = null;
 }
+
 async function saveCategoryEdit() {
   if (!editingCategoryName) return;
   const newName = document.getElementById('newCategoryName').value.trim();
@@ -1409,6 +1183,7 @@ async function saveCategoryEdit() {
     closeCategoryEditModal();
   } catch (error) { console.error(error); showSync('Error al actualizar', 'error', 3000); }
 }
+
 async function deleteCategory() {
   if (!editingCategoryName) return;
   const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === editingCategoryName);
@@ -1425,6 +1200,7 @@ async function deleteCategory() {
     closeCategoryEditModal();
   } catch (error) { console.error(error); showSync('Error al eliminar', 'error', 3000); }
 }
+
 document.getElementById('newCategoryName').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); saveCategoryEdit(); }
 });
@@ -1434,10 +1210,12 @@ function openCart() {
   document.getElementById('cartOverlay').classList.add('active');
   renderCart();
 }
+
 function closeCart() {
   document.getElementById('cartPanel').classList.remove('open');
   document.getElementById('cartOverlay').classList.remove('active');
 }
+
 document.getElementById('cartOverlay').addEventListener('click', closeCart);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCart(); });
 
@@ -1447,6 +1225,7 @@ function loadCartClientInfo() {
   if (phoneInput) phoneInput.value = localStorage.getItem('clientPhone_v1') || ''; 
   if (addressInput) addressInput.value = localStorage.getItem('clientStoreAddress_v1') || ''; 
 }
+
 function saveCartClientInfo() {
   const phoneInput = document.getElementById('clientPhone');
   const addressInput = document.getElementById('clientStoreAddress');
@@ -1627,7 +1406,10 @@ function renderProducts() {
         return (a.createdAt || 0) - (b.createdAt || 0);
       });
     
+    const currentOrder = categoryMap[cat].order;
     const catCount = catProducts.length;
+    const orderBadge = adminMode ? `<span class="category-order-badge">Orden: ${currentOrder}</span>` : '';
+    
     const adminButtonsHtml = adminMode ? `
       <div style="margin-top:8px; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">
         <button class="category-edit-btn" onclick="openCategoryEditModal('${cat.replace(/'/g, "\\'")}')" title="Editar nombre y orden">✏️ Editar Categoría</button>
@@ -1637,7 +1419,7 @@ function renderProducts() {
     
     let html = `<div class="category-section">
       <div class="category-wrapper-title">
-        <h2>${cat}</h2>
+        <h2>${cat} ${orderBadge}</h2>
         <span class="cat-ornament">✦ ✦ ✦</span>
         ${adminButtonsHtml}
       </div>
@@ -1677,35 +1459,27 @@ function renderProducts() {
       if (adminMode) {
         let privateLinksHtml = '';
         for(let i=1; i<=5; i++) {
-          if(p[`privateLink${i}`]) {
-            privateLinksHtml += `<strong>🔗 Privado ${i}:</strong> <a href="${p[`privateLink${i}`]}" target="_blank" style="color:var(--accent); word-break:break-all;">Ver Link</a><br>`;
-          }
+          if(p[`privateLink${i}`]) privateLinksHtml += `<strong>🔗 Privado ${i}:</strong> <a href="${p[`privateLink${i}`]}" target="_blank" style="color:var(--accent); word-break:break-all;">Ver Link</a><br>`;
         }
-        
         let currencyHtml = '';
         if(p.usdPrice > 0 || p.convertedPriceBs > 0 || p.convertedPriceArs > 0) {
-          currencyHtml = `
-            <div style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--accent);">
-              <strong>💱 Divisas:</strong><br>
-              💵 Base: $${p.usdPrice || 0} USD<br>
-              🇧🇴 Tasa: ${p.usdToBsRate || 0} | <strong>Bs: ${Number(p.convertedPriceBs || 0).toFixed(2)}</strong><br>
-              🇦🇷 Tasa: ${p.usdToArsRate || 0} | <strong>ARS: ${Number(p.convertedPriceArs || 0).toFixed(2)}</strong>
-            </div>
-          `;
+          currencyHtml = `<div style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--accent);">
+            <strong>💱 Divisas:</strong><br>
+            💵 Base: $${p.usdPrice || 0} USD<br>
+            🇧🇴 Tasa: ${p.usdToBsRate || 0} | <strong>Bs: ${Number(p.convertedPriceBs || 0).toFixed(2)}</strong><br>
+            🇦🇷 Tasa: ${p.usdToArsRate || 0} | <strong>ARS: ${Number(p.convertedPriceArs || 0).toFixed(2)}</strong>
+          </div>`;
         }
-
-        adminInfoHtml = `
-          <div class="admin-info-panel">
-            <strong>📏 Medida:</strong> ${p.productMeasure || 'N/A'}<br>
-            <strong>⚖️ Peso:</strong> ${p.productWeight || 0}g<br>
-            <strong>💰 Costo USD:</strong> $${p.costUSD || 0}<br>
-            <strong>💰 Costo Bs:</strong> ${p.costBS || 0} Bs<br>
-            <strong>🔗 Link:</strong> ${p.productLink ? `<a href="${p.productLink}" target="_blank">${p.productLink}</a>` : 'N/A'}<br>
-            ${privateLinksHtml}
-            ${currencyHtml}
-            <strong>📝 Info:</strong> ${p.additionalInfo || 'N/A'}
-          </div>
-        `;
+        adminInfoHtml = `<div class="admin-info-panel">
+          <strong>📏 Medida:</strong> ${p.productMeasure || 'N/A'}<br>
+          <strong>⚖️ Peso:</strong> ${p.productWeight || 0}g<br>
+          <strong>💰 Costo USD:</strong> $${p.costUSD || 0}<br>
+          <strong>💰 Costo Bs:</strong> ${p.costBS || 0} Bs<br>
+          <strong>🔗 Link:</strong> ${p.productLink ? `<a href="${p.productLink}" target="_blank">${p.productLink}</a>` : 'N/A'}<br>
+          ${privateLinksHtml}
+          ${currencyHtml}
+          <strong>📝 Info:</strong> ${p.additionalInfo || 'N/A'}
+        </div>`;
       }
       
       html += `
@@ -1741,28 +1515,22 @@ function renderProducts() {
       const hasLink = section.linkUrl && section.linkUrl.trim() !== '';
       const clickAction = hasLink ? `onclick="window.open('${section.linkUrl}', '_blank')"` : '';
       const bannerSize = section.size || 'banner-standard';
-      return `
-        <div class="inline-banner-container ${bannerSize}">
-          <img src="${imgUrl}" alt="${section.title || 'Banner'}" loading="lazy" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">
-          ${(hasTitle || hasSubtitle) ? `<div class="banner-overlay">${hasTitle ? `<div class="banner-title">${section.title}</div>` : ''}${hasSubtitle ? `<div class="banner-subtitle">${section.subtitle}</div>` : ''}</div>` : ''}
-          ${adminMode ? `<div class="banner-admin"><button class="btn" onclick="event.stopPropagation(); editCustomSection('${section.id}')">✏️</button><button class="btn btn-danger" onclick="event.stopPropagation(); deleteCustomSection('${section.id}')">🗑️</button></div>` : ''}
-        </div>
-      `;
+      return `<div class="inline-banner-container ${bannerSize}">
+        <img src="${imgUrl}" alt="${section.title || 'Banner'}" loading="lazy" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">
+        ${(hasTitle || hasSubtitle) ? `<div class="banner-overlay">${hasTitle ? `<div class="banner-title">${section.title}</div>` : ''}${hasSubtitle ? `<div class="banner-subtitle">${section.subtitle}</div>` : ''}</div>` : ''}
+        ${adminMode ? `<div class="banner-admin"><button class="btn" onclick="event.stopPropagation(); editCustomSection('${section.id}')">✏️</button><button class="btn btn-danger" onclick="event.stopPropagation(); deleteCustomSection('${section.id}')">🗑️</button></div>` : ''}
+      </div>`;
     } else if (section.type === 'video') {
-      return `
-        <div style="margin: 40px 0; position:relative;">
-          <div class="video-card" style="max-width:800px; margin:0 auto;">
-            <div class="video-thumbnail-container" onclick="window.open('${section.videoUrl}', '_blank')">
-              ${section.thumbnail ? `<img src="${convertMediaUrl(section.thumbnail, 800)}" class="video-thumbnail-img">` : ''}
-              <div class="video-play-icon">▶️</div>
-            </div>
-            <div class="video-body" style="text-align:center;">
-              <h3 class="video-title">${section.title || 'Video'}</h3>
-            </div>
+      return `<div style="margin: 40px 0; position:relative;">
+        <div class="video-card" style="max-width:800px; margin:0 auto;">
+          <div class="video-thumbnail-container" onclick="window.open('${section.videoUrl}', '_blank')">
+            ${section.thumbnail ? `<img src="${convertMediaUrl(section.thumbnail, 800)}" class="video-thumbnail-img">` : ''}
+            <div class="video-play-icon">▶️</div>
           </div>
-          ${adminMode ? `<div style="position:absolute; top:10px; right:calc(50% - 380px); display:flex; gap:5px;"><button class="btn" onclick="editCustomSection('${section.id}')">✏️</button><button class="btn btn-danger" onclick="deleteCustomSection('${section.id}')">🗑️</button></div>` : ''}
+          <div class="video-body" style="text-align:center;"><h3 class="video-title">${section.title || 'Video'}</h3></div>
         </div>
-      `;
+        ${adminMode ? `<div style="position:absolute; top:10px; right:calc(50% - 380px); display:flex; gap:5px;"><button class="btn" onclick="editCustomSection('${section.id}')">✏️</button><button class="btn btn-danger" onclick="deleteCustomSection('${section.id}')">🗑️</button></div>` : ''}
+      </div>`;
     }
     return '';
   };
@@ -1870,6 +1638,7 @@ function updateCategorySuggestions() {
   uniqueCategories.sort((a, b) => a.localeCompare(b));
   datalist.innerHTML = uniqueCategories.map(cat => `<option value="${cat.replace(/"/g, '&quot;')}">`).join('');
 }
+
 function updateProductDatalist() {
   const datalist = document.getElementById('productList');
   if (!datalist) return;
@@ -1884,16 +1653,19 @@ function openMediaModal(productId) {
   renderLightboxMedia();
   document.getElementById('mediaModal').showModal();
 }
+
 function closeMediaModal() {
   document.getElementById('mediaContainer').innerHTML = '';
   document.getElementById('mediaModal').close();
   currentMediaList = [];
   currentMediaIndex = 0;
 }
+
 function changeMedia(direction) {
   currentMediaIndex = (currentMediaIndex + direction + currentMediaList.length) % currentMediaList.length;
   renderLightboxMedia();
 }
+
 function renderLightboxMedia() {
   const container = document.getElementById('mediaContainer');
   container.innerHTML = '';
@@ -1912,9 +1684,11 @@ function renderLightboxMedia() {
   document.getElementById('prevMediaBtn').style.display = display;
   document.getElementById('nextMediaBtn').style.display = display;
 }
+
 document.getElementById('mediaModal').addEventListener('close', () => { document.getElementById('mediaContainer').innerHTML = ''; });
 
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
 function scrollToNextSection() {
   const sections = [];
   const bannersContainer = document.getElementById('bannersContainer');
@@ -1929,21 +1703,30 @@ function scrollToNextSection() {
   if (nextSection) window.scrollTo({ top: nextSection.top - 80, behavior: 'smooth' });
   else window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
+
 function scrollToProduct(productId) {
-  const productEl = document.querySelector(`.product[data-id="${productId}"]`);
-  if (productEl) {
-    const top = productEl.offsetTop - 100;
-    window.scrollTo({ top: top, behavior: 'smooth' });
-    setTimeout(() => { productEl.classList.remove('product-highlight'); }, 2500);
-  }
+  let attempts = 0;
+  const maxAttempts = 15;
+  const tryScroll = () => {
+    const productEl = document.querySelector(`.product[data-id="${productId}"]`);
+    if (productEl && productEl.offsetTop > 0) {
+      const headerOffset = 100;
+      const elementPosition = productEl.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      setTimeout(() => {
+        productEl.classList.remove('product-highlight');
+        void productEl.offsetWidth;
+        productEl.classList.add('product-highlight');
+      }, 100);
+      setTimeout(() => productEl.classList.remove('product-highlight'), 2500);
+    } else if (attempts < maxAttempts) {
+      attempts++;
+      setTimeout(tryScroll, 200);
+    }
+  };
+  tryScroll();
 }
-window.addEventListener('scroll', () => {
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
-  const scrollDownBtn = document.getElementById('scrollDownBtn');
-  const scrollY = window.pageYOffset;
-  if (scrollY > 300) { scrollTopBtn.classList.add('show'); scrollDownBtn.classList.add('show'); }
-  else { scrollTopBtn.classList.remove('show'); scrollDownBtn.classList.remove('show'); }
-});
 
 function detectBannerSize(imageUrl) {
   const statusEl = document.getElementById('bannerSizeStatus');
@@ -2023,7 +1806,6 @@ document.getElementById('productForm').addEventListener('submit', async function
     pubLink3: document.getElementById('pubLink3').value.trim(),
     pubLink4: document.getElementById('pubLink4').value.trim(),
     pubLink5: document.getElementById('pubLink5').value.trim(),
-    // NUEVOS CAMPOS
     privateLink1: document.getElementById('privateLink1').value.trim(),
     privateLink2: document.getElementById('privateLink2').value.trim(),
     privateLink3: document.getElementById('privateLink3').value.trim(),
@@ -2046,11 +1828,11 @@ document.getElementById('productForm').addEventListener('submit', async function
       productData.createdAt = Date.now(); 
       const docRef = await productsRef.add(productData);
       pendingScrollToId = docRef.id;
-      showSync('Agregado ✅ - Ir al producto...', 'success', 2000); 
+      showSync('Agregado ✅ - Desplazando...', 'success', 2000); 
       closeDialog();
     }
   } catch (error) { 
-    console.error('Error al guardar producto:', error);
+    console.error('Error:', error);
     showSync('Error: ' + error.message, 'error', 3000); 
   }
 });
@@ -2085,7 +1867,6 @@ function editProduct(id) {
   document.getElementById('pubLink3').value = product.pubLink3 || '';
   document.getElementById('pubLink4').value = product.pubLink4 || '';
   document.getElementById('pubLink5').value = product.pubLink5 || '';
-  // NUEVOS CAMPOS
   document.getElementById('privateLink1').value = product.privateLink1 || '';
   document.getElementById('privateLink2').value = product.privateLink2 || '';
   document.getElementById('privateLink3').value = product.privateLink3 || '';
@@ -2096,7 +1877,6 @@ function editProduct(id) {
   document.getElementById('usdToArsRate').value = product.usdToArsRate || '';
   document.getElementById('convertedPriceBs').value = product.convertedPriceBs || '';
   document.getElementById('convertedPriceArs').value = product.convertedPriceArs || '';
-  
   updateCategorySuggestions();
   document.getElementById('productDialog').showModal();
 }
@@ -2240,7 +2020,7 @@ function toggleCsFields() {
 function updateCsCategoryOptions() {
   const select = document.getElementById('csAfterCategory');
   const categories = [...new Set(products.map(p => (p.category || "Sin categoría").trim()))].sort();
-  let html = '<option value="">🔝 Al principio (antes de todas)</option>';
+  let html = '<option value="">🔝 Al principio</option>';
   categories.forEach(cat => { html += `<option value="${cat}">Después de: ${cat}</option>`; });
   select.innerHTML = html;
 }
