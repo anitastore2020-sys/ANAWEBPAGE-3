@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- v5.0.10-full-fixed -->
+<!-- v5.0.12-links-only -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Galería de Productos Editable</title>
@@ -312,10 +312,10 @@
   }
   #category:focus + .category-hint, #category:not(:placeholder-shown) + .category-hint { opacity: 0; }
 
-  #adminLoginModal, #bannerDialog, #customSectionDialog, #categoryEditModal {
+  #adminLoginModal, #bannerDialog, #customSectionDialog, #categoryEditModal, #realImageDialog {
     width: 90%; max-width: 550px; border: none; border-radius: 20px; padding: 0; background: white; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   }
-  #adminLoginModal::backdrop, #bannerDialog::backdrop, #customSectionDialog::backdrop, #categoryEditModal::backdrop { background: rgba(34, 22, 26, 0.8); backdrop-filter: blur(8px); }
+  #adminLoginModal::backdrop, #bannerDialog::backdrop, #customSectionDialog::backdrop, #categoryEditModal::backdrop, #realImageDialog::backdrop { background: rgba(34, 22, 26, 0.8); backdrop-filter: blur(8px); }
   
   .login-container { padding: 30px; text-align: center; }
   .login-icon { font-size: 3rem; margin-bottom: 10px; }
@@ -429,14 +429,14 @@
     .btn { padding: 10px 18px; font-size: 0.9rem; }
     dialog { width: 95% !important; margin: 10px; }
     dialog > div { padding: 15px !important; }
-    #productForm input, #productForm select, #productForm textarea, #videoForm input, #videoForm textarea, #bannerForm input, #bannerForm textarea, #customSectionForm input, #customSectionForm select, #customSectionForm textarea { font-size: 16px !important; }
+    #productForm input, #productForm select, #productForm textarea, #videoForm input, #videoForm textarea, #bannerForm input, #bannerForm textarea, #customSectionForm input, #customSectionForm select, #customSectionForm textarea, #realImageForm input, #realImageForm textarea { font-size: 16px !important; }
     .lightbox-close { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 1.5rem; }
     .lightbox-container { min-height: 80vh; padding: 10px; }
     .lightbox-counter { font-size: 0.95rem; padding: 5px 16px; }
     .media-fallback-title { font-size: 1.1rem; }
     .media-fallback-msg { font-size: 0.85rem; }
     .media-fallback-icon { font-size: 3rem; }
-    #adminLoginModal, #bannerDialog, #customSectionDialog, #categoryEditModal { width: 95%; }
+    #adminLoginModal, #bannerDialog, #customSectionDialog, #categoryEditModal, #realImageDialog { width: 95%; }
     .login-container { padding: 20px; }
     .login-title { font-size: 1.3rem; }
     .login-input { font-size: 16px; }
@@ -470,6 +470,7 @@
         <button id="adminLoginBtn" class="btn btn-secondary">🔐 Admin</button>
         <button id="openAddBtn" class="btn btn-primary admin-only">+ Producto</button>
         <button id="addVideoBtn" class="btn btn-accent admin-only">🎬 Video</button>
+        <button id="addRealImageBtn" class="btn btn-accent admin-only">📸 Fotos Reales</button>
         <button id="addBannerBtn" class="btn btn-secondary admin-only">🖼️ Banner</button>
         <button id="addCustomSectionBtn" class="btn btn-secondary admin-only">🧩 Bloques</button>
         <button id="exportBackupBtn" class="btn btn-warning admin-only" title="Descargar copia de seguridad">💾 Backup</button>
@@ -485,6 +486,7 @@
 
 <div class="wrap">
   <div id="featuredVideosContainer"></div>
+  <div id="realImagesContainer"></div>
   <div id="productsContainer"></div>
 </div>
 
@@ -624,13 +626,6 @@
           </div>
         </div>
 
-        <div style="margin-bottom:12px; padding:12px; background:white; border-radius:8px; border:1px solid #f8d7e6;">
-          <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📸 Subir Foto Real (Firebase Storage)</label>
-          <input type="file" id="productImageFile" accept="image/*" class="form-input" style="padding:8px;">
-          <button type="button" class="btn btn-secondary" onclick="uploadProductImage()" style="margin-top:8px; width:100%;">⬆️ Subir Imagen</button>
-          <p id="uploadStatus" style="font-size:0.75rem; color:var(--muted); margin-top:6px; min-height:18px; font-weight:600;"></p>
-        </div>
-
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
           <div><label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">📏 Medida</label><input id="productMeasure" type="text" placeholder="Ej: 500ml" class="form-input"><div id="suggestions-productMeasure" class="suggestions-panel"></div></div>
           <div><label style="font-size:0.8rem; font-weight:600; color:var(--muted); display:block; margin-bottom:4px;">⚖️ Peso (g)</label><input id="productWeight" type="number" placeholder="Ej: 500" class="form-input"><div id="suggestions-productWeight" class="suggestions-panel"></div></div>
@@ -672,8 +667,8 @@
         <input id="pubLink5" type="url" placeholder="Link público 5" class="form-input"><div id="suggestions-pubLink5" class="suggestions-panel"></div>
       </div>
       <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs (URLs o subidas)</label>
-        <textarea id="mediaLinks" placeholder="Pega los links aquí (uno por línea). Las fotos subidas aparecerán aquí automáticamente." rows="4" class="form-textarea"></textarea>
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Links de imágenes/GIFs</label>
+        <textarea id="mediaLinks" placeholder="Pega los links aquí (uno por línea)" rows="4" class="form-textarea"></textarea>
         <div id="suggestions-mediaLinks" class="suggestions-panel"></div>
       </div>
 
@@ -695,6 +690,33 @@
       <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ URL de la Miniatura</label><input id="videoThumbnail" type="url" placeholder="Link de imagen" class="form-input"></div>
       <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Producto relacionado</label><input id="relatedProduct" type="text" list="productList" placeholder="Escribe para buscar..." class="form-input"><datalist id="productList"></datalist></div>
       <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;"><button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button><button type="button" class="btn btn-secondary" onclick="closeVideoDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button></div>
+    </form>
+  </div>
+</dialog>
+
+<!-- MODAL DE FOTOS REALES (SOLO LINKS) -->
+<dialog id="realImageDialog">
+  <div style="padding:25px;">
+    <h3 id="realImageDialogTitle" style="text-align:center; margin-bottom:20px; color:var(--accent);">📸 Agregar Foto Real (Link)</h3>
+    <form id="realImageForm">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🔗 Producto Relacionado</label>
+        <input id="realImageProduct" type="text" list="productList" placeholder="Escribe para buscar un producto..." class="form-input" required>
+        <datalist id="productList"></datalist>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">📝 Descripción (opcional)</label>
+        <input id="realImageDesc" type="text" placeholder="Ej: Detalle del empaque, textura..." class="form-input">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--accent); display:block; margin-bottom:4px;">🖼️ Link de la Imagen</label>
+        <input id="realImageUrl" type="url" placeholder="Pega aquí el link de Google Drive, Imgur, etc." class="form-input" required>
+        <p style="font-size:0.75rem; color:var(--muted); margin:4px 0 0 0;">💡 Pega el link directo. El sistema lo convertirá automáticamente.</p>
+      </div>
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
+        <button type="submit" class="btn btn-primary" style="flex:1; min-width: 140px;">💾 Guardar</button>
+        <button type="button" class="btn btn-secondary" onclick="closeRealImageDialog()" style="flex:1; min-width: 140px;">❌ Cancelar</button>
+      </div>
     </form>
   </div>
 </dialog>
@@ -773,7 +795,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -788,11 +809,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const storage = firebase.storage();
 const productsRef = db.collection('products');
 const videosRef = db.collection('videos');
 const bannersRef = db.collection('banners');
 const customSectionsRef = db.collection('customSections');
+const realImagesRef = db.collection('realImages'); // Colección independiente para fotos reales
 
 const ADMIN_PASSWORD = "admin123";
 
@@ -801,11 +822,13 @@ let products = [];
 let featuredVideos = [];
 let banners = [];
 let customSections = [];
+let realImages = [];
 let cart = JSON.parse(localStorage.getItem('cart_v26')) || [];
 let editingId = null;
 let editingVideoId = null;
 let editingBannerId = null;
 let editingCsId = null;
+let editingRealImageId = null;
 let currentMediaList = [];
 let currentMediaIndex = 0;
 let pendingScrollToId = null;
@@ -833,38 +856,6 @@ function togglePasswordVisibility() {
   } else {
     passwordInput.type = 'password';
     icon.textContent = '👁️';
-  }
-}
-
-async function uploadProductImage() {
-  const fileInput = document.getElementById('productImageFile');
-  const file = fileInput.files[0];
-  const statusEl = document.getElementById('uploadStatus');
-  if (!file) {
-    statusEl.textContent = "⚠️ Selecciona una imagen primero.";
-    statusEl.style.color = "#c02639";
-    return;
-  }
-  statusEl.textContent = "⏳ Subiendo imagen a Firebase...";
-  statusEl.style.color = "var(--accent)";
-  try {
-    const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
-    const storageRef = storage.ref(`product_images/${fileName}`);
-    const snapshot = await storageRef.put(file);
-    const downloadURL = await snapshot.ref.getDownloadURL();
-    const mediaArea = document.getElementById('mediaLinks');
-    if (mediaArea.value.trim() === '') {
-      mediaArea.value = downloadURL;
-    } else {
-      mediaArea.value = mediaArea.value.trim() + '\n' + downloadURL;
-    }
-    statusEl.textContent = "✅ ¡Imagen subida y agregada a la lista!";
-    statusEl.style.color = "#166534";
-    fileInput.value = "";
-  } catch (error) {
-    console.error("Error al subir:", error);
-    statusEl.textContent = "❌ Error: " + error.message;
-    statusEl.style.color = "#c02639";
   }
 }
 
@@ -984,15 +975,25 @@ customSectionsRef.orderBy('order', 'asc').onSnapshot((snapshot) => {
   renderProducts();
 });
 
+// Listener para Fotos Reales
+realImagesRef.onSnapshot((snapshot) => {
+  realImages = [];
+  snapshot.forEach(doc => realImages.push({ id: doc.id, ...doc.data() }));
+  renderRealImages();
+});
+
 async function exportBackup() {
   showSync('Generando backup...', 'loading', 0);
   try {
-    const [prodSnap, vidSnap, banSnap, csSnap] = await Promise.all([productsRef.get(), videosRef.get(), bannersRef.get(), customSectionsRef.get()]);
+    const [prodSnap, vidSnap, banSnap, csSnap, realSnap] = await Promise.all([
+      productsRef.get(), videosRef.get(), bannersRef.get(), customSectionsRef.get(), realImagesRef.get()
+    ]);
     const data = {
       products: prodSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       videos: vidSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       banners: banSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       customSections: csSnap.docs.map(d => ({ id: d.id, ...d.data() })),
+      realImages: realSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       exportDate: new Date().toISOString()
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1027,6 +1028,7 @@ async function importBackup(event) {
       if (data.videos) await writeCollection(videosRef, data.videos);
       if (data.banners) await writeCollection(bannersRef, data.banners);
       if (data.customSections) await writeCollection(customSectionsRef, data.customSections);
+      if (data.realImages) await writeCollection(realImagesRef, data.realImages);
       showSync('¡Datos restaurados! ✅', 'success', 3000);
       setTimeout(() => window.location.reload(), 1500);
     } catch (err) { console.error(err); showSync('Error: Archivo no válido', 'error', 3000); }
@@ -1108,6 +1110,7 @@ function loginAdmin(password) {
     renderProducts();
     renderFeaturedVideos();
     renderBanners();
+    renderRealImages();
     setTimeout(initDragAndDrop, 100);
     closeLoginModal();
     showSync('Sesión iniciada', 'success', 1500);
@@ -1130,6 +1133,7 @@ function logoutAdmin() {
     renderProducts();
     renderFeaturedVideos();
     renderBanners();
+    renderRealImages();
   }
 }
 
@@ -1581,6 +1585,49 @@ function renderFeaturedVideos() {
   container.innerHTML = html;
 }
 
+// RENDERIZAR FOTOS REALES (USANDO LINKS)
+function renderRealImages() {
+  const container = document.getElementById('realImagesContainer');
+  if (!container) return;
+  if (realImages.length === 0) { 
+    container.innerHTML = ''; 
+    return; 
+  }
+  
+  let html = `<div class="videos-section"><div class="category-wrapper-title"><h2>📸 Fotos Reales de Productos</h2><span class="cat-ornament">✦ ✦ ✦</span></div><div class="videos-grid">`;
+  
+  realImages.forEach(img => {
+    const product = products.find(p => p.id === img.productId);
+    const productName = product ? product.title : 'Producto desconocido';
+    // Aquí usamos convertMediaUrl para que los links de Google Drive se transformen automáticamente
+    const imgUrl = convertMediaUrl(img.imageUrl, 800);
+    
+    html += `<div class="video-card">
+      <div class="video-thumbnail-container" onclick="openLightboxImage('${imgUrl}')">
+        <img src="${imgUrl}" class="video-thumbnail-img" loading="lazy">
+        <div class="video-play-icon">🔍</div>
+      </div>
+      <div class="video-body">
+        <h3 class="video-title">${productName}</h3>
+        ${img.description ? `<p class="video-desc">${img.description}</p>` : ''}
+        <div class="video-admin">
+          <button class="btn btn-danger" onclick="deleteRealImage('${img.id}')">🗑️ Eliminar</button>
+        </div>
+      </div>
+    </div>`;
+  });
+  
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+function openLightboxImage(url) {
+  currentMediaList = [{ type: 'image', url: url }];
+  currentMediaIndex = 0;
+  renderLightboxMedia();
+  document.getElementById('mediaModal').showModal();
+}
+
 function renderBanners() {
   const container = document.getElementById('bannersContainer');
   if (!container) return;
@@ -1619,6 +1666,8 @@ function getDriveId(url) {
   for (const pattern of patterns) { const m = clean.match(pattern); if (m && m[1]) return m[1]; }
   return null;
 }
+
+// ESTA FUNCIÓN YA CONVIERTE LOS LINKS DE GOOGLE DRIVE AUTOMÁTICAMENTE
 function convertMediaUrl(url, size = 1200) {
   if (!url) return '';
   const clean = url.trim();
@@ -1950,6 +1999,76 @@ async function deleteVideo(id) {
   }
 }
 
+// FUNCIONES PARA FOTOS REALES (SOLO LINKS)
+document.getElementById('addRealImageBtn').addEventListener('click', () => {
+  if (!adminMode) { alert('⚠️ Iniciá sesión'); return; }
+  editingRealImageId = null;
+  document.getElementById('realImageDialogTitle').textContent = "📸 Agregar Foto Real (Link)";
+  document.getElementById('realImageForm').reset();
+  updateProductDatalist();
+  document.getElementById('realImageDialog').showModal();
+});
+
+document.getElementById('realImageForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!adminMode) return;
+  
+  const productName = document.getElementById('realImageProduct').value;
+  const product = products.find(p => p.title === productName);
+  if (!product) {
+    alert("⚠️ Producto no encontrado. Selecciona uno de la lista.");
+    return;
+  }
+  
+  const imageUrl = document.getElementById('realImageUrl').value.trim();
+  if (!imageUrl) {
+    alert("⚠️ Ingresa un link de imagen.");
+    return;
+  }
+  
+  showSync('Guardando...', 'loading', 0);
+  
+  try {
+    const imageData = {
+      productId: product.id,
+      description: document.getElementById('realImageDesc').value.trim(),
+      imageUrl: imageUrl,
+      createdAt: Date.now()
+    };
+    
+    if (editingRealImageId) {
+      await realImagesRef.doc(editingRealImageId).update(imageData);
+      showSync('Foto actualizada ✅', 'success', 2000);
+    } else {
+      await realImagesRef.add(imageData);
+      showSync('Foto real agregada ✅', 'success', 2000);
+    }
+    closeRealImageDialog();
+  } catch (error) {
+    console.error("Error al guardar:", error);
+    showSync('Error: ' + error.message, 'error', 3000);
+  }
+});
+
+function closeRealImageDialog() {
+  document.getElementById('realImageDialog').close();
+  document.getElementById('realImageForm').reset();
+  editingRealImageId = null;
+}
+
+async function deleteRealImage(id) {
+  if (!adminMode) return;
+  if (confirm("¿Eliminar esta foto real?")) {
+    showSync('Eliminando...', 'loading', 0);
+    try {
+      await realImagesRef.doc(id).delete();
+      showSync('Eliminado ✅', 'success', 2000);
+    } catch (error) {
+      showSync('Error', 'error', 3000);
+    }
+  }
+}
+
 document.getElementById('addBannerBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Iniciá sesión'); return; }
   editingBannerId = null;
@@ -2101,6 +2220,7 @@ loadCartClientInfo();
 updateCartCount();
 renderProducts();
 renderFeaturedVideos();
+renderRealImages();
 renderBanners();
 
 document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') { e.preventDefault(); return false; } });
