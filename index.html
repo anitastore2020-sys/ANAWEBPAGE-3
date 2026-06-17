@@ -92,32 +92,29 @@ header { position: sticky; top: 0; background: var(--color-card); backdrop-filte
 .videos-section h2 > .cat-ornament, .category-section h2 > .cat-ornament { display: block; width: 100%; text-align: center; font-size: 1.2rem; color: var(--color-primary); margin-top: 4px; letter-spacing: 8px; opacity: 0.8; }
 .videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.video-card { background: var(--color-card); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; border: 1px solid var(--color-border); }
-.video-thumbnail-container { width: 100%; background: var(--color-accent-soft); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
-.video-thumbnail-container:hover { transform: scale(1.02); }
-.video-thumbnail-img { width: 100%; height: 100%; object-fit: contain !important; }
-.video-play-icon { position: absolute; font-size: 3rem; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); pointer-events: none; }
-.video-body { padding: 18px; text-align: center; }
-.video-title { font-family: var(--font-subtitle); font-size: var(--size-subtitle); margin-bottom: 8px; font-weight: 700; color: var(--color-ink); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
-.video-desc { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 12px; }
-.video-product-tag { display: inline-block; background: var(--color-primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-top: 8px; cursor: pointer; text-decoration: none; }
-.video-product-tag:hover { background: var(--color-secondary); }
-.video-admin { display: none; gap: 8px; margin-top: 10px; justify-content: center; }
-.admin-on .video-admin { display: flex; }
-.video-admin .btn { flex: 1; font-size: 0.8rem; padding: 6px; }
+
+/* ========== PRODUCTOS ========== */
 .product { background: var(--color-card); border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
 .product-media { width: 100%; height: 300px; background: var(--color-accent-soft); position: relative; cursor: zoom-in; transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-media:hover { transform: scale(1.02); }
 .product-media img { width: 100%; height: 100%; object-fit: contain; }
-.product-media::after { content: '🔍 Ver fotos'; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(159, 18, 57, 0.7); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
-.product-media:hover::after { opacity: 1; }
+/* SIN OVERLAY DE LUPA - Solo badge pequeño en esquina */
+.product-view-photos-badge {
+  position: absolute; top: 10px; right: 10px; z-index: 5;
+  background: rgba(255,255,255,0.95); color: var(--color-primary);
+  padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  pointer-events: none; opacity: 0; transition: opacity 0.2s;
+  display: flex; align-items: center; gap: 4px;
+}
+.product-media:hover .product-view-photos-badge { opacity: 1; }
 .product-body { padding: 18px; }
 .product-title { font-family: var(--font-subtitle); font-size: var(--size-title); margin-bottom: 8px; font-weight: 700; color: var(--color-ink); }
 .product-code { font-size: 0.8rem; color: var(--color-muted); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.5px; }
 .product-desc { color: var(--color-muted); font-size: 0.95rem; margin-bottom: 12px; }
 .stock-info { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 12px; font-weight: 500; display: flex; align-items: center; gap: 5px; }
 .stock-info.low { color: var(--color-danger); font-weight: 700; }
-.stock-badge { position: absolute; top: 12px; right: 12px; padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; z-index: 2; }
+.stock-badge { position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; z-index: 5; font-weight: 600; }
 .stock-ok { background: var(--color-success); color: white; }
 .stock-none { background: var(--color-danger); color: white; }
 .price { font-size: 1.35rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
@@ -226,6 +223,29 @@ dialog { background: var(--color-card); color: var(--color-ink); }
 .category-edit-count { font-size: 0.8rem; color: var(--color-muted); margin-top: 4px; }
 .ratio-square { aspect-ratio: 1 / 1; } .ratio-portrait { aspect-ratio: 3 / 4; } .ratio-landscape { aspect-ratio: 16 / 9; } .ratio-auto { aspect-ratio: auto; min-height: 250px; }
 
+/* ========== VIDEOS - SIN PLAY OVERLAY ========== */
+.video-card { background: var(--color-card); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; border: 1px solid var(--color-border); }
+.video-thumbnail-container { width: 100%; background: var(--color-accent-soft); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+.video-thumbnail-container:hover { transform: scale(1.02); }
+.video-thumbnail-img { width: 100%; height: 100%; object-fit: contain !important; }
+/* Botón "Ver Video" pequeño abajo del video */
+.video-play-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white; padding: 6px 14px; border-radius: 20px;
+  font-size: 0.8rem; font-weight: 600; margin-top: 10px;
+  text-decoration: none; transition: all 0.2s;
+}
+.video-play-badge:hover { transform: scale(1.05); box-shadow: 0 4px 12px var(--color-shadow); }
+.video-body { padding: 18px; text-align: center; }
+.video-title { font-family: var(--font-subtitle); font-size: var(--size-subtitle); margin-bottom: 8px; font-weight: 700; color: var(--color-ink); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
+.video-desc { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 12px; }
+.video-product-tag { display: inline-block; background: var(--color-primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-top: 8px; cursor: pointer; text-decoration: none; }
+.video-product-tag:hover { background: var(--color-secondary); }
+.video-admin { display: none; gap: 8px; margin-top: 10px; justify-content: center; }
+.admin-on .video-admin { display: flex; }
+.video-admin .btn { flex: 1; font-size: 0.8rem; padding: 6px; }
+
 /* ========== 4 BOTONES DE NAVEGACIÓN ========== */
 .nav-buttons-container { 
   position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
@@ -251,7 +271,6 @@ dialog { background: var(--color-card); color: var(--color-ink); }
 .scroll-nav-btn.cat-btn { background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); font-size: 1.1rem; }
 .scroll-nav-btn.top-btn.show:hover, .scroll-nav-btn.bottom-btn.show:hover, .scroll-nav-btn.cat-btn.show:hover { transform: scale(1.15); }
 
-/* Tooltip para los botones */
 .scroll-nav-btn::after {
   content: attr(data-tooltip);
   position: absolute; right: 65px; top: 50%; transform: translateY(-50%);
@@ -263,61 +282,18 @@ dialog { background: var(--color-card); color: var(--color-ink); }
 .scroll-nav-btn:hover::after { opacity: 1; }
 
 /* ========== SELECTOR DE COLOR UNIFICADO ========== */
-.color-selector-unified {
-  background: var(--color-card);
-  border: 2px solid var(--color-border);
-  border-radius: 12px;
-  padding: 12px;
-}
-.color-selector-label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 8px;
-}
-.color-selector-description {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--color-muted);
-  margin-bottom: 10px;
-  font-style: italic;
-}
-.color-presets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  gap: 6px;
-  margin-bottom: 10px;
-}
-.color-preset-swatch {
-  width: 100%; aspect-ratio: 1;
-  border-radius: 8px; cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.2s;
-  position: relative;
-}
+.color-selector-unified { background: var(--color-card); border: 2px solid var(--color-border); border-radius: 12px; padding: 12px; }
+.color-selector-label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; }
+.color-selector-description { display: block; font-size: 0.72rem; color: var(--color-muted); margin-bottom: 10px; font-style: italic; }
+.color-presets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 6px; margin-bottom: 10px; }
+.color-preset-swatch { width: 100%; aspect-ratio: 1; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; position: relative; }
 .color-preset-swatch:hover { transform: scale(1.1); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 .color-preset-swatch.active { border-color: var(--color-ink); box-shadow: 0 0 0 2px var(--color-primary); }
-.color-preset-swatch.active::after {
-  content: '✓'; position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  color: white; font-weight: bold; font-size: 1rem;
-  text-shadow: 0 0 3px rgba(0,0,0,0.5);
-}
-.color-custom-row {
-  display: flex; gap: 8px; align-items: center;
-  padding-top: 8px; border-top: 1px dashed var(--color-border);
-}
+.color-preset-swatch.active::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; font-size: 1rem; text-shadow: 0 0 3px rgba(0,0,0,0.5); }
+.color-custom-row { display: flex; gap: 8px; align-items: center; padding-top: 8px; border-top: 1px dashed var(--color-border); }
 .color-custom-row label { font-size: 0.75rem; color: var(--color-muted); font-weight: 600; }
-.color-custom-row input[type="color"] {
-  width: 40px; height: 32px; border: 2px solid var(--color-border);
-  border-radius: 6px; cursor: pointer; padding: 2px;
-}
-.color-custom-row input[type="text"] {
-  flex: 1; padding: 6px 10px; border: 1px solid var(--color-border);
-  border-radius: 6px; font-family: monospace; font-size: 0.8rem;
-  background: var(--color-card); color: var(--color-ink);
-}
+.color-custom-row input[type="color"] { width: 40px; height: 32px; border: 2px solid var(--color-border); border-radius: 6px; cursor: pointer; padding: 2px; }
+.color-custom-row input[type="text"] { flex: 1; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 6px; font-family: monospace; font-size: 0.8rem; background: var(--color-card); color: var(--color-ink); }
 
 /* ========== BOTÓN FLOTANTE PERSONALIZACIÓN ========== */
 .theme-fab { position: fixed; bottom: 100px; left: 30px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white; border: none; cursor: pointer; font-size: 1.8rem; box-shadow: 0 6px 20px var(--color-shadow); z-index: 999; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
@@ -370,11 +346,6 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
 .custom-font-item-info { flex: 1; }
 .custom-font-item-name { font-weight: 600; font-size: 0.9rem; color: var(--color-ink); }
 .custom-font-item-preview { font-size: 0.85rem; color: var(--color-muted); margin-top: 2px; }
-
-/* ========== BOTÓN DESCARGA PRODUCTO ========== */
-.product-download-btn { position: absolute; bottom: 10px; right: 10px; width: 36px; height: 36px; background: var(--color-success); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 1rem; display: none; align-items: center; justify-content: center; z-index: 20; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-.admin-on .product-download-btn { display: flex; }
-.product-download-btn:hover { transform: scale(1.1); background: #059669; }
 
 /* ========== FOOTER ========== */
 .site-footer { background: var(--color-ink); color: var(--color-card); padding: 40px 20px 20px 20px; margin-top: 60px; font-size: 0.9rem; }
@@ -449,7 +420,7 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
 
 <div class="sync-indicator" id="syncIndicator"><span id="syncIcon">⏳</span><span id="syncText">Cargando...</span></div>
 
-<!-- ========== 4 BOTONES DE NAVEGACIÓN ========== -->
+<!-- 4 BOTONES DE NAVEGACIÓN -->
 <div class="nav-buttons-container">
   <button class="scroll-nav-btn top-btn" id="navTopFull" onclick="scrollToTopFull()" data-tooltip="⬆ Ir al inicio">⬆</button>
   <button class="scroll-nav-btn cat-btn" id="navCatUp" onclick="scrollToPrevCategory()" data-tooltip="↑ Categoría anterior">↑</button>
@@ -483,7 +454,7 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
   </div>
 </footer>
 
-<!-- ========== DIALOGO PERSONALIZACIÓN ========== -->
+<!-- DIALOGO PERSONALIZACIÓN -->
 <dialog id="themeDialog">
   <div class="theme-dialog-header">
     <h3>🎨 Personalización Avanzada</h3>
@@ -492,7 +463,7 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
   <div class="theme-dialog-body">
     <div class="theme-section">
       <div class="theme-section-title">🎨 Temas Rápidos</div>
-      <div class="theme-section-subtitle">Elige un preset completo de colores con un clic</div>
+      <div class="theme-section-subtitle">Elige un preset completo con un clic</div>
       <div class="presets-grid" id="presetsGrid"></div>
     </div>
     <div class="theme-section">
@@ -504,12 +475,12 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
     </div>
     <div class="theme-section">
       <div class="theme-section-title">🎨 Colores Personalizados</div>
-      <div class="theme-section-subtitle">Personaliza cada color individualmente usando los cuadraditos o el selector</div>
+      <div class="theme-section-subtitle">Personaliza cada color usando los cuadraditos o el selector</div>
       <div id="unifiedColorSelectors"></div>
     </div>
     <div class="theme-section">
       <div class="theme-section-title">✍️ Tipografías</div>
-      <div class="theme-section-subtitle">Elige una fuente diferente para cada elemento (incluye tus fuentes instaladas)</div>
+      <div class="theme-section-subtitle">Elige una fuente para cada elemento (incluye tus fuentes instaladas)</div>
       <div style="margin-bottom:15px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:6px;">📌 Títulos Principales</label><div class="font-selector-grid" id="fontTitleGrid"></div></div>
       <div style="margin-bottom:15px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:6px;">📌 Subtítulos y Nombres</label><div class="font-selector-grid" id="fontSubtitleGrid"></div></div>
       <div style="margin-bottom:15px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:6px;">📌 Texto del Cuerpo</label><div class="font-selector-grid" id="fontBodyGrid"></div></div>
@@ -546,19 +517,10 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
         <div><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">📍 Ubicación</label><select id="ctLocation" class="form-select"><option value="top">🔝 Al principio</option><option value="after-banners">📌 Después de banners</option><option value="after-videos">📌 Después de videos</option><option value="before-products">📌 Antes de productos</option><option value="bottom">🔚 Al final</option><option value="category">📂 Dentro de categoría</option></select></div>
         <div id="ctCategoryWrapper" style="display:none;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">📂 Categoría</label><select id="ctCategory" class="form-select"></select></div>
       </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">✍️ Fuente</label>
-        <select id="ctFont" class="form-select"></select>
-      </div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">✍️ Fuente</label><select id="ctFont" class="form-select"></select></div>
       <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">📏 Tamaño (px)</label><input id="ctSize" type="number" value="18" min="10" max="72" class="form-input"></div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">🎨 Color del texto</label>
-        <div id="ctColorSelector"></div>
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">🖼️ Color de fondo</label>
-        <div id="ctBgColorSelector"></div>
-      </div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">🎨 Color del texto</label><div id="ctColorSelector"></div></div>
+      <div style="margin-bottom:12px;"><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">🖼️ Color de fondo</label><div id="ctBgColorSelector"></div></div>
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
         <div><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">📐 Alineación</label><select id="ctAlign" class="form-select"><option value="left">⬅️ Izquierda</option><option value="center" selected>⬆️ Centro</option><option value="right">➡️ Derecha</option><option value="justify">⬌ Justificado</option></select></div>
         <div><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">💫 Estilo</label><select id="ctStyle" class="form-select"><option value="normal">Normal</option><option value="bold">Negrita</option><option value="italic">Cursiva</option><option value="bold-italic">Negrita + Cursiva</option></select></div>
@@ -577,8 +539,8 @@ input:checked + .slider-toggle:before { transform: translateX(24px); }
   <div class="cart-header">
     <button class="cart-close-btn" onclick="closeCart()">×</button>
     <h2>🛍️ Tu Pedido</h2>
-    <div class="cart-identifier-group"><label class="cart-identifier-label" for="clientPhone">📱 Celular *</label><input type="tel" id="clientPhone" class="cart-identifier-input" placeholder="Ej: 77712345" maxlength="15" required><span class="cart-identifier-warning">⚠️ Necesario para confirmar</span></div>
-    <div class="cart-identifier-group"><label class="cart-identifier-label" for="clientStoreAddress">🏪 Tienda y Dirección *</label><input type="text" id="clientStoreAddress" class="cart-identifier-input" placeholder="Ej: SPA Luna - Av. Principal #123" maxlength="100" required><span class="cart-identifier-warning">⚠️ Necesario para envío</span></div>
+    <div class="cart-identifier-group"><label class="cart-identifier-label" for="clientPhone">📱 Celular *</label><input type="tel" id="clientPhone" class="cart-identifier-input" placeholder="Ej: 77712345" maxlength="15" required><span class="cart-identifier-warning">⚠️ Necesario</span></div>
+    <div class="cart-identifier-group"><label class="cart-identifier-label" for="clientStoreAddress">🏪 Tienda y Dirección *</label><input type="text" id="clientStoreAddress" class="cart-identifier-input" placeholder="Ej: SPA Luna - Av. Principal #123" maxlength="100" required><span class="cart-identifier-warning">⚠️ Necesario</span></div>
   </div>
   <div class="cart-items-container" id="cartItems"></div>
   <div class="cart-footer"><h3 style="text-align:center; margin-bottom:12px;">Total: <span id="cartTotal" style="color:var(--color-primary);">0.00</span> Bs</h3><button onclick="sendToWhatsapp()" class="btn btn-accent" style="width:100%; padding:14px;">📱 Enviar por WhatsApp</button></div>
@@ -789,7 +751,6 @@ const realImagesRef = db.collection('realImages');
 const customTextsRef = db.collection('customTexts');
 const ADMIN_PASSWORD = "admin123";
 
-// ========== FUENTES BASE ==========
 const BASE_FONTS = {
   'manrope': { name: 'Manrope', family: "'Manrope', sans-serif", preview: 'Moderna' },
   'cormorant': { name: 'Cormorant', family: "'Cormorant Garamond', serif", preview: 'Elegante' },
@@ -808,11 +769,8 @@ const BASE_FONTS = {
   'eater': { name: 'Eater', family: "'Eater', cursive", preview: 'Devoradora' },
   'pirata': { name: 'Pirata', family: "'Pirata One', cursive", preview: 'Pirata' }
 };
-
-// FONTS dinámico: base + custom
 let FONTS = { ...BASE_FONTS };
 
-// ========== COLORES PRESETS ==========
 const COLOR_PRESETS = [
   { name: 'Rosa', primary: '#9f1239', secondary: '#be185d', bg: '#fff0f5', ink: '#22161a', dark: false },
   { name: 'Violeta', primary: '#7c3aed', secondary: '#a855f7', bg: '#faf5ff', ink: '#1e1b4b', dark: false },
@@ -826,7 +784,6 @@ const COLOR_PRESETS = [
   { name: 'Durazno', primary: '#ea580c', secondary: '#c2410c', bg: '#fff7ed', ink: '#431407', dark: false }
 ];
 
-// Paleta extendida para selector unificado (más colores)
 const EXTENDED_PALETTE = [
   '#9f1239', '#be185d', '#ec4899', '#f472b6',
   '#7c3aed', '#a855f7', '#8b5cf6', '#c084fc',
@@ -844,23 +801,17 @@ let themeState = JSON.parse(localStorage.getItem('themeState')) || { primary: '#
 let customFonts = JSON.parse(localStorage.getItem('customFonts')) || [];
 let categoryColors = JSON.parse(localStorage.getItem('categoryColors')) || {};
 
-// ========== APLICAR FUENTES CUSTOM ==========
 function applyCustomFonts() {
   FONTS = { ...BASE_FONTS };
   customFonts.forEach((font, idx) => {
     let styleEl = document.getElementById('custom-font-' + idx);
-    if (!styleEl) {
-      styleEl = document.createElement('style');
-      styleEl.id = 'custom-font-' + idx;
-      document.head.appendChild(styleEl);
-    }
+    if (!styleEl) { styleEl = document.createElement('style'); styleEl.id = 'custom-font-' + idx; document.head.appendChild(styleEl); }
     styleEl.textContent = `@font-face { font-family: '${font.name}'; src: url('${font.dataUrl}'); }`;
     FONTS['custom-' + idx] = { name: font.name, family: `'${font.name}', sans-serif`, preview: '✨ Custom' };
   });
 }
 applyCustomFonts();
 
-// ========== APLICAR TEMA ==========
 function applyThemeState() {
   const root = document.documentElement;
   const isDark = themeState.darkMode;
@@ -901,11 +852,9 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
-// ========== SELECTOR DE COLOR UNIFICADO ==========
 function createUnifiedColorSelector(containerId, currentValue, onChangeCallback, label, description) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  
   let html = '';
   if (label) html += `<label class="color-selector-label">${label}</label>`;
   if (description) html += `<span class="color-selector-description">${description}</span>`;
@@ -920,7 +869,6 @@ function createUnifiedColorSelector(containerId, currentValue, onChangeCallback,
     <input type="color" id="${containerId}-picker" value="${currentValue}" onchange="selectUnifiedColor('${containerId}', this.value)">
     <input type="text" id="${containerId}-text" value="${currentValue}" placeholder="#000000" onchange="selectUnifiedColor('${containerId}', this.value)">
   </div>`;
-  
   container.innerHTML = html;
   container.dataset.currentValue = currentValue;
   container.dataset.callback = onChangeCallback;
@@ -929,60 +877,30 @@ function createUnifiedColorSelector(containerId, currentValue, onChangeCallback,
 function selectUnifiedColor(containerId, color) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  
-  // Normalizar color
   if (!color.startsWith('#')) return;
   color = color.toLowerCase();
-  
-  // Actualizar inputs
   const picker = document.getElementById(containerId + '-picker');
   const text = document.getElementById(containerId + '-text');
   if (picker) picker.value = color;
   if (text) text.value = color;
-  
-  // Actualizar swatches activos
-  container.querySelectorAll('.color-preset-swatch').forEach(s => {
-    s.classList.toggle('active', s.dataset.color.toLowerCase() === color);
-  });
-  
+  container.querySelectorAll('.color-preset-swatch').forEach(s => { s.classList.toggle('active', s.dataset.color.toLowerCase() === color); });
   container.dataset.currentValue = color;
-  
-  // Llamar callback
   const callback = container.dataset.callback;
-  if (callback && typeof window[callback] === 'function') {
-    window[callback](color);
-  }
+  if (callback && typeof window[callback] === 'function') window[callback](color);
 }
 
-// Callbacks para los selectores
-function onThemeColorChange(color) {
-  // Este se llama cuando cambia un color del tema
-  // Necesitamos saber cuál color cambió
-}
+function handleThemePrimary(color) { themeState.primary = color; applyThemeState(); }
+function handleThemeSecondary(color) { themeState.secondary = color; applyThemeState(); }
+function handleThemeBg(color) { themeState.bg = color; applyThemeState(); }
+function handleThemeInk(color) { themeState.ink = color; applyThemeState(); }
+function handleCategoryColor(color) { /* se guarda al hacer click en Guardar */ }
+function handleCtColor(color) { /* se lee al guardar */ }
+function handleCtBgColor(color) { /* se lee al guardar */ }
 
-function onCategoryColorChange(color) {
-  // Se maneja en saveCategoryEdit
-}
-
-function onCtColorChange(color) {
-  // Se maneja en submit del form
-}
-
-function onCtBgColorChange(color) {
-  // Se maneja en submit del form
-}
-
-// ========== DIALOGO PERSONALIZACIÓN ==========
-function openThemeDialog() { 
-  initThemeDialog(); 
-  document.getElementById('themeDialog').showModal(); 
-}
-function closeThemeDialog() { 
-  document.getElementById('themeDialog').close(); 
-}
+function openThemeDialog() { initThemeDialog(); document.getElementById('themeDialog').showModal(); }
+function closeThemeDialog() { document.getElementById('themeDialog').close(); }
 
 function initThemeDialog() {
-  // Presets rápidos
   const presetsGrid = document.getElementById('presetsGrid');
   presetsGrid.innerHTML = '';
   COLOR_PRESETS.forEach((preset, idx) => {
@@ -992,8 +910,6 @@ function initThemeDialog() {
     btn.onclick = () => applyPreset(idx);
     presetsGrid.appendChild(btn);
   });
-  
-  // Selectores de color unificados para el tema
   const unifiedContainer = document.getElementById('unifiedColorSelectors');
   unifiedContainer.innerHTML = `
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
@@ -1005,13 +921,10 @@ function initThemeDialog() {
       <div id="themeInkSelector"></div>
     </div>
   `;
-  
   createUnifiedColorSelector('themePrimarySelector', themeState.primary, 'handleThemePrimary', '🎨 Color Primario', 'Botones principales, acentos, enlaces');
   createUnifiedColorSelector('themeSecondarySelector', themeState.secondary, 'handleThemeSecondary', '🎨 Color Secundario', 'Subtítulos, detalles, hover');
   createUnifiedColorSelector('themeBgSelector', themeState.bg, 'handleThemeBg', '🖼️ Fondo Principal', 'Fondo de la página');
   createUnifiedColorSelector('themeInkSelector', themeState.ink, 'handleThemeInk', '✍️ Color de Texto', 'Texto principal');
-  
-  // Fuentes
   ['fontTitleGrid', 'fontSubtitleGrid', 'fontBodyGrid', 'fontButtonGrid'].forEach((gridId, idx) => {
     const grid = document.getElementById(gridId);
     grid.innerHTML = '';
@@ -1030,11 +943,7 @@ function initThemeDialog() {
       grid.appendChild(btn);
     });
   });
-  
-  // Fuentes custom
   renderCustomFontsList();
-  
-  // Sliders
   document.getElementById('darkModeToggle').checked = themeState.darkMode;
   document.getElementById('sizeBody').value = themeState.sizeBody;
   document.getElementById('sizeBodyValue').textContent = themeState.sizeBody + 'px';
@@ -1043,12 +952,6 @@ function initThemeDialog() {
   document.getElementById('sizeSubtitle').value = themeState.sizeSubtitle;
   document.getElementById('sizeSubtitleValue').textContent = themeState.sizeSubtitle + 'px';
 }
-
-// Handlers para los selectores del tema
-function handleThemePrimary(color) { themeState.primary = color; applyThemeState(); }
-function handleThemeSecondary(color) { themeState.secondary = color; applyThemeState(); }
-function handleThemeBg(color) { themeState.bg = color; applyThemeState(); }
-function handleThemeInk(color) { themeState.ink = color; applyThemeState(); }
 
 function applyPreset(idx) {
   const preset = COLOR_PRESETS[idx];
@@ -1075,12 +978,11 @@ document.getElementById('darkModeToggle').addEventListener('change', (e) => { th
   slider.addEventListener('input', (e) => { themeState[key] = parseInt(e.target.value); value.textContent = themeState[key] + 'px'; applyThemeState(); });
 });
 
-// ========== FUENTES PERSONALIZADAS ==========
 async function installCustomFonts() {
   const input = document.getElementById('customFontInput');
   const files = input.files;
-  if (!files || files.length === 0) { alert('Selecciona al menos un archivo de fuente'); return; }
-  showSync('Instalando fuentes...', 'loading', 0);
+  if (!files || files.length === 0) { alert('Selecciona al menos un archivo'); return; }
+  showSync('Instalando...', 'loading', 0);
   for (const file of files) {
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -1089,12 +991,9 @@ async function installCustomFonts() {
       customFonts.push({ name: fontName, dataUrl: dataUrl, originalName: file.name });
       localStorage.setItem('customFonts', JSON.stringify(customFonts));
       applyCustomFonts();
-      showSync(`Fuente "${file.name}" instalada ✅`, 'success', 2000);
+      showSync(`"${file.name}" instalada ✅`, 'success', 2000);
       renderCustomFontsList();
-      if (document.getElementById('themeDialog').open) {
-        initThemeDialog();
-      }
-      // Actualizar selectores de fuentes en otros modales
+      if (document.getElementById('themeDialog').open) initThemeDialog();
       updateAllFontSelectors();
     };
     reader.readAsDataURL(file);
@@ -1105,27 +1004,18 @@ async function installCustomFonts() {
 function renderCustomFontsList() {
   const list = document.getElementById('customFontsList');
   if (!list) return;
-  if (customFonts.length === 0) {
-    list.innerHTML = '<p style="font-size:0.8rem; color:var(--color-muted); text-align:center;">No hay fuentes instaladas</p>';
-    return;
-  }
+  if (customFonts.length === 0) { list.innerHTML = '<p style="font-size:0.8rem; color:var(--color-muted); text-align:center;">No hay fuentes instaladas</p>'; return; }
   list.innerHTML = '';
   customFonts.forEach((font, idx) => {
     const item = document.createElement('div');
     item.className = 'custom-font-item';
-    item.innerHTML = `
-      <div class="custom-font-item-info">
-        <div class="custom-font-item-name">${font.originalName}</div>
-        <div class="custom-font-item-preview" style="font-family:'${font.name}'">Vista previa: ABC abc 123</div>
-      </div>
-      <button class="btn btn-danger" style="padding:4px 10px; font-size:0.75rem;" onclick="removeCustomFont(${idx})">🗑️</button>
-    `;
+    item.innerHTML = `<div class="custom-font-item-info"><div class="custom-font-item-name">${font.originalName}</div><div class="custom-font-item-preview" style="font-family:'${font.name}'">Vista previa: ABC abc 123</div></div><button class="btn btn-danger" style="padding:4px 10px; font-size:0.75rem;" onclick="removeCustomFont(${idx})">🗑️</button>`;
     list.appendChild(item);
   });
 }
 
 function removeCustomFont(idx) {
-  if (!confirm('¿Eliminar esta fuente?')) return;
+  if (!confirm('¿Eliminar?')) return;
   customFonts.splice(idx, 1);
   localStorage.setItem('customFonts', JSON.stringify(customFonts));
   const styleEl = document.getElementById('custom-font-' + idx);
@@ -1134,12 +1024,10 @@ function removeCustomFont(idx) {
   renderCustomFontsList();
   if (document.getElementById('themeDialog').open) initThemeDialog();
   updateAllFontSelectors();
-  showSync('Fuente eliminada', 'success', 1500);
+  showSync('Eliminada', 'success', 1500);
 }
 
-// Actualizar TODOS los selectores de fuentes (incluyendo modales)
 function updateAllFontSelectors() {
-  // Actualizar selector de fuentes en modal de texto personalizado
   if (document.getElementById('ctFont')) {
     const currentValue = document.getElementById('ctFont').value;
     const select = document.getElementById('ctFont');
@@ -1153,96 +1041,9 @@ function updateAllFontSelectors() {
       select.appendChild(opt);
     });
   }
-  
-  // Actualizar selectores en modal de personalización
-  if (document.getElementById('themeDialog').open) {
-    initThemeDialog();
-  }
+  if (document.getElementById('themeDialog').open) initThemeDialog();
 }
 
-// ========== DESCARGAR INFO DE PRODUCTO ==========
-function downloadProductInfo(productId) {
-  const product = products.find(p => p.id === productId);
-  if (!product) return;
-  const format = prompt('¿En qué formato?\n1 = JSON (completo)\n2 = TXT (legible)', '1');
-  if (!format) return;
-  const timestamp = new Date().toISOString().split('T')[0];
-  const filename = `${product.title.replace(/[^a-zA-Z0-9]/g, '_')}_${timestamp}`;
-  if (format === '1') {
-    const json = JSON.stringify(product, null, 2);
-    downloadFile(json, filename + '.json', 'application/json');
-  } else {
-    const txt = `═══════════════════════════════════
-INFORMACIÓN DEL PRODUCTO
-═══════════════════════════════════
-
-📝 TÍTULO: ${product.title}
-🏷️ CÓDIGO: ${product.code || 'N/A'}
-📂 CATEGORÍA: ${product.category || 'N/A'}
-
-💰 PRECIO NORMAL: ${product.price || 0} Bs
-🔥 PRECIO OFERTA: ${product.offerPrice || 0} Bs
-📦 PRECIO MAYORISTA: ${product.wholesalePrice || 0} Bs
-🏷️ STOCK: ${product.stock || 0} unidades
-
-📄 DESCRIPCIÓN:
-${product.description || 'N/A'}
-
-📏 MEDIDA: ${product.productMeasure || 'N/A'}
-⚖️ PESO: ${product.productWeight || 0}g
-
-💱 DIVISAS:
-  💵 Precio Base USD: $${product.usdPrice || 0}
-  🇧🇴 Tasa USD→Bs: ${product.usdToBsRate || 0}
-  🇦🇷 Tasa USD→ARS: ${product.usdToArsRate || 0}
-  ✅ Convertido Bs: ${product.convertedPriceBs || 0}
-  ✅ Convertido ARS: ${product.convertedPriceArs || 0}
-
-💰 COSTOS:
-  Costo USD: $${product.costUSD || 0}
-  Costo Bs: ${product.costBS || 0}
-
-🔗 LINKS PÚBLICOS:
-  1: ${product.pubLink1 || 'N/A'}
-  2: ${product.pubLink2 || 'N/A'}
-  3: ${product.pubLink3 || 'N/A'}
-  4: ${product.pubLink4 || 'N/A'}
-  5: ${product.pubLink5 || 'N/A'}
-
-🔗 LINKS PRIVADOS:
-  1: ${product.privateLink1 || 'N/A'}
-  2: ${product.privateLink2 || 'N/A'}
-  3: ${product.privateLink3 || 'N/A'}
-  4: ${product.privateLink4 || 'N/A'}
-  5: ${product.privateLink5 || 'N/A'}
-
-🔗 LINK REFERENCIA: ${product.productLink || 'N/A'}
-📝 INFO ADICIONAL: ${product.additionalInfo || 'N/A'}
-
-🖼️ IMÁGENES (${(product.media || []).length}):
-${(product.media || []).map((m, i) => `  ${i+1}. ${m}`).join('\n')}
-
-═══════════════════════════════════
-Generado: ${new Date().toLocaleString('es-ES')}
-═══════════════════════════════════`;
-    downloadFile(txt, filename + '.txt', 'text/plain');
-  }
-  showSync('Descargado ✅', 'success', 1500);
-}
-
-function downloadFile(content, filename, type) {
-  const blob = new Blob([content], { type: type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-// ========== VARIABLES GLOBALES ==========
 let adminMode = sessionStorage.getItem('adminAuthenticated') === 'true';
 let products = [];
 let featuredVideos = [];
@@ -1357,7 +1158,6 @@ customTextsRef.orderBy('order', 'asc').onSnapshot((snapshot) => { customTexts = 
 
 function renderAll() { renderBanners(); renderFeaturedVideos(); renderRealImages(); renderProducts(); }
 
-// ========== RENDERIZADO ==========
 function renderProducts() {
   const container = document.getElementById('productsContainer');
   if (!container) return;
@@ -1438,12 +1238,15 @@ function renderProducts() {
         }
         adminInfoHtml = `<div class="admin-info-panel"><strong>📏 Medida:</strong> ${p.productMeasure || 'N/A'}<br><strong>⚖️ Peso:</strong> ${p.productWeight || 0}g<br><strong>💰 USD:</strong> $${p.costUSD || 0}<br><strong>💰 Bs:</strong> ${p.costBS || 0}<br><strong>🔗 Link:</strong> ${p.productLink ? `<a href="${p.productLink}" target="_blank">Ver</a>` : 'N/A'}<br>${privateLinksHtml}${currencyHtml}<strong>📝 Info:</strong> ${p.additionalInfo || 'N/A'}</div>`;
       }
+      // Badge pequeño en esquina superior derecha (NO tapa la foto)
+      const viewPhotosBadge = p.media && p.media.length > 0 ? `<div class="product-view-photos-badge">📷 ${p.media.length}</div>` : '';
+      // Stock badge movido a esquina superior izquierda
       html += `<div class="product ${highlightClass} ${fontStyleClass}" data-id="${p.id}">
         <div class="drag-handle-admin" title="Arrastra">⋮⋮</div>
-        <button class="product-download-btn" onclick="event.stopPropagation(); downloadProductInfo('${p.id}')" title="Descargar info">💾</button>
         <div class="product-media" ${clickAction}>
           ${img ? `<img src="${img}" loading="lazy" alt="${p.title}" oncontextmenu="return false;" style="pointer-events: none; user-select: none; -webkit-user-drag: none;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--color-muted);">📷</div>'}
-          <span class="stock-badge ${inStock ? 'stock-ok' : 'stock-none'}">${inStock ? 'Disponible' : 'Sin stock'}</span>
+          <span class="stock-badge ${inStock ? 'stock-ok' : 'stock-none'}">${inStock ? '✓' : '✗'}</span>
+          ${viewPhotosBadge}
         </div>
         <div class="product-body">
           <h3 class="product-title">${p.title}</h3>
@@ -1480,17 +1283,17 @@ function renderFeaturedVideos() {
     }
     const orderBadge = adminMode ? `<span class="category-order-badge">Orden: ${video.order !== undefined ? video.order : index}</span>` : '';
     const ratioClass = video.ratio || 'ratio-square';
+    // SIN PLAY OVERLAY - Solo botón "Ver Video" abajo
     html += `<div class="video-card" data-id="${video.id}">
       <div class="drag-handle-admin" title="Arrastra">⋮⋮</div>
       <div class="video-thumbnail-container ${ratioClass}" onclick="window.open('${video.url}', '_blank')">
-        ${video.thumbnail ? `<img src="${convertMediaUrl(video.thumbnail, 800)}" class="video-thumbnail-img">` : ''}
-        <div class="video-play-icon">▶️</div>
+        ${video.thumbnail ? `<img src="${convertMediaUrl(video.thumbnail, 800)}" class="video-thumbnail-img">` : '<div style="font-size:3rem; color:var(--color-muted);">🎬</div>'}
       </div>
       <div class="video-body">
         <h3 class="video-title">${video.title} ${orderBadge}</h3>
         ${video.description ? `<p class="video-desc">${video.description}</p>` : ''}
         ${relatedProductHtml}
-        <a href="${video.url}" target="_blank" class="btn-insta">▶️ Ver Video</a>
+        <a href="${video.url}" target="_blank" class="video-play-badge">▶️ Ver Video</a>
         <div class="video-admin">
           <button class="btn btn-secondary" onclick="editVideo('${video.id}')" style="flex:1;">✏️</button>
           <button class="btn btn-danger" onclick="deleteVideo('${video.id}')" style="flex:1;">🗑️</button>
@@ -1519,12 +1322,12 @@ function renderRealImages() {
     html += `<div class="video-card real-image-card" data-id="${img.id}">
       <div class="drag-handle-admin" title="Arrastra">⋮⋮</div>
       <div class="video-thumbnail-container ${ratioClass}" onclick="openRealImageLightbox(${linksString})">
-        ${thumbUrl ? `<img src="${thumbUrl}" class="video-thumbnail-img" loading="lazy">` : '<div style="font-size:3rem;">📷</div>'}
-        <div class="video-play-icon">🔍</div>
+        ${thumbUrl ? `<img src="${thumbUrl}" class="video-thumbnail-img" loading="lazy">` : '<div style="font-size:3rem; color:var(--color-muted);">📷</div>'}
       </div>
       <div class="video-body">
         <h3 class="video-title">${productName} ${orderBadge}</h3>
         ${img.description ? `<p class="video-desc">${img.description}</p>` : ''}
+        <a href="#" onclick="openRealImageLightbox(${linksString}); return false;" class="video-play-badge">🔍 Ver Fotos</a>
         <div class="video-admin">
           <button class="btn btn-secondary" onclick="editRealImage('${img.id}')" style="flex:1;">✏️</button>
           <button class="btn btn-danger" onclick="deleteRealImage('${img.id}')" style="flex:1;">🗑️</button>
@@ -1679,72 +1482,71 @@ window.addEventListener('scroll', () => {
   else buttons.forEach(btn => btn.classList.remove('show'));
 });
 
-function scrollToTopFull() { 
-  window.scrollTo({ top: 0, behavior: 'smooth' }); 
-}
-
-function scrollToBottomFull() {
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-}
+function scrollToTopFull() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function scrollToBottomFull() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
 
 function getAllCategorySections() {
   const sections = [];
   document.querySelectorAll('.category-section').forEach(el => {
-    sections.push({
-      el: el,
-      name: el.dataset.catName,
-      top: el.offsetTop
-    });
+    sections.push({ el: el, name: el.dataset.catName, top: el.offsetTop });
   });
   return sections.sort((a, b) => a.top - b.top);
 }
 
 function scrollToPrevCategory() {
   const sections = getAllCategorySections();
-  if (sections.length === 0) return;
-  const currentScroll = window.pageYOffset + 150;
+  if (sections.length === 0) { scrollToTopFull(); return; }
+  const currentScroll = window.pageYOffset;
   
-  // Buscar la categoría anterior a la posición actual
-  let prevSection = null;
+  // Encontrar la categoría ACTUAL (la más cercana arriba del scroll actual)
+  let currentIndex = -1;
   for (let i = sections.length - 1; i >= 0; i--) {
-    if (sections[i].top < currentScroll - 50) {
-      prevSection = sections[i];
+    if (sections[i].top <= currentScroll + 100) {
+      currentIndex = i;
       break;
     }
   }
   
-  if (prevSection) {
-    window.scrollTo({ top: prevSection.top - 80, behavior: 'smooth' });
-    showSync(`↑ ${prevSection.name}`, 'success', 1500);
-  } else {
-    // Si no hay anterior, ir al inicio
+  // Ir a la anterior
+  let targetIndex;
+  if (currentIndex <= 0) {
+    // Si estamos en la primera o antes, ir al inicio
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    showSync('↑ Inicio', 'success', 1500);
+    showSync('⬆ Inicio', 'success', 1500);
+    return;
+  } else {
+    targetIndex = currentIndex - 1;
   }
+  
+  const target = sections[targetIndex];
+  window.scrollTo({ top: target.top - 80, behavior: 'smooth' });
+  showSync(`↑ ${target.name}`, 'success', 1500);
 }
 
 function scrollToNextCategory() {
   const sections = getAllCategorySections();
-  if (sections.length === 0) return;
-  const currentScroll = window.pageYOffset + 150;
+  if (sections.length === 0) { scrollToBottomFull(); return; }
+  const currentScroll = window.pageYOffset;
   
-  // Buscar la siguiente categoría
-  let nextSection = null;
-  for (const section of sections) {
-    if (section.top > currentScroll) {
-      nextSection = section;
+  // Encontrar la siguiente categoría
+  let nextIndex = -1;
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].top > currentScroll + 100) {
+      nextIndex = i;
       break;
     }
   }
   
-  if (nextSection) {
-    window.scrollTo({ top: nextSection.top - 80, behavior: 'smooth' });
-    showSync(`↓ ${nextSection.name}`, 'success', 1500);
-  } else {
-    // Si no hay siguiente, ir al final
+  if (nextIndex === -1) {
+    // No hay siguiente, ir al final
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    showSync('↓ Final', 'success', 1500);
+    showSync('⬇ Final', 'success', 1500);
+    return;
   }
+  
+  const target = sections[nextIndex];
+  window.scrollTo({ top: target.top - 80, behavior: 'smooth' });
+  showSync(`↓ ${target.name}`, 'success', 1500);
 }
 
 function scrollToProduct(productId) {
@@ -1877,7 +1679,6 @@ function logoutAdmin() {
 }
 document.getElementById('adminLoginForm').addEventListener('submit', (e) => { e.preventDefault(); loginAdmin(document.getElementById('adminPassword').value); });
 
-// ========== EDITAR CATEGORÍA ==========
 function openCategoryEditModal(catName) {
   if (!adminMode) return;
   editingCategoryName = catName;
@@ -1888,19 +1689,11 @@ function openCategoryEditModal(catName) {
   document.getElementById('categoryProductCount').textContent = `${catProducts.length} productos`;
   document.getElementById('newCategoryName').value = catName;
   document.getElementById('newCategoryOrder').value = currentOrder;
-  
-  // Crear selector de color unificado
   const currentColor = categoryColors[catName] || '#be185d';
-  createUnifiedColorSelector('categoryColorSelector', currentColor, 'handleCategoryColor', '🎨 Color de la categoría', 'Se aplicará al título, líneas y badge de esta categoría');
-  
+  createUnifiedColorSelector('categoryColorSelector', currentColor, 'handleCategoryColor', '🎨 Color de la categoría', 'Se aplicará al título, líneas y badge');
   document.getElementById('categoryEditModal').showModal();
   setTimeout(() => document.getElementById('newCategoryName').focus(), 100);
 }
-
-function handleCategoryColor(color) {
-  // Se guarda al hacer click en Guardar
-}
-
 function closeCategoryEditModal() { document.getElementById('categoryEditModal').close(); editingCategoryName = null; }
 
 async function saveCategoryEdit() {
@@ -1909,40 +1702,25 @@ async function saveCategoryEdit() {
   const newOrder = parseInt(document.getElementById('newCategoryOrder').value) || 99;
   const colorContainer = document.getElementById('categoryColorSelector');
   const newColor = colorContainer ? colorContainer.dataset.currentValue : '#be185d';
-  
   if (!newName) { alert('⚠️ Nombre vacío'); return; }
-  
   showSync('Actualizando...', 'loading', 0);
-  
   try {
-    // Si cambió el nombre, actualizar productos
     if (newName !== editingCategoryName) {
       const existingCat = products.find(p => (p.category || "").trim() === newName && (p.category || "").trim() !== editingCategoryName);
-      if (existingCat) {
-        if (!confirm(`⚠️ "${newName}" ya existe. ¿Fusionar?`)) { showSync('Cancelado', 'error', 1500); return; }
-      }
+      if (existingCat) { if (!confirm(`⚠️ "${newName}" ya existe. ¿Fusionar?`)) { showSync('Cancelado', 'error', 1500); return; } }
       const batch = db.batch();
       const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === editingCategoryName);
       catProducts.forEach(p => { batch.update(productsRef.doc(p.id), { category: newName, categoryOrder: newOrder }); });
       await batch.commit();
-      
-      // Migrar color
-      if (categoryColors[editingCategoryName]) {
-        categoryColors[newName] = categoryColors[editingCategoryName];
-        delete categoryColors[editingCategoryName];
-      }
+      if (categoryColors[editingCategoryName]) { categoryColors[newName] = categoryColors[editingCategoryName]; delete categoryColors[editingCategoryName]; }
     } else {
-      // Solo actualizar orden
       const batch = db.batch();
       const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === editingCategoryName);
       catProducts.forEach(p => { batch.update(productsRef.doc(p.id), { categoryOrder: newOrder }); });
       await batch.commit();
     }
-    
-    // Guardar color
     if (newColor) categoryColors[newName] = newColor;
     localStorage.setItem('categoryColors', JSON.stringify(categoryColors));
-    
     showSync('✅', 'success', 2500);
     closeCategoryEditModal();
   } catch (error) { console.error(error); showSync('Error', 'error', 3000); }
@@ -1966,7 +1744,6 @@ async function deleteCategory() {
 }
 document.getElementById('newCategoryName').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveCategoryEdit(); } });
 
-// ========== CARRITO ==========
 function openCart() { document.getElementById('cartPanel').classList.add('open'); document.getElementById('cartOverlay').classList.add('active'); renderCart(); }
 function closeCart() { document.getElementById('cartPanel').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('active'); }
 document.getElementById('cartOverlay').addEventListener('click', closeCart);
@@ -2108,7 +1885,6 @@ async function sendToWhatsapp() {
   }
 }
 
-// ========== CRUD PRODUCTOS ==========
 document.getElementById('openAddBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Inicia sesión'); return; }
   editingId = null;
@@ -2203,7 +1979,6 @@ async function deleteProduct(id) {
   }
 }
 
-// ========== CRUD VIDEOS ==========
 document.getElementById('addVideoBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Inicia sesión'); return; }
   editingVideoId = null;
@@ -2253,7 +2028,6 @@ async function deleteVideo(id) {
   }
 }
 
-// ========== CRUD FOTOS REALES ==========
 document.getElementById('addRealImageBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Inicia sesión'); return; }
   editingRealImageId = null;
@@ -2308,7 +2082,6 @@ async function deleteRealImage(id) {
   }
 }
 
-// ========== CRUD BANNERS ==========
 document.getElementById('addBannerBtn').addEventListener('click', () => {
   if (!adminMode) { alert('⚠️ Inicia sesión'); return; }
   editingBannerId = null;
@@ -2374,7 +2147,6 @@ async function deleteBanner(id) {
   }
 }
 
-// ========== CRUD BLOQUES ==========
 function toggleCsFields() {
   const type = document.getElementById('csType').value;
   document.getElementById('csBannerFields').style.display = type === 'banner' ? 'block' : 'none';
@@ -2426,20 +2198,15 @@ async function deleteCustomSection(id) {
   }
 }
 
-// ========== CRUD TEXTOS PERSONALIZADOS ==========
 function openCustomTextDialog() {
   if (!adminMode) { alert('⚠️ Inicia sesión'); return; }
   editingCustomTextId = null;
   document.getElementById('customTextDialogTitle').textContent = '✍️ Texto';
   document.getElementById('customTextForm').reset();
-  
-  // Actualizar categorías
   const catSelect = document.getElementById('ctCategory');
   const categories = [...new Set(products.map(p => (p.category || "Sin categoría").trim()))].sort();
   catSelect.innerHTML = '<option value="">-- Categoría --</option>';
   categories.forEach(cat => { catSelect.innerHTML += `<option value="${cat}">${cat}</option>`; });
-  
-  // Actualizar fuentes (incluyendo custom)
   const fontSelect = document.getElementById('ctFont');
   fontSelect.innerHTML = '';
   Object.entries(FONTS).forEach(([id, font]) => {
@@ -2449,41 +2216,31 @@ function openCustomTextDialog() {
     opt.style.fontFamily = font.family;
     fontSelect.appendChild(opt);
   });
-  
-  // Crear selectores de color unificados
   createUnifiedColorSelector('ctColorSelector', '#22161a', 'handleCtColor', '🎨 Color del texto', 'Color del texto personalizado');
-  createUnifiedColorSelector('ctBgColorSelector', '#ffffff', 'handleCtBgColor', '🖼️ Color de fondo', 'Color de fondo (deja transparente si no quieres fondo)');
-  
+  createUnifiedColorSelector('ctBgColorSelector', '#ffffff', 'handleCtBgColor', '🖼️ Color de fondo', 'Color de fondo');
   document.getElementById('customTextDialog').showModal();
 }
-
-function handleCtColor(color) { /* se lee al guardar */ }
-function handleCtBgColor(color) { /* se lee al guardar */ }
-
+function handleCtColor(color) {}
+function handleCtBgColor(color) {}
 function closeCustomTextDialog() { document.getElementById('customTextDialog').close(); editingCustomTextId = null; }
-
 document.getElementById('ctLocation').addEventListener('change', (e) => {
   document.getElementById('ctCategoryWrapper').style.display = e.target.value === 'category' ? 'block' : 'none';
 });
-
 document.getElementById('customTextForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   if (!adminMode) return;
   showSync('Guardando...', 'loading', 0);
-  
   const colorContainer = document.getElementById('ctColorSelector');
   const bgColorContainer = document.getElementById('ctBgColorSelector');
   const textColor = colorContainer ? colorContainer.dataset.currentValue : '#22161a';
   const bgColor = bgColorContainer ? bgColorContainer.dataset.currentValue : 'transparent';
-  
   const data = {
     content: document.getElementById('ctContent').value.trim(),
     location: document.getElementById('ctLocation').value,
     category: document.getElementById('ctCategory').value,
     font: document.getElementById('ctFont').value,
     size: parseInt(document.getElementById('ctSize').value) || 18,
-    color: textColor,
-    bgColor: bgColor,
+    color: textColor, bgColor: bgColor,
     align: document.getElementById('ctAlign').value,
     style: document.getElementById('ctStyle').value,
     order: parseInt(document.getElementById('ctOrder').value) || 0,
@@ -2503,21 +2260,16 @@ function editCustomText(id) {
   document.getElementById('customTextDialogTitle').textContent = '✏️ Editar';
   document.getElementById('ctContent').value = text.content || '';
   document.getElementById('ctLocation').value = text.location || 'top';
-  document.getElementById('ctFont').value = text.font || 'manrope';
   document.getElementById('ctSize').value = text.size || 18;
   document.getElementById('ctAlign').value = text.align || 'center';
   document.getElementById('ctStyle').value = text.style || 'normal';
   document.getElementById('ctOrder').value = text.order || 0;
   document.getElementById('ctCategoryWrapper').style.display = text.location === 'category' ? 'block' : 'none';
-  
-  // Actualizar categorías
   const catSelect = document.getElementById('ctCategory');
   const categories = [...new Set(products.map(p => (p.category || "Sin categoría").trim()))].sort();
   catSelect.innerHTML = '<option value="">-- Categoría --</option>';
   categories.forEach(cat => { catSelect.innerHTML += `<option value="${cat}">${cat}</option>`; });
   document.getElementById('ctCategory').value = text.category || '';
-  
-  // Actualizar fuentes
   const fontSelect = document.getElementById('ctFont');
   fontSelect.innerHTML = '';
   Object.entries(FONTS).forEach(([id, font]) => {
@@ -2528,11 +2280,8 @@ function editCustomText(id) {
     if (id === (text.font || 'manrope')) opt.selected = true;
     fontSelect.appendChild(opt);
   });
-  
-  // Crear selectores de color unificados con valores actuales
-  createUnifiedColorSelector('ctColorSelector', text.color || '#22161a', 'handleCtColor', '🎨 Color del texto', 'Color del texto personalizado');
+  createUnifiedColorSelector('ctColorSelector', text.color || '#22161a', 'handleCtColor', '🎨 Color del texto', 'Color del texto');
   createUnifiedColorSelector('ctBgColorSelector', text.bgColor || '#ffffff', 'handleCtBgColor', '🖼️ Color de fondo', 'Color de fondo');
-  
   document.getElementById('customTextDialog').showModal();
 }
 async function deleteCustomText(id) {
@@ -2550,7 +2299,6 @@ document.getElementById('cartBtn').addEventListener('click', () => {
   else openCart();
 });
 
-// ========== INICIALIZACIÓN ==========
 document.getElementById('currentYear').textContent = new Date().getFullYear();
 applyThemeState();
 updateAdminUI();
