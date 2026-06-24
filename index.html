@@ -9,6 +9,7 @@
 <style>
 :root {
 --color-primary: #9f1239; --color-secondary: #be185d;
+--color-accent: #9f1239;
 --color-accent-soft: #fff0f5; --color-accent-soft2: #ffe4ec;
 --color-ink: #22161a; --color-muted: #7b5a63;
 --color-bg: #fff0f5; --color-bg2: #ffe4ec;
@@ -57,7 +58,6 @@ header { position: sticky; top: 0; background: var(--color-card); backdrop-filte
 .banner-item, .block-item { position: relative; overflow: hidden; cursor: pointer; background: #1a0a0e; transition: transform 0.3s ease; margin: 0 auto; width: 100%; }
 .banner-item:hover, .block-item:hover { transform: translateY(-5px); }
 .banner-item img, .block-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* 🆕 NUEVAS MEDIDAS UNIFICADAS */
 .size-full { width: 100%; height: auto; aspect-ratio: 16 / 9; }
 .size-1000-sq, .size-1200-sq, .size-1800-sq, .size-2200-sq { width: 100%; aspect-ratio: 1 / 1; }
 .size-1000-rect, .size-1200-rect, .size-1800-rect, .size-2200-rect { width: 100%; aspect-ratio: 16 / 9; }
@@ -70,7 +70,6 @@ header { position: sticky; top: 0; background: var(--color-card); backdrop-filte
 .banner-links { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; z-index: 10; }
 .banner-link-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.95); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.2s; text-decoration: none; }
 .banner-link-btn:hover { transform: scale(1.1); background: var(--color-primary); color: white; }
-/* 🆕 DRAG HANDLE ABAJO-DERECHA PEQUEÑO */
 .drag-handle-admin { position: absolute; bottom: 8px; right: 8px; top: auto; left: auto; width: 24px; height: 24px; background: rgba(255,255,255,0.9); border-radius: 4px; font-size: 0.8rem; color: var(--color-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 30; cursor: grab; display: none; align-items: center; justify-content: center; font-weight: bold; }
 .admin-on .drag-handle-admin { display: flex; }
 .drag-handle-admin:active { cursor: grabbing; }
@@ -113,9 +112,54 @@ header { position: sticky; top: 0; background: var(--color-card); backdrop-filte
 .product-desc { color: var(--color-muted); font-size: 0.95rem; margin-bottom: 12px; }
 .stock-info { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 12px; font-weight: 500; display: flex; align-items: center; gap: 5px; }
 .stock-info.low { color: var(--color-danger); font-weight: 700; }
-/* 🆕 SUPER OFERTA */
-.super-offer-box { background: linear-gradient(135deg, #ffcc00, #ff8800); color: #22161a; padding: 10px; border-radius: 8px; margin: 8px 0; text-align: center; font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(255,136,0,0.3); animation: pulse 1.5s infinite; }
-.super-offer-price { font-size: 1.4rem; display: block; margin-top: 4px; }
+/* 🔥 SUPER OFERTA - AHORA MUY VISIBLE */
+.super-offer-box {
+  background: linear-gradient(135deg, #ffcc00 0%, #ff8800 50%, #ff5500 100%);
+  color: #1a0a0e !important;
+  padding: 16px 14px;
+  border-radius: 12px;
+  margin: 12px 0;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.25rem;
+  box-shadow: 0 8px 24px rgba(255,100,0,0.5), inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -2px 0 rgba(0,0,0,0.15);
+  animation: superOfferPulse 1.8s infinite;
+  border: 3px solid rgba(255,255,255,0.6);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.super-offer-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  animation: superOfferShine 3s infinite;
+}
+.super-offer-price {
+  font-size: 1.8rem;
+  display: block;
+  margin-top: 8px;
+  color: #1a0a0e !important;
+  font-weight: 900;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 2;
+}
+.super-offer-box > *:not(.super-offer-price) { position: relative; z-index: 2; }
+@keyframes superOfferPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(255,100,0,0.5), inset 0 2px 0 rgba(255,255,255,0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 12px 32px rgba(255,100,0,0.7), inset 0 2px 0 rgba(255,255,255,0.4); }
+}
+@keyframes superOfferShine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
 .price { font-size: 1.35rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
 .price-original { text-decoration: line-through; color: var(--color-muted); font-size: 0.95rem; font-weight: 400; }
 .price-offer { color: var(--color-secondary); font-weight: 700; }
@@ -210,9 +254,9 @@ dialog { background: var(--color-card); color: var(--color-ink); }
 .currency-grid label { font-size: 0.75rem; color: var(--color-muted); display: block; margin-bottom: 4px; }
 .currency-grid .form-input { padding: 8px; font-size: 0.9rem; }
 .currency-grid .form-input.currency-result { border-color: var(--color-success); background: #f0fdf4; font-weight: 600; color: var(--color-success); }
-.font-style-1 .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; }
-.font-style-2 .product-title { font-family: 'Montserrat', sans-serif; font-weight: 700; }
-.font-style-3 .product-title { font-family: 'Playfair Display', serif; font-style: italic; }
+.font-style-1 .product-title { font-family: var(--font-subtitle); font-size: 1.4rem; }
+.font-style-2 .product-title { font-family: var(--font-body); font-weight: 700; }
+.font-style-3 .product-title { font-family: var(--font-title); font-style: italic; }
 .font-style-4 .product-title { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; text-transform: uppercase; font-size: 1.6rem; }
 .category-edit-container { padding: 30px; }
 .category-edit-title { font-size: 1.4rem; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; text-align: center; }
@@ -304,13 +348,13 @@ dialog { background: var(--color-card); color: var(--color-ink); }
 .theme-section { margin-bottom: 20px; }
 .theme-section-title { font-size: 1rem; font-weight: 700; color: var(--color-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 2px solid var(--color-border); }
 .theme-section-subtitle { font-size: 0.75rem; color: var(--color-muted); margin-bottom: 10px; font-style: italic; }
-.presets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 6px; }
-.preset-btn { padding: 6px; border: 2px solid var(--color-border); border-radius: 8px; cursor: pointer; background: var(--color-card); transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.presets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+.preset-btn { padding: 8px; border: 2px solid var(--color-border); border-radius: 10px; cursor: pointer; background: var(--color-card); transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .preset-btn:hover { border-color: var(--color-primary); transform: translateY(-2px); }
 .preset-btn.active { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-shadow); }
-.preset-colors { display: flex; width: 100%; height: 18px; border-radius: 4px; overflow: hidden; }
+.preset-colors { display: flex; width: 100%; height: 22px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); }
 .preset-colors div { flex: 1; }
-.preset-name { font-size: 0.65rem; font-weight: 600; color: var(--color-ink); text-align: center; }
+.preset-name { font-size: 0.7rem; font-weight: 700; color: var(--color-ink); text-align: center; }
 .dark-mode-toggle { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--color-accent-soft); border-radius: 10px; }
 .dark-mode-toggle label { font-weight: 600; color: var(--color-ink); }
 .switch { position: relative; width: 50px; height: 26px; }
@@ -405,6 +449,9 @@ dialog > div { padding: 15px !important; }
 <button id="addBannerBtn" class="btn btn-secondary admin-only">🖼️ Banner</button>
 <button id="addCustomTextBtn" class="btn btn-accent admin-only">✍️ Texto</button>
 <button id="addCustomSectionBtn" class="btn btn-secondary admin-only">🧩 Bloques</button>
+<button id="exportBackupBtn" class="btn btn-warning admin-only">💾 Backup</button>
+<button id="importBackupBtn" class="btn btn-success admin-only">📥 Restaurar</button>
+<input type="file" id="importBackupFile" accept=".json" style="display:none;">
 <button id="cartBtn" class="btn btn-accent">Carrito (<span id="cartCount">0</span>)</button>
 </div>
 </div>
@@ -455,7 +502,8 @@ dialog > div { padding: 15px !important; }
 </div>
 <div class="theme-dialog-body">
 <div class="theme-section">
-<div class="theme-section-title">🎨 Temas Rápidos</div>
+<div class="theme-section-title">🎨 Temas Rápidos (20 temas - 5 colores)</div>
+<div class="theme-section-subtitle">Cada tema incluye: Primario, Secundario, Acento, Fondo y Texto</div>
 <div class="presets-grid" id="presetsGrid"></div>
 </div>
 <div class="theme-section">
@@ -466,7 +514,7 @@ dialog > div { padding: 15px !important; }
 </div>
 </div>
 <div class="theme-section">
-<div class="theme-section-title">🎨 Colores Personalizados</div>
+<div class="theme-section-title">🎨 Colores Personalizados (5 colores)</div>
 <div id="unifiedColorSelectors"></div>
 </div>
 <div class="theme-section">
@@ -558,7 +606,6 @@ dialog > div { padding: 15px !important; }
 <div><label style="font-size:0.85rem; font-weight:600; color:var(--color-primary); display:block; margin-bottom:4px;">💵 Precio Normal</label><input id="price" type="number" step="0.01" placeholder="0.00" class="form-input"><div id="suggestions-price" class="suggestions-panel"></div></div>
 <div><label style="font-size:0.85rem; font-weight:600; color:var(--color-danger); display:block; margin-bottom:4px;">🔥 Precio Oferta</label><input id="offerPrice" type="number" step="0.01" placeholder="0.00" class="form-input"><div id="suggestions-offerPrice" class="suggestions-panel"></div></div>
 </div>
-<!-- 🆕 SUPER OFERTA -->
 <div style="margin-bottom:15px; padding:12px; background: linear-gradient(135deg, #fff3cd, #ffeaa7); border: 1px solid #f6b40e; border-radius: 10px;">
 <label style="font-size:0.85rem; font-weight:700; color: #d97706; display:block; margin-bottom:8px;">⚡ SUPER OFERTA (Resaltado)</label>
 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
@@ -1027,7 +1074,7 @@ const BASE_FONTS = {
 };
 let FONTS = {};
 const EXTENDED_PALETTE = ['#7f1d1d','#991b1b','#b91c1c','#dc2626','#ef4444','#f87171','#fca5a5','#831843','#9d174d','#be185d','#db2777','#ec4899','#f472b6','#f9a8d4','#9f1239','#be185d','#ec4899','#7c2d12','#9a3412','#c2410c','#ea580c','#f97316','#fb923c','#fdba74','#713f12','#854d0e','#a16207','#ca8a04','#eab308','#facc15','#fde047','#14532d','#166534','#15803d','#16a34a','#22c55e','#4ade80','#86efac','#059669','#047857','#10b981','#134e4a','#115e59','#0f766e','#0d9488','#14b8a6','#2dd4bf','#5eead4','#06b6d4','#0891b2','#0ea5e9','#1e3a8a','#1e40af','#1d4ed8','#2563eb','#3b82f6','#60a5fa','#93c5fd','#3b0764','#581c87','#6b21a8','#7c3aed','#8b5cf6','#a78bfa','#c4b5fd','#7c3aed','#a855f7','#8b5cf6','#0f172a','#1e293b','#334155','#475569','#64748b','#94a3b8','#cbd5e1','#22161a','#7b5a63','#ffffff','#f8fafc','#f1f5f9','#000000','#74acdf','#4a90c9','#f6b40e','#da291c','#007a33'];
-const DEFAULT_THEME = { primary: '#9f1239', secondary: '#be185d', bg: '#fff0f5', ink: '#22161a', darkMode: false, fontTitle: 'cormorant', fontSubtitle: 'cormorant', fontBody: 'manrope', fontButton: 'manrope', sizeBody: 16, sizeTitle: 20, sizeSubtitle: 18 };
+const DEFAULT_THEME = { primary: '#9f1239', secondary: '#be185d', accent: '#9f1239', bg: '#fff0f5', ink: '#22161a', darkMode: false, fontTitle: 'cormorant', fontSubtitle: 'cormorant', fontBody: 'manrope', fontButton: 'manrope', sizeBody: 16, sizeTitle: 20, sizeSubtitle: 18 };
 let themeState = JSON.parse(localStorage.getItem('themeState')) || { ...DEFAULT_THEME };
 let customFonts = JSON.parse(localStorage.getItem('customFonts_v2')) || [];
 let categoryColors = JSON.parse(localStorage.getItem('categoryColors')) || {};
@@ -1047,6 +1094,7 @@ const root = document.documentElement;
 const isDark = themeState.darkMode;
 root.style.setProperty('--color-primary', themeState.primary);
 root.style.setProperty('--color-secondary', themeState.secondary);
+root.style.setProperty('--color-accent', themeState.accent || themeState.primary);
 root.style.setProperty('--color-bg', themeState.bg);
 root.style.setProperty('--color-bg2', isDark ? adjustColor(themeState.bg, -10) : adjustColor(themeState.primary, 88));
 root.style.setProperty('--color-ink', themeState.ink);
@@ -1149,6 +1197,7 @@ container.dataset.currentFont = currentFontKey;
 function toggleFontAccordion(containerId) { const container = document.getElementById(containerId); if (container) container.classList.toggle('open'); }
 function handleThemePrimary(color) { themeState.primary = color; applyThemeState(true); }
 function handleThemeSecondary(color) { themeState.secondary = color; applyThemeState(true); }
+function handleThemeAccent(color) { themeState.accent = color; applyThemeState(true); }
 function handleThemeBg(color) { themeState.bg = color; applyThemeState(true); }
 function handleThemeInk(color) { themeState.ink = color; applyThemeState(true); }
 function handleCategoryColor(color) {}
@@ -1162,28 +1211,40 @@ function openThemeDialog() { initThemeDialog(); document.getElementById('themeDi
 function closeThemeDialog() { document.getElementById('themeDialog').close(); }
 function initThemeDialog() {
 const presetsGrid = document.getElementById('presetsGrid'); presetsGrid.innerHTML = '';
+// 🎨 20 TEMAS DE 5 COLORES: primary, secondary, accent, bg, ink
 const COLOR_PRESETS = [
-{ name: 'Rosa', primary: '#9f1239', secondary: '#be185d', bg: '#fff0f5', ink: '#22161a', dark: false },
-{ name: 'Violeta', primary: '#7c3aed', secondary: '#a855f7', bg: '#faf5ff', ink: '#1e1b4b', dark: false },
-{ name: 'Carmesí', primary: '#dc2626', secondary: '#991b1b', bg: '#fef2f2', ink: '#1c1917', dark: false },
-{ name: 'Océano', primary: '#06b6d4', secondary: '#0891b2', bg: '#0f172a', ink: '#e0f2fe', dark: true },
-{ name: 'Argentina', primary: '#74acdf', secondary: '#4a90c9', bg: '#ffffff', ink: '#1a3a5c', dark: false },
-{ name: 'Bolivia', primary: '#da291c', secondary: '#007a33', bg: '#fffbeb', ink: '#1c1917', dark: false },
-{ name: 'Dorado', primary: '#d4af37', secondary: '#b8860b', bg: '#1a1a1a', ink: '#fef9e7', dark: true },
-{ name: 'Esmeralda', primary: '#059669', secondary: '#047857', bg: '#ecfdf5', ink: '#064e3b', dark: false },
-{ name: 'Medianoche', primary: '#a78bfa', secondary: '#8b5cf6', bg: '#0f0f1a', ink: '#e9e7f5', dark: true },
-{ name: 'Durazno', primary: '#ea580c', secondary: '#c2410c', bg: '#fff7ed', ink: '#431407', dark: false }
+{ name: 'Rosa Clásico', primary: '#9f1239', secondary: '#be185d', accent: '#ec4899', bg: '#fff0f5', ink: '#22161a', dark: false },
+{ name: 'Violeta Real', primary: '#7c3aed', secondary: '#a855f7', accent: '#c4b5fd', bg: '#faf5ff', ink: '#1e1b4b', dark: false },
+{ name: 'Carmesí Fuego', primary: '#dc2626', secondary: '#991b1b', accent: '#f87171', bg: '#fef2f2', ink: '#1c1917', dark: false },
+{ name: 'Océano Profundo', primary: '#06b6d4', secondary: '#0891b2', accent: '#67e8f9', bg: '#0f172a', ink: '#e0f2fe', dark: true },
+{ name: 'Argentina', primary: '#74acdf', secondary: '#4a90c9', accent: '#f6b40e', bg: '#ffffff', ink: '#1a3a5c', dark: false },
+{ name: 'Bolivia', primary: '#da291c', secondary: '#007a33', accent: '#facc15', bg: '#fffbeb', ink: '#1c1917', dark: false },
+{ name: 'Dorado Luxe', primary: '#d4af37', secondary: '#b8860b', accent: '#fef3c7', bg: '#1a1a1a', ink: '#fef9e7', dark: true },
+{ name: 'Esmeralda', primary: '#059669', secondary: '#047857', accent: '#6ee7b7', bg: '#ecfdf5', ink: '#064e3b', dark: false },
+{ name: 'Medianoche', primary: '#a78bfa', secondary: '#8b5cf6', accent: '#ddd6fe', bg: '#0f0f1a', ink: '#e9e7f5', dark: true },
+{ name: 'Durazno', primary: '#ea580c', secondary: '#c2410c', accent: '#fdba74', bg: '#fff7ed', ink: '#431407', dark: false },
+{ name: 'Neón Cyber', primary: '#ec4899', secondary: '#8b5cf6', accent: '#22d3ee', bg: '#0a0a0a', ink: '#f0f0f0', dark: true },
+{ name: 'Bosque', primary: '#166534', secondary: '#15803d', accent: '#86efac', bg: '#f0fdf4', ink: '#052e16', dark: false },
+{ name: 'Lavanda', primary: '#a855f7', secondary: '#c084fc', accent: '#f0abfc', bg: '#faf5ff', ink: '#3b0764', dark: false },
+{ name: 'Atardecer', primary: '#f97316', secondary: '#ef4444', accent: '#fbbf24', bg: '#fffbeb', ink: '#431407', dark: false },
+{ name: 'Grafito', primary: '#374151', secondary: '#4b5563', accent: '#9ca3af', bg: '#f9fafb', ink: '#111827', dark: false },
+{ name: 'Chocolate', primary: '#78350f', secondary: '#92400e', accent: '#fbbf24', bg: '#fef3c7', ink: '#451a03', dark: false },
+{ name: 'Turquesa', primary: '#0891b2', secondary: '#0e7490', accent: '#a5f3fc', bg: '#ecfeff', ink: '#164e63', dark: false },
+{ name: 'Rosa Chicle', primary: '#db2777', secondary: '#be185d', accent: '#fbcfe8', bg: '#fdf2f8', ink: '#500724', dark: false },
+{ name: 'Noche Estrellada', primary: '#1e40af', secondary: '#3b82f6', accent: '#fbbf24', bg: '#020617', ink: '#dbeafe', dark: true },
+{ name: 'Coral Tropical', primary: '#fb7185', secondary: '#f43f5e', accent: '#fda4af', bg: '#fff1f2', ink: '#4c0519', dark: false }
 ];
 COLOR_PRESETS.forEach((preset) => {
 const btn = document.createElement('button'); btn.className = 'preset-btn';
-btn.innerHTML = `<div class="preset-colors"><div style="background:${preset.primary}"></div><div style="background:${preset.secondary}"></div><div style="background:${preset.bg}; border:1px solid #ddd;"></div></div><div class="preset-name">${preset.name}</div>`;
-btn.onclick = () => { themeState.primary = preset.primary; themeState.secondary = preset.secondary; themeState.bg = preset.bg; themeState.ink = preset.ink; themeState.darkMode = preset.dark; applyThemeState(true); initThemeDialog(); showSync('🎨 Tema aplicado', 'success', 1500); };
+btn.innerHTML = `<div class="preset-colors"><div style="background:${preset.primary}" title="Primario"></div><div style="background:${preset.secondary}" title="Secundario"></div><div style="background:${preset.accent}" title="Acento"></div><div style="background:${preset.bg}; border-left:1px solid rgba(0,0,0,0.1);" title="Fondo"></div><div style="background:${preset.ink}" title="Texto"></div></div><div class="preset-name">${preset.name}</div>`;
+btn.onclick = () => { themeState.primary = preset.primary; themeState.secondary = preset.secondary; themeState.accent = preset.accent; themeState.bg = preset.bg; themeState.ink = preset.ink; themeState.darkMode = preset.dark; applyThemeState(true); initThemeDialog(); showSync('🎨 Tema aplicado', 'success', 1500); };
 presetsGrid.appendChild(btn);
 });
 const unifiedContainer = document.getElementById('unifiedColorSelectors'); unifiedContainer.innerHTML = '';
-[{ id: 'themePrimarySelector', label: '🎨 Color Primario', desc: 'Botones, acentos', current: themeState.primary, callback: 'handleThemePrimary' },
+[{ id: 'themePrimarySelector', label: '🎨 Color Primario', desc: 'Botones, acentos principales', current: themeState.primary, callback: 'handleThemePrimary' },
 { id: 'themeSecondarySelector', label: '🎨 Color Secundario', desc: 'Subtítulos, detalles', current: themeState.secondary, callback: 'handleThemeSecondary' },
-{ id: 'themeBgSelector', label: '🖼️ Fondo Principal', desc: 'Fondo de la página', current: themeState.bg, callback: 'handleThemeBg' },
+{ id: 'themeAccentSelector', label: '✨ Color Acento', desc: 'Detalles especiales, brillos', current: themeState.accent || themeState.primary, callback: 'handleThemeAccent' },
+{ id: 'themeBgSelector', label: '🖼️ Fondo Total', desc: 'Fondo completo de la página', current: themeState.bg, callback: 'handleThemeBg' },
 { id: 'themeInkSelector', label: '✍️ Color de Texto', desc: 'Texto principal', current: themeState.ink, callback: 'handleThemeInk' }
 ].forEach(cs => { const div = document.createElement('div'); div.id = cs.id; unifiedContainer.appendChild(div); createUnifiedColorSelector(cs.id, cs.current, cs.callback, cs.label, cs.desc); });
 const fontContainer = document.getElementById('fontSelectorsContainer'); fontContainer.innerHTML = '';
@@ -1316,10 +1377,10 @@ const savings = ((p.price - p.offerPrice) / p.price * 100).toFixed(0);
 priceHtml = `<div class="price"><span class="price-original">${Number(p.price).toFixed(2)} Bs</span><span class="price-offer">${Number(p.offerPrice).toFixed(2)} Bs</span><span class="offer-badge">-${savings}%</span></div><div class="price-savings">¡Ahorrás ${Number(p.price - p.offerPrice).toFixed(2)} Bs!</div>`;
 } else { priceHtml = `<p class="price">${Number(p.price || 0).toFixed(2)} Bs</p>`; }
 let wholesaleHtml = ''; if (p.wholesalePrice > 0) wholesaleHtml = `<div class="wholesale-price">🏷️ Mayorista: ${Number(p.wholesalePrice).toFixed(2)} Bs</div>`;
-// 🆕 SUPER OFERTA RENDER
 let superOfferHtml = '';
 if (p.superOfferPrice > 0 && p.superOfferText) {
-superOfferHtml = `<div class="super-offer-box" style="background: ${p.superOfferColor || '#ffcc00'};">${p.superOfferText}<span class="super-offer-price">${Number(p.superOfferPrice).toFixed(2)} Bs</span></div>`;
+const bgColor = p.superOfferColor || '#ffcc00';
+superOfferHtml = `<div class="super-offer-box" style="background: linear-gradient(135deg, ${bgColor} 0%, ${adjustColor(bgColor, -20)} 100%);">${p.superOfferText}<span class="super-offer-price">${Number(p.superOfferPrice).toFixed(2)} Bs</span></div>`;
 }
 let publicLinksHtml = '';
 if (p.pubLink1 || p.pubLink2 || p.pubLink3 || p.pubLink4 || p.pubLink5) {
@@ -1360,7 +1421,8 @@ container.innerHTML = finalHtml; setTimeout(initDragAndDrop, 100);
 function shareProduct(productId) {
 const product = products.find(p => p.id === productId); if (!product) return;
 const url = window.location.origin + window.location.pathname + '?product=' + productId;
-const text = `¡Mirá este producto! ${product.title}\n${url}`;
+const text = `¡Mirá este producto! ${product.title}
+${url}`;
 if (navigator.share) navigator.share({ title: product.title, text, url }).catch(err => console.log(err));
 else navigator.clipboard.writeText(text).then(() => showSync('📋 Link copiado', 'success', 2000)).catch(() => prompt('Copiá este link:', text));
 }
@@ -1401,7 +1463,8 @@ html += `</div></div>`; container.innerHTML = html; setTimeout(initDragAndDrop, 
 function shareVideo(videoId) {
 const video = featuredVideos.find(v => v.id === videoId); if (!video) return;
 const url = window.location.origin + window.location.pathname + '?video=' + videoId;
-const text = `¡Mirá este video! ${video.title}\n${url}`;
+const text = `¡Mirá este video! ${video.title}
+${url}`;
 if (navigator.share) navigator.share({ title: video.title, text, url }).catch(err => console.log(err));
 else navigator.clipboard.writeText(text).then(() => showSync('📋 Link copiado', 'success', 2000)).catch(() => prompt('Copiá este link:', text));
 }
@@ -1441,7 +1504,8 @@ function shareRealImage(imgId) {
 const img = realImages.find(i => i.id === imgId); if (!img) return;
 const product = products.find(p => p.id === img.productId); const productName = product ? product.title : 'Producto';
 const url = window.location.origin + window.location.pathname + '?realImage=' + imgId;
-const text = `¡Mirá estas fotos de ${productName}!\n${url}`;
+const text = `¡Mirá estas fotos de ${productName}!
+${url}`;
 if (navigator.share) navigator.share({ title: productName, text, url }).catch(err => console.log(err));
 else navigator.clipboard.writeText(text).then(() => showSync('📋 Link copiado', 'success', 2000)).catch(() => prompt('Copiá este link:', text));
 }
@@ -1668,11 +1732,140 @@ showSync('✅ Categoría actualizada', 'success', 2500); closeCategoryEditModal(
 async function deleteCategory() {
 if (!editingCategoryName) return; const catProducts = products.filter(p => (p.category || "Sin categoría").trim() === editingCategoryName);
 if (catProducts.length === 0) { closeCategoryEditModal(); return; }
-if (!confirm(`⚠️ ¿Eliminar "${editingCategoryName}"?\n${catProducts.length} productos quedarán "Sin categoría".`)) return;
+if (!confirm(`⚠️ ¿Eliminar "${editingCategoryName}"?
+${catProducts.length} productos quedarán "Sin categoría".`)) return;
 showSync('Eliminando...', 'loading', 0);
 try { const batch = db.batch(); catProducts.forEach(p => { batch.update(productsRef.doc(p.id), { category: '', categoryOrder: 99 }); }); await batch.commit(); try { await categoryStylesRef.doc(editingCategoryName).delete(); } catch(e) {} showSync('✅', 'success', 2500); closeCategoryEditModal(); } catch (error) { console.error(error); showSync('Error', 'error', 3000); }
 }
 document.getElementById('newCategoryName').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveCategoryEdit(); } });
+
+/* ============================================================
+   💾 SISTEMA DE BACKUP Y RESTAURACIÓN
+   ============================================================ */
+async function exportBackup() {
+  if (!adminMode) { alert('⚠️ Solo admin'); return; }
+  if (!confirm('💾 Se descargará un archivo JSON con TODA tu información.\n\n¿Continuar?')) return;
+  showSync('Generando backup...', 'loading', 0);
+  try {
+    const data = {
+      version: '2.0',
+      timestamp: new Date().toISOString(),
+      products: [], videos: [], banners: [],
+      customSections: [], realImages: [], customTexts: [],
+      theme: themeState,
+      categoryStyles: categoryStyles
+    };
+    const [pSnap, vSnap, bSnap, csSnap, riSnap, ctSnap] = await Promise.all([
+      productsRef.get(), videosRef.get(), bannersRef.get(),
+      customSectionsRef.get(), realImagesRef.get(), customTextsRef.get()
+    ]);
+    pSnap.forEach(doc => data.products.push({ id: doc.id, ...doc.data() }));
+    vSnap.forEach(doc => data.videos.push({ id: doc.id, ...doc.data() }));
+    bSnap.forEach(doc => data.banners.push({ id: doc.id, ...doc.data() }));
+    csSnap.forEach(doc => data.customSections.push({ id: doc.id, ...doc.data() }));
+    riSnap.forEach(doc => data.realImages.push({ id: doc.id, ...doc.data() }));
+    ctSnap.forEach(doc => data.customTexts.push({ id: doc.id, ...doc.data() }));
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const fecha = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+    a.href = url;
+    a.download = `backup_galeria_${fecha}.json`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showSync(`✅ Backup descargado (${data.products.length} productos)`, 'success', 3000);
+  } catch (error) {
+    console.error(error);
+    showSync('❌ Error al exportar', 'error', 3000);
+  }
+}
+
+function importBackup() {
+  if (!adminMode) { alert('⚠️ Solo admin'); return; }
+  document.getElementById('importBackupFile').click();
+}
+
+document.getElementById('importBackupFile').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!confirm('⚠️ ATENCIÓN: Esto BORRARÁ todos los datos actuales y los reemplazará con los del backup.\n\n¿Estás 100% seguro?')) {
+    e.target.value = '';
+    return;
+  }
+  try {
+    showSync('Restaurando backup...', 'loading', 0);
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if (!data.version) { alert('❌ Archivo inválido'); e.target.value = ''; return; }
+    // 1. Limpiar todas las colecciones
+    const collections = [
+      { ref: productsRef, name: 'productos' },
+      { ref: videosRef, name: 'videos' },
+      { ref: bannersRef, name: 'banners' },
+      { ref: customSectionsRef, name: 'bloques' },
+      { ref: realImagesRef, name: 'fotos' },
+      { ref: customTextsRef, name: 'textos' }
+    ];
+    for (const col of collections) {
+      const snap = await col.ref.get();
+      if (!snap.empty) {
+        const batch = db.batch();
+        snap.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
+      }
+    }
+    // 2. Restaurar datos
+    const restoreCollection = async (colRef, items) => {
+      if (!items || items.length === 0) return;
+      const batch = db.batch();
+      items.forEach(item => {
+        const { id, ...rest } = item;
+        batch.set(colRef.doc(id), rest);
+      });
+      await batch.commit();
+    };
+    await restoreCollection(productsRef, data.products);
+    await restoreCollection(videosRef, data.videos);
+    await restoreCollection(bannersRef, data.banners);
+    await restoreCollection(customSectionsRef, data.customSections);
+    await restoreCollection(realImagesRef, data.realImages);
+    await restoreCollection(customTextsRef, data.customTexts);
+    // 3. Restaurar tema
+    if (data.theme) {
+      await settingsRef.set(data.theme);
+      themeState = { ...DEFAULT_THEME, ...data.theme };
+      applyThemeState(false);
+    }
+    // 4. Restaurar estilos de categorías
+    if (data.categoryStyles) {
+      const csBatch = db.batch();
+      // Limpiar estilos viejos
+      const csSnap = await categoryStylesRef.get();
+      csSnap.forEach(doc => csBatch.delete(doc.ref));
+      await csBatch.commit();
+      // Escribir nuevos
+      const newBatch = db.batch();
+      Object.entries(data.categoryStyles).forEach(([name, styles]) => {
+        newBatch.set(categoryStylesRef.doc(name), styles);
+      });
+      await newBatch.commit();
+    }
+    showSync('✅ ¡Backup restaurado con éxito!', 'success', 3500);
+    setTimeout(() => location.reload(), 2000);
+  } catch (error) {
+    console.error(error);
+    showSync('❌ Error al restaurar', 'error', 3000);
+  }
+  e.target.value = '';
+});
+
+document.getElementById('exportBackupBtn').addEventListener('click', exportBackup);
+document.getElementById('importBackupBtn').addEventListener('click', importBackup);
+/* ============================================================
+   FIN SISTEMA DE BACKUP
+   ============================================================ */
+
 function openCart() { document.getElementById('cartPanel').classList.add('open'); document.getElementById('cartOverlay').classList.add('active'); renderCart(); loadCartClientInfo(); }
 function closeCart() { document.getElementById('cartPanel').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('active'); }
 document.getElementById('cartOverlay').addEventListener('click', closeCart);
@@ -1720,20 +1913,36 @@ showSync('Procesando...', 'loading', 0);
 try {
 const batch = db.batch(); for (const item of cart) { batch.update(productsRef.doc(item.id), { stock: firebase.firestore.FieldValue.increment(-item.qty) }); } await batch.commit();
 let total = 0, totalSavings = 0;
-let text = `🛍️ *NUEVO PEDIDO*\n📱 *Celular:* ${phone}\n🏪 *Tienda:* ${storeAddress}\n`;
-text += `📅 _${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })} ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}_\n`;
-text += `━━━━━━━━━━━━━━━━━━━━━━\n📦 *DETALLE*\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+let text = `🛍️ *NUEVO PEDIDO*
+📱 *Celular:* ${phone}
+🏪 *Tienda:* ${storeAddress}
+`;
+text += `📅 _${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })} ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}_
+`;
+text += `━━━━━━━━━━━━━━━━━━━━━━
+📦 *DETALLE*
+━━━━━━━━━━━━━━━━━━━━━━
+`;
 cart.forEach((item, index) => {
 const unitPrice = item.unitPrice !== undefined ? item.unitPrice : (item.price || 0); const subtotal = unitPrice * (item.qty || 1); total += subtotal;
-const num = (index + 1).toString().padStart(2, '0'); text += `*${num}. ${item.title}*\n`;
-if (item.notes && item.notes.trim() !== '') text += `📝 _${item.notes.trim()}_\n`;
+const num = (index + 1).toString().padStart(2, '0'); text += `*${num}. ${item.title}*
+`;
+if (item.notes && item.notes.trim() !== '') text += `📝 _${item.notes.trim()}_
+`;
 const hasOffer = item.offerPrice > 0 && item.offerPrice < (item.price || 0);
-if (hasOffer) { totalSavings += (item.price - item.offerPrice) * item.qty; text += `💰 ~~${item.price.toFixed(2)}~~ *${item.offerPrice.toFixed(2)} Bs* x ${item.qty}\n`; } else { text += `💰 *${unitPrice.toFixed(2)} Bs* x ${item.qty}\n`; }
-text += `✅ *Subtotal: ${subtotal.toFixed(2)} Bs*\n`;
+if (hasOffer) { totalSavings += (item.price - item.offerPrice) * item.qty; text += `💰 ~~${item.price.toFixed(2)}~~ *${item.offerPrice.toFixed(2)} Bs* x ${item.qty}
+`; } else { text += `💰 *${unitPrice.toFixed(2)} Bs* x ${item.qty}
+`; }
+text += `✅ *Subtotal: ${subtotal.toFixed(2)} Bs*
+`;
 });
-text += `━━━━━━━━━━━━━━━━━━━━━━\n💳 *TOTAL: ${total.toFixed(2)} Bs*\n`;
-if (totalSavings > 0) text += `🎉 _Ahorro: ${totalSavings.toFixed(2)} Bs_\n`;
-text += `━━━━━━━━━━━━━━━━━━━━━━\n🙏 _¡Gracias!_ ✨`;
+text += `━━━━━━━━━━━━━━━━━━━━━━
+💳 *TOTAL: ${total.toFixed(2)} Bs*
+`;
+if (totalSavings > 0) text += `🎉 _Ahorro: ${totalSavings.toFixed(2)} Bs_
+`;
+text += `━━━━━━━━━━━━━━━━━━━━━━
+🙏 _¡Gracias!_ ✨`;
 const tempCart = [...cart]; cart = []; localStorage.setItem('cart_v26', JSON.stringify(cart)); updateCartCount(); renderCart(); closeCart();
 window.open(`https://wa.me/59163882223?text=${encodeURIComponent(text)}`, "_blank"); showSync('¡Enviado! ✅', 'success', 3000);
 } catch (error) { console.error("Error:", error); showSync('Error', 'error', 3000); cart = tempCart; localStorage.setItem('cart_v26', JSON.stringify(cart)); renderCart(); updateCartCount(); }
